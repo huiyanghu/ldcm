@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<form action="/login" method="post">
+
+    账号:<input name="username"/>
+    <br/>
+    密码:<input name="password"/>
+    <br/>
+    验证码:<input name="checkcode"/><img id="img" src="../getAuthImage" onclick="changeImg()"/>
+    <br/>
+    <input type="submit" value="登录"/>
+    <input type="button" value="注册"/>
+    <br/>
+    <span style="color: red" th:text="${msg}"></span>
+</form>
+
+<!-- 触发JS刷新-->
+<script>
+    function changeImg() {
+        var img = document.getElementById("img");
+        img.src = "../getAuthImage?date=" + new Date();
+    }
+</script>
+</body>
+</html>
