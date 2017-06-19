@@ -11,35 +11,56 @@ public class CmCustumer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
+
+
+    //@ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "platform_id")
+    @Column(name = "platform_id")
+    private Long platformId;
+
     @Column(name = "customer_name")
     private String customerName;//客户名称，从账号
+
     @Column(name = "contacts_name")
     private String contactsName;//联系人姓名
+
     @Column(name = "contacts_tel")
     private String contactsTel;//联系人办公座机
+
     @Column(name = "contacts_mobile")
     private String contactsMobile;//联系人手机
+
     @Column(name = "approval_time")
     private String approvalTime;//超级管理员审批时间
+
     @Column(name = "province")
     private String province;//所在省
+
     @Column(name = "city")
     private String city;//所在市
+
     @Column(name = "region")
     private String region;//所在区县
+
     @Column(name = "status")
     private Integer status;//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "platform_id", insertable = false, updatable = false)
-    private CodePlatform platform;
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Long platformId) {
+        this.platformId = platformId;
     }
 
     public String getCustomerName() {
@@ -114,11 +135,5 @@ public class CmCustumer {
         this.status = status;
     }
 
-    public CodePlatform getPlatform() {
-        return platform;
-    }
 
-    public void setPlatform(CodePlatform platform) {
-        this.platform = platform;
-    }
 }

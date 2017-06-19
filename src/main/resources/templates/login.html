@@ -12,10 +12,10 @@
     <br/>
     密码:<input name="password"/>
     <br/>
-    验证码:<input name="checkcode"/><img id="img" src="../getAuthImage" onclick="changeImg()"/>
+    验证码:<input name="verificationCode"/><img id="img" src="../getAuthImage" onclick="changeImg()"/>
     <br/>
     <input type="submit" value="登录"/>
-    <input type="button" value="注册"/>
+    <input type="button" value="注册" onclick="javascript:window.location.href='../toRegister'"/>
     <br/>
     <span style="color: red" th:text="${msg}"></span>
 </form>

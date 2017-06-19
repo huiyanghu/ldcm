@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,6 +25,7 @@ import javax.persistence.EntityManagerFactory;
 @EntityScan(basePackages = "com.lvdun.entity")
 @ServletComponentScan//扫描Servlet
 @EnableTransactionManagement//开启注解事务管理，等同于xml配置方式的 <tx:annotation-driven />
+@EnableScheduling//发现注解@Scheduled的任务并后台执行
 public class LdcmApplication {
 	protected final static Logger logger = LoggerFactory.getLogger(LdcmApplication.class);
 

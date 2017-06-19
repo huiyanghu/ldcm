@@ -12,28 +12,37 @@ public class CmAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
+
+    //@ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "customer_id")
+    @Column(name = "customer_id")
+    private Long custumerId;
+
     @Column(name = "account")
     private String account;//登录账号，邮箱登录(唯一)
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "mobile")
     private String mobile;
+
     @Column(name = "email")
     private String email;//与登录账号相同
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "status")
     private Integer status;//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
-    private CmCustumer custumer;
 
-    public Integer getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -85,11 +94,11 @@ public class CmAccount {
         this.status = status;
     }
 
-    public CmCustumer getCustumer() {
-        return custumer;
+    public Long getCustumerId() {
+        return custumerId;
     }
 
-    public void setCustumer(CmCustumer custumer) {
-        this.custumer = custumer;
+    public void setCustumerId(Long custumerId) {
+        this.custumerId = custumerId;
     }
 }

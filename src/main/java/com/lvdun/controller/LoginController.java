@@ -1,5 +1,6 @@
 package com.lvdun.controller;
 
+import com.lvdun.entity.CmAccount;
 import com.lvdun.service.CmAccountService;
 import com.lvdun.util.MsgConstants;
 import com.lvdun.util.StringUtil;
@@ -26,14 +27,19 @@ public class LoginController {
         return "index";
     }
 
+    @RequestMapping("/toRegister")
+    public String toRegister() {
+        return "register";
+    }
+
     @RequestMapping("/toLogin")
     public String toLogin() {
         return "login";
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login(HttpSession session, String username, String password, String checkcode, RedirectAttributes attributes) {
-        if (StringUtil.isEmpty(checkcode)) {
+    public String login(HttpSession session, String username, String password, String verificationCode, RedirectAttributes attributes) {
+        if (StringUtil.isEmpty(verificationCode)) {
             attributes.addFlashAttribute("msg", MsgConstants.EMPTY_VERCODE);
             return "redirect:/toLogin";
         }
@@ -41,9 +47,9 @@ public class LoginController {
             attributes.addFlashAttribute("msg", MsgConstants.EMPTY_USERNAME_PASSWORD);
             return "redirect:/toLogin";
         }
-        checkcode = checkcode.toLowerCase();
+        verificationCode = verificationCode.toLowerCase();
         String verCode = "" + session.getAttribute("verCode");
-        if (!checkcode.equals(verCode)) {
+        if (!verificationCode.equals(verCode)) {
             attributes.addFlashAttribute("msg", MsgConstants.WRONG_VERCODE);
             return "redirect:/toLogin";
         } else {
@@ -51,11 +57,31 @@ public class LoginController {
             if (map != null) {
                 session.setAttribute("loginUser", map);
                 return "redirect:/";
-            }else{
+            } else {
                 attributes.addFlashAttribute("msg", MsgConstants.WRONG_USERNAME_PASSWORD);
                 return "redirect:/toLogin";
             }
         }
+
+    }
+
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public String register(HttpSession session, String email, String companyName, String name, String mobile, String password, String confirmPassword, String verificationCode, RedirectAttributes attributes) {
+        if (!password.equals(confirmPassword)) {
+            attributes.addFlashAttribute("msg", MsgConstants.WRONG_VERCODE);
+            return "redirect:/toRegister";
+        }
+        verificationCode = verificationCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!verificationCode.equals(verCode)) {
+            attributes.addFlashAttribute("msg", MsgConstants.WRONG_VERCODE);
+            return "redirect:/toRegister";
+        } else {
+            CmAccount cmAccount = accountService.register(email, companyName, name, mobile, password);
+            attributes.addFlashAttribute("msg", MsgConstants.REGISTER_SUCCESS);
+            return "redirect:/toLogin";
+        }
+
 
     }
 }

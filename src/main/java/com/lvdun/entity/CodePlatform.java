@@ -12,30 +12,38 @@ public class CodePlatform {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private Long id;
+
     @Column(name = "status")
     private Integer status;//新注册用户-1、体验客户1、正式收费2、正式免费3、暂停客户4
+
     @Column(name = "feedback")
     private String feedback;//回调地址，客户输入
+
     @Column(name = "domain")
     private String domain;//域名，客户简称，英文
+
     @Column(name = "sign_type")
     private Integer signType;//签名类型： 2-Hmac-Digest
+
     @Column(name = "sha_key")
     private String shaKey;//Hmac算法key
+
     @Column(name = "public_filter_id")
     private String publicFilterId;//Hmac算法key
+
     @Column(name = "keep_alive_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date keepAliveTime;//Hmac算法key
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
+
 
     public Integer getStatus() {
         return status;

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Administrator on 2017/6/14.
  */
 @Repository
-public interface CmAccountDao extends CrudRepository<CmAccount, Long> {
+public interface CmAccountRepository extends CrudRepository<CmAccount, Long> {
 
     @Query("select account from CmAccount account where account.account=:account")
     public List<CmAccount> getByAccount(@Param("account") String username);
