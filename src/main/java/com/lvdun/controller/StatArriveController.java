@@ -31,6 +31,8 @@ public class StatArriveController {
     @RequestMapping("/getTotalResult")
     @ResponseBody
     public Object getTotalResult(Integer flag, HttpSession session) {
+
+
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
         Long platformId = 1L;
