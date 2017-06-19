@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/cloud-admin.css" >
+		<link rel="stylesheet" type="text/css" href="../css/themes/nature.css" id="skin-switcher" >
+		<link rel="stylesheet" type="text/css" href="../css/responsive.css" >
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/animatecss/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" href="../js/select2/select2.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/jquery-todo/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="../js/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/gritter/css/jquery.gritter.css" />
+		<link rel="stylesheet" type="text/css" href="../css/ui-select.css" />
+		<!--[if lt IE 9]>
+			<script src="../js/flot/excanvas.min.js"></script>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			.table th,.table td{ cursor: default;}
+			.table th:nth-child(1),.table td:nth-child(1){ width: 100px;}
+			.table th:nth-child(2),.table td:nth-child(2){ width: 100px;}
+			.table th:nth-child(3),.table td:nth-child(3){ width: 100px;}
+			.table th:nth-child(4),.table td:nth-child(4){ width: 150px;}
+			.table th:nth-child(5),.table td:nth-child(5){ max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+		</style>
+	</head>
+	<body>
+		<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div id="content" class="col-lg-12">
+					<div class="row">
+						<div class="col-sm-12 no-padding">
+							<div class="page-header">
+								<ul class="breadcrumb">
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="../business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+									</li>
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="javascript:void(0);">客户信息</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box border">
+								<div class="box-title">
+									<h4>
+										<!--<i class="fa fa-user"></i>-->
+										<span class="hidden-inline-mobile">基本信息</span>
+									</h4>
+								</div>
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-12 no-padding-left">
+											<form class="form-horizontal">
+												<div class="form-group" style="margin-bottom: 13px;">
+													<div class="col-md-3 no-padding-left">
+														<label class="col-md-2 control-label width-70">客户名称：</label>
+														<div class="col-md-8 no-padding-left">
+															<input type="text" name="regular" class="form-control" value="客户名称">
+														</div>
+													</div>
+													<div class="col-md-3 no-padding">
+														<label class="col-md-2 control-label width-85">联系人姓名：</label>
+														<div class="col-md-8 no-padding-left">
+															<input type="text" name="regular" class="form-control" value="何以琛">
+														</div>
+													</div>
+													<div class="col-md-3 no-padding">
+														<label class="col-md-2 control-label width-70">联系电话：</label>
+														<div class="col-md-8 no-padding-left">
+															<input type="tel" name="regular" class="form-control" value="15866668888">
+														</div>
+													</div>
+													<div class="col-md-3 no-padding">
+														<label class="col-md-2 control-label width-70">接入时间：</label>
+														<div class="col-md-8 no-padding-left time-far">
+															<input type="tel" name="regular" class="form-control" value="2017-05-05" onClick="WdatePicker()">
+															<span class="arrow open"></span>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-2 control-label width-70">所在地区：</label>
+													<div class="col-md-10 no-padding-left" id="attribution">
+														<div class="col-md-2" style="margin-right: 15px;">
+															<select name="province" id="province" class="col-md-12 full-width-fix">
+																<option value="">请选择省</option>
+																<option value="BJ">北京</option>
+																<option value="TJ">天津</option>
+															</select>
+														</div>
+														<div class="col-md-2" style="margin-right: 15px;">
+															<select name="city" id="city" class="col-md-12 full-width-fix">
+																<option value="">请选择市</option>
+																<option value="BJ">北京</option>
+																<option value="TJ">天津</option>
+															</select>
+														</div>
+														<div class="col-md-2">
+															<select name="area" id="area" class="col-md-12 full-width-fix">
+																<option value="">请选择区（县）</option>
+																<option value="CY">朝阳</option>
+																<option value="HD">海淀</option>
+															</select>
+														</div>
+													</div>
+												</div>
+												<div class="form-actions clearfix">
+													<input type="submit" value="修改" class="btn btn-primary btn-self">
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box border">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-4 common-info no-padding-left">
+											<h4>常用信息</h4>
+											<div class="form-group">
+												<label class="col-md-2 control-label text-right width-70">秘钥信息：</label>
+												<div class="col-md-8 no-padding-left">
+													<span class="help-block">秘钥信息</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label text-right width-70">地址信息：</label>
+												<div class="col-md-8 no-padding-left">
+													<span class="help-block">接入地址信息</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-2 control-label text-right width-70">回调地址：</label>
+												<div class="col-md-8 no-padding-left">
+													<span class="help-block">回调地址</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-8 common-info no-padding-left">
+											<h4>专属运营</h4>
+											<div class="col-md-2" style="width: 150px;">
+												<div class="list-group">
+													<li class="list-group-item zero-padding headshot customer-avatars" >
+														<img src="../img/img2.jpg" alt="" class="img-responsive" />
+													</li>
+												</div>
+											</div>
+											<div class="col-md-4 no-padding-left">
+												<div class="form-group">
+													<label class="col-md-4 control-label text-right width-70">姓名：</label>
+													<div class="col-md-8 no-padding-left">
+														<span class="help-block">赵默笙</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label text-right width-70">联系电话：</label>
+													<div class="col-md-8 no-padding-left">
+														<span class="help-block">13688886666</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label text-right width-70">微信号：</label>
+													<div class="col-md-8 no-padding-left">
+														<span class="help-block">moshengzhao</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-4 control-label text-right width-70">QQ号：</label>
+													<div class="col-md-8 no-padding-left">
+														<span class="help-block">888888</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box border">
+								<div class="box-title">
+									<h4>
+										<!--<i class="fa fa-user"></i>-->
+										<span class="hidden-inline-mobile">已开通服务列表</span>
+									</h4>
+								</div>
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-12 common-info no-padding">
+											<table class="table table-bordered table-striped">
+												<thead>
+													<tr>
+														<th>序号</th>
+														<th>产品ID</th>
+														<th>产品名称</th>
+														<th>审核类型</th>
+														<th>回调地址</th>
+														<th>描述信息</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+												  		<td>1</td>
+														<td>APPID1</td>
+														<td>App名称1</td>
+														<td>文字</td>
+														<td>回调地址1</td>
+														<td>描述信息1</td>
+													</tr>
+													<tr>
+												  		<td>2</td>
+														<td>APPID2</td>
+														<td>App名称2</td>
+														<td>文字</td>
+														<td>回调地址2</td>
+														<td>描述信息2</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="../bootstrap-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+		<script type="text/javascript" src="../js/select2/select2.min.js"></script>
+		<script type="text/javascript" src="../js/sparklines/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="../js/uniform/jquery.uniform.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-wizard/form-wizard.min.js"></script>
+		<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="../js/a-script/ui-select.js"></script>
+		<script type="text/javascript" src="../js/a-script/common.js"></script>
+		<script type="text/javascript" src="../js/a-script/customer-info.js"></script>
+	</body>
+</html>

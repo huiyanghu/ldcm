@@ -1,0 +1,20 @@
+ul,ol,li{list-style: none; margin: 0; padding: 0;}
+.pagination{ width: 100%; position: relative; left: 50%; bottom: 0px; transform: translateX(-50%); text-align: center; z-index: 50; font-size: 12px;}
+.pagination div,.pagination li,.pagination input,.pagination a{ display: inline-block; color: #666; margin: 0 2.5px;}
+.pagination .borderBox{ border: 1px solid #e7523a; line-height: 26px; vertical-align: middle;}
+.pagination .borderBox.gray{ border-color: #e9ecf2;}
+.pagination .paddingBox{ padding: 0 10px; cursor: pointer;}
+.paging .borderBox{ width: 26px; text-align: center; cursor: pointer;}
+.paging .borderBox.active,.pagination a{ background: #e7523a; border: 1px solid #e7523a; color: #fff;}
+.paging .borderBox:hover{ background: #e7523a; border: 1px solid #e7523a; color: #fff;}
+.pagination .page,.pagination .pageJump{ margin-right: 20px;}
+.pagination .pageSize{ margin-right: 5px;}
+.pagination .pageJumpNum{ width: 55px; height: 26px; padding-left: 5px;}
+.pagination .select{ position: relative; cursor: pointer;}
+.pagination .select span{ float: left; width: 29px; line-height: 28px; text-align: center;}
+.pagination .pageSizeBtn{ height: 28px; background: #fff; float: right; position: relative; cursor: pointer;}
+.pagination .pageSizeBtn:before{ font-family: FontAwesome; content: "\f107";}
+.pagination .selectCon{ display: none; width: 60px; height: 135px; background: #fff; position: absolute; top: -135px; left: -1px; margin: 0;}
+.pagination .borderBox.selectCon{ border: 1px solid #e9ecf2;}
+.pagination .selectCon li{ width: 56px; line-height: 26px; margin: 0;}
+.pagination .selectCon li.active,.pagination .selectCon li:hover{ background: #fff; color: #e7523a;}

@@ -1,0 +1,51 @@
+*{margin: 0; padding: 0; list-style: none;}
+.help{
+	font-size:14px;
+	font-family:Microsoft YaHei;
+	color:#222;
+	padding:10px 15px;	
+}
+.help-header{
+	font-size:18px;
+	font-weight:bold;
+	text-align:center;
+	padding-bottom:10px;
+	border-bottom:1px solid #ccc;
+}
+.help-docs{ 
+	margin-bottom:20px;
+}
+.help-tit1{
+	font-size:16px;
+	font-weight:bold;
+	padding-top:10px;
+}
+.help-tit2{
+	font-weight:bold;
+	padding-top:10px;
+}
+.help-docs p{
+	text-indent:2em;
+}
+.help-table{
+	width:95%;
+	border-spacing:0;
+	border-collapse:collapse;
+	text-align:left;
+	margin-left:27px;
+}
+.help-table th{
+	height:36px;
+	padding:0 5px;
+	font-weight:normal;
+	background:#f5f5f5;
+	border:1px solid #ddd;
+	max-width: 300px;
+}
+.help-table td{
+	height:36px;
+	padding:0 5px;
+	border:1px solid #ddd;
+	max-width: 300px;
+}
+.help img{ border: 1px solid #e9ecf2;}

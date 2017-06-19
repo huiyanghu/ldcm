@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/cloud-admin.css" >
+		<link rel="stylesheet" type="text/css" href="../css/themes/nature.css" id="skin-switcher" >
+		<link rel="stylesheet" type="text/css" href="../css/responsive.css" >
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/animatecss/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" href="../js/select2/select2.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/jquery-todo/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="../js/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/gritter/css/jquery.gritter.css" />
+		<link rel="stylesheet" type="text/css" href="../js/tablecloth/css/tablecloth.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pagination.css" />
+		<!--[if lt IE 9]>
+			<script src="../js/flot/excanvas.min.js"></script>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			.data-table th,.data-table td{ cursor: default;}
+			.data-table th:nth-child(1),.data-table td:nth-child(1){ width: 200px;}
+			.data-table th:nth-child(2),.data-table td:nth-child(2){ width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+			.data-table th:nth-child(3),.data-table td:nth-child(3){ width: 100px;}
+			.data-table th:nth-child(4),.data-table td:nth-child(4){ width: 150px;}
+			.data-table th:nth-child(5),.data-table td:nth-child(5){ width: 150px;}
+			.data-table th:nth-child(6),.data-table td:nth-child(6){ width: 100px;}
+		</style>
+	</head>
+	<body>
+		<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div id="content" class="col-lg-12">
+					<div class="row">
+						<div class="col-sm-12 no-padding">
+							<div class="page-header">
+								<div class="breadcrumb">
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="../business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+									</li>
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="javascript:void(0);">权限管理</a>
+									</li>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box border">
+								<div class="box-body">
+									<div class="row">
+										<div class="col-md-12 no-padding">
+											<table class="table table-bordered table-striped data-table user-table">
+												<thead>
+													<tr>
+														<th>公司名称</th>
+														<th>账号</th>
+														<th>姓名</th>
+														<th>手机</th>
+														<th>状态</th>
+														<th>操作</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>绿盾公司</td>
+														<td title="heyitan@sina.com">heyitan@sina.com</td>
+														<td>何以琛</td>
+														<td>15866668888</td>
+														<td class="statusStr">开通</td>
+														<td>
+															<a href="javascript:void(0);" class="color-9 review-user" status="1" id="user01">
+																<i title="审核" class="fa fa-unlock"></i>
+															</a>
+														</td>
+													</tr>
+													<tr>
+														<td>绿盾公司</td>
+														<td title="zhaomosheng@sina.com">zhaomosheng@sina.com</td>
+														<td>赵默笙</td>
+														<td>13688886666</td>
+														<td class="statusStr">未审核</td>
+														<td>
+															<a href="javascript:void(0);" class="color-9 review-user" status="0" id="user02">
+																<i title="审核" class="fa fa-lock"></i>
+															</a>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<div class="pagination" id="pagination"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="../bootstrap-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+		<script type="text/javascript" src="../js/select2/select2.min.js"></script>
+		<script type="text/javascript" src="../js/sparklines/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="../js/uniform/jquery.uniform.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-wizard/form-wizard.min.js"></script>
+		<script type="text/javascript" src="../js/tablecloth/js/jquery.tablecloth.js"></script>
+		<script type="text/javascript" src="../js/tablecloth/js/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="../js/bootbox/bootbox.min.js"></script>
+		<script type="text/javascript" src="../js/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="../js/a-script/pagination.js"></script>
+		<script type="text/javascript" src="../js/a-script/ui-select.js"></script>
+		<script type="text/javascript" src="../js/a-script/common.js"></script>
+		<script type="text/javascript">
+			var paginationJson = {
+		        currentPage: 1,
+		        pageSize: 10,
+		        pageCount: 1,
+		        total: 4,
+		    }
+		    creat_pagination(paginationJson);
+		    $('.review-user').click(function(){
+		    	var status = $(this).attr('status');
+		    	if(status == '0' || status == 0){
+		    		var msg = '确定开通此用户吗?';
+		    	}else if(status == '1' || status == 1){
+		    		var msg = '确定关闭此用户吗?';
+		    	}
+		    	var title = '审核';
+		    	var data ={
+		    		"obj":$(this).attr('id'),
+		    		"status":status
+		    	}
+		    	var dataStr = JSON.stringify(data);
+		    	confirmAlert(msg,title,reviewUser,'',dataStr);
+		    });
+		    function reviewUser(alertBox,data){
+		    	var data = JSON.parse(data);
+		    	var obj = data.obj;
+		    	var status = data.status;
+		    	if(status == '0' || status == 0){
+		    		$('#'+obj).attr('status','1');
+		    		$('#'+obj).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
+		    		$('#'+obj).parent().siblings('.statusStr').html('开通');
+		    	}else if(status == '1' || status == 1){
+		    		$('#'+obj).attr('status','0');
+		    		$('#'+obj).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
+		    		$('#'+obj).parent().siblings('.statusStr').html('关闭');
+		    	}
+		    	alertBox.hide();
+		    }
+		</script>	
+	</body>
+</html>

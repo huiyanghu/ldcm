@@ -1,11 +1,214 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
-<h1>首页首页首页welcome首页首页首页首页</h1>
-<span th:text="${session.loginUser.get('name')}"></span>
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="/static/css/cloud-admin.css" >
+		<link rel="stylesheet" type="text/css" href="/static/css/themes/nature.css" id="skin-switcher" >
+		<link rel="stylesheet" type="text/css" href="/static/css/responsive.css" >
+		<link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/animatecss/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="/static/js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" href="/static/js/jquery-todo/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="/static/js/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="/static/js/gritter/css/jquery.gritter.css" />
+		<!--[if lt IE 9]>
+			<script src="/static/js/flot/excanvas.min.js"></script>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<header class="navbar clearfix" id="header">
+			<div class="container">
+				<div class="navbar-brand">
+					<a href="index.html">
+						<img src="/static/img/logo/logo.png" alt="Cloud Admin Logo" class="img-responsive">
+					</a>
+					<div id="sidebar-collapse" class="sidebar-collapse btn">
+						<i class="fa fa-bars" data-icon1="fa fa-bars" data-icon2="fa fa-bars"></i>
+					</div>
+				</div>
+				<ul class="nav navbar-nav pull-left hidden-xs" id="navbar-left">
+					<li class="dropdown" id="team-status-btn">
+						<a href="#" class="team-status-toggle dropdown-toggle tip-bottom" data-toggle="tooltip" title="" data-original-title="Toggle Team View">
+							<!--<i class="fa fa-paperclip"></i>-->
+							<span class="name">常用信息</span>
+							<i class="fa fa-angle-down" id="team-status-i"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav pull-right">
+					<li class="dropdown user" id="header-user">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" id="username">
+							<!--<img alt="" src="img/avatars/avatar3.jpg">-->
+							<span class="username">用户</span>
+							<i class="fa fa-angle-down"></i>
+						</a>
+						<ul class="dropdown-menu" id="userDropList">
+							<li class="jump-page">
+								<a href="javascript:void(0);" flag="personal" url="personal-data.html">
+									<i class="fa fa-user"></i>
+									个人资料
+								</a>
+							</li>
+							<li class="divider"></li>
+							<li>
+								<a href="javascript:void(0);">
+									<i class="fa fa-power-off"></i>
+									退出
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="container team-status" id="team-status">
+				<ul class="team-list" style="width: 750px; overflow: hidden;">
+					<li class="pull-left">
+						<a href="javascript:void(0);">
+							<span class="title">常用信息 </span>
+							<span class="status">
+								<div class="field">
+									<div class="col-md-4 text-right">秘钥信息：</div>
+									<div class="col-md-8">秘钥信息</div>
+								</div>
+								<div class="field">
+									<div class="col-md-4 text-right">地址信息：</div>
+									<div class="col-md-8">接入地址信息</div>
+								</div>
+								<div class="field">
+									<div class="col-md-4 text-right">回调地址：</div>
+									<div class="col-md-8">回调地址</div>
+								</div>
+							</span>
+						</a>
+					</li>
+					<li class="pull-left no-padding-left">
+						<a href="javascript:void(0);">
+							<span class="title">专属安全运营 </span>
+							<span class="image pull-left">
+								<img src="/static/img/avatars/avatar1.jpg" alt="" />
+							</span>
+							<span class="status pull-left">
+								<div class="field">
+									<div class="col-md-4 text-right">姓名：</div>
+									<div class="col-md-6">赵默笙</div>
+								</div>
+								<div class="field">
+									<div class="col-md-4 text-right">联系电话：</div>
+									<div class="col-md-6">13688886666</div>
+								</div>
+								<div class="field">
+									<div class="col-md-4 text-right">微信号：</div>
+									<div class="col-md-6">moshengzhao</div>
+								</div>
+								<div class="field">
+									<div class="col-md-4 text-right">QQ号：</div>
+									<div class="col-md-6">888888</div>
+								</div>
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</header>
+		<section id="page">
+			<div class="sidebar" id="sidebar">
+				<div class="sidebar-menu nav-collapse" style="border-bottom: 1px solid #e9ecf2 !important;">
+					<ul>
+						<li class="has-sub active homePage">
+							<a href="javascript:void(0);">
+								<i class="fa fa-tachometer fa-fw"></i>
+								<span class="menu-text">业务总览</span>
+								<span class="arrow"></span>
+							</a>	
+							<ul class="sub">
+								<li class="active">
+									<a class="" href="javascript:void(0);" flag="business-1" url="business-overview/trend-analysis.html">
+										<span class="sub-menu-text">接入量趋势分析</span>
+									</a>
+								</li>
+								<li>
+									<a class="" href="javascript:void(0);" flag="business-2" url="business-overview/reject-analysis.html">
+										<span class="sub-menu-text">不通过原因分析</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="has-sub">
+							<a href="javascript:void(0);" class="">
+								<i class="fa fa-table fa-fw"></i>
+								<span class="menu-text">数据查询</span>
+								<span class="arrow open"></span>
+							</a>
+							<ul class="sub">
+								<li>
+									<a class="" href="javascript:void(0);" flag="data-1" url="data-inquiry/query-text.html">
+										<span class="sub-menu-text">查询文本内容</span>
+									</a>
+								</li>
+								<li>
+									<a class="" href="javascript:void(0);" flag="data-2" url="data-inquiry/query-picture.html">
+										<span class="sub-menu-text">查询图片内容</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="has-sub">
+							<a href="javascript:void(0);" class="" flag="customer-1" url="customer-info/customer-info.html">
+								<i class="fa fa-user fa-fw"></i>
+								<span class="menu-text">客户信息</span>
+							</a>
+						</li>
+						<li class="has-sub">
+							<a href="javascript:void(0);" class="" flag="user-1" url="user-management/user-management.html">
+								<i class="fa fa-users fa-fw"></i>
+								<span class="menu-text">用户管理</span>
+							</a>
+						</li>
+						<li class="has-sub">
+							<a href="javascript:void(0);" class="">
+								<i class="fa fa-bookmark-o fa-fw"></i>
+								<span class="menu-text">帮助文档</span>
+								<span class="arrow open"></span>
+							</a>
+							<ul class="sub">
+								<li>
+									<a class="" href="javascript:void(0);" flag="help-1" url="help-documentation/audit-standard.html">
+										<span class="sub-menu-text">审核标准</span>
+									</a>
+								</li>
+								<li>
+									<a class="" href="javascript:void(0);" flag="help-2" url="help-documentation/development-documen.html">
+										<span class="sub-menu-text">开发文档</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="has-sub">
+							<a href="javascript:void(0);" class="" flag="privilege-1" url="privilege-management/privilege-management.html">
+								<i class="fa fa-cog fa-fw"></i>
+								<span class="menu-text">权限管理</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div id="main-content">
+				<iframe src="business-overview/trend-analysis.html" id="rightIframe" frameborder="0" width="100%" height=""></iframe>
+			</div>
+		</section>
+		<script type="text/javascript" src="/static/js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="/static/bootstrap-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+		<script type="text/javascript" src="/static/js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+		<script type="text/javascript" src="/static/js/sparklines/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="/static/js/jQuery-Cookie/jquery.cookie.min.js"></script>
+		<script type="text/javascript" src="/static/js/a-script/index.js"></script>
+		<script type="text/javascript" src="/static/js/a-script/common.js"></script>
+	</body>
 </html>

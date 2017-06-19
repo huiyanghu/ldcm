@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/cloud-admin.css" >
+		<link rel="stylesheet" type="text/css" href="../css/themes/nature.css" id="skin-switcher" >
+		<link rel="stylesheet" type="text/css" href="../css/responsive.css" >
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/animatecss/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" href="../js/select2/select2.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/jquery-todo/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="../js/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../js/gritter/css/jquery.gritter.css" />
+		<link rel="stylesheet" type="text/css" href="../js/tablecloth/css/tablecloth.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/pagination.css" />
+		<link rel="stylesheet" type="text/css" href="../css/ui-select.css" />
+		<!--[if lt IE 9]>
+			<script src="../js/flot/excanvas.min.js"></script>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<link rel="stylesheet" type="text/css" href="../css/help.css"/>
+	</head>
+	<body class="development-body">
+		<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div id="content" class="col-lg-12">
+					<div class="row">
+						<div class="col-sm-12 no-padding">
+							<div class="page-header">
+								<div class="breadcrumb">
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="../business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+									</li>
+									<li>
+										<!--<i class="fa fa-home"></i>-->
+										<a href="javascript:void(0);">审核标准</a>
+									</li>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="box border">
+								<div class="box-body">
+									<div class="help">
+								    	<div class="help-header">玖安云数据检测开发文档V2</div>
+								        <div class="help-docs">
+								        	<div class="help-tit1">1、说明</div>
+								            <p>接口开发文档包含4部分：</p>
+								            <p class="help-tit2">&gt; 公共字段</p>
+								            <p>接口通用的字段，每个具体接口处不再单独说明。</p>
+								            <p class="help-tit2">&gt; 接口鉴权</p>
+								            <p>接口通用的鉴权方式。</p>
+								            <p class="help-tit2">&gt; 文本类</p>
+								            <p>文本检测部分的接口说明。</p>
+								            <p class="help-tit2">&gt; 图片类</p>
+								            <p>图片检测部分的接口说明。</p>
+								        </div>
+								        <div class="help-docs">
+								        	<div class="help-tit1">2、公共字段</div>
+								            <p>公共参数是用于标识产品和接口鉴权目的的参数，如非必要，在每个接口单独的接口文档中不再对这些参数进行说明，每次请求均需要携带这些参数。</p>
+								            <p class="help-tit2">2.1 请求公共字段</p>
+								            <p>请求公共参数</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>参数名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>appId</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>32</td>
+								                    <td>产品标识，由玖安云为您分配</td>
+								                </tr>
+								                <tr>
+								                	<td>timestamp</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td>13</td>
+								                    <td>请求的当前 UNIX 时间戳。</td>
+								                </tr>
+								                <tr>
+								                	<td>nonce</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td>11</td>
+								                    <td>随机整数，防重放</td>
+								                </tr>
+								                <tr>
+								                	<td>signature</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>32</td>
+								                    <td>请求签名，用来验证本次请求的合法性，具体算法见 接口鉴权</td>
+								                </tr>
+								            </table>
+								            <p class="help-tit2">2.2 响应公共字段</p>
+								            <p>所有接口响应采用 json 格式， 如无特殊说明，每次请求的返回值中，都包含下面字段：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>参数名称</th>
+								                    <th>类型</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>code</td>
+								                	<td>Number</td>
+								                	<td>接口返回值，200:正常；其他值：调用出错</td>
+								                </tr>
+								                <tr>
+								                	<td>msg</td>
+								                	<td>String</td>
+								                	<td>结果说明，调用正常，返回ok,接口出错会返回错误描述。</td>
+								                </tr>
+								                <tr>
+								                	<td>result</td>
+								                	<td>Json Object</td>
+								                	<td>接口返回结果，json格式，详见每个接口的定义说明。</td>
+								                </tr>
+								            </table>
+								            <p class="help-tit2">2.3 响应返回码</p>
+								            <p>响应返回码（code）是调用久安云服务 API 执行的状态结果。当返回码不为 200 时， 表示请求未正常执行，返回码描述 (msg) 对该结果进行了细化补充，用户可根据返回码判断 API 的执行情况。</p>
+								            <p>所有接口调用返回值均包含 code 和 msg 字段， code 为返回码值，msg 为返回码描述信息，返回码表如下：</p>
+								            <table class="help-table">
+								            	<tr>
+								            		<th>返回码</th>
+								            		<th>返回码描述</th>
+								            		<th>说明</th>
+								            	</tr>
+								            	<tr>
+								            		<td>200</td>
+								            		<td>ok</td>
+								            		<td>接口调用成功</td>
+								            	</tr>
+								            	<tr>
+								            		<td>400</td>
+								            		<td>bad request</td>
+								            		<td>必要参数没有填写完全，如appId或signature等</td>
+								            	</tr>
+								            	<tr>
+								            		<td>401</td>
+								            		<td>signature error</td>
+								            		<td>签名验证失败</td>
+								            	</tr>
+								            	<tr>
+								            		<td>402</td>
+								            		<td>bad parmeters</td>
+								            		<td>请求业务参数不合法</td>
+								            	</tr>
+								            	<tr>
+								            		<td>403</td>
+								            		<td>bad http method</td>
+								            		<td>不支持的http方法</td>
+								            	</tr>
+								            	<tr>
+								            		<td>404</td>
+								            		<td>not found</td>
+								            		<td>请求地址或业务不存在</td>
+								            	</tr>
+								            	<tr>
+								            		<td>410</td>
+								            		<td>high frequency</td>
+								            		<td>请求频率超过限制</td>
+								            	</tr>
+								            	<tr>
+								            		<td>411</td>
+								            		<td>len exceed quota</td>
+								            		<td>请求长度超过限制</td>
+								            	</tr>
+								            	<tr>
+								            		<td>503</td>
+								            		<td>service error</td>
+								            		<td>服务处理异常</td>
+								            	</tr>
+								            </table>
+								        </div>
+								        <div class="help-docs">
+								        	<div class="help-tit1">3、接口鉴权</div>
+								            <p>玖安云对外提供的api接口，使用签名和验签的方式验证请求的合法性。用户每一次调用请求都需要计算签名并放置到请求的signature字段中。</p>
+								            <p class="help-tit2">3.1 获取安全凭证</p>
+								            <p>在调用 API 之前，首先需要申请安全凭证，即appId和secretKey，appId 是用于标识 API 调用者的身份和业务类别，secretKey 是用于加密签名字符串和服务器端验证签名字符串的密钥，secretKey 需要用户严格保管，避免泄露。</p>
+								            <p class="help-tit2">3.2 签名计算方式</p>
+								            <p>如无特殊说明，所有api接口的签名均采用如下方式：</p>
+								            <p>&bull; 组合要签名的字符串，appId，timestamp，secretKey三个字段以半角逗号相连拼接。例如：</p>
+								            <p>appId：201705120001</p>
+								            <p>timestamp：1496202697433</p>
+								            <p>secretKey：5156F2FBA13D87F663FA0128BCD422738</p>
+								            <p>最后格式为：201705120001,1496202697433,5156F2FBA13D87F663FA0128BCD422738</p>
+								            <p>&bull; 把上一步骤拼装好的字符串采用 utf-8 编码，计算md5值，得到的结果为16字节的二进制数据，转换为十六进制字符串即为signature。</p>
+								            <p class="help-tit2">3.3 代码示例</p>
+								            <p>appId：201705120001</p>
+								            <p>timestamp：1496202697433</p>
+								            <p>secretKey：5156F2FBA13D87F663FA0128BCD422738</p>
+								            <p>计算得到的signature：a6e934710d1adbe7752068da31dea525</p>
+								            <p><img src="../img/development/development01.png" alt="" /></p>
+								        </div>
+								        <div class="help-docs">
+								        	<div class="help-tit1">4、文本类</div>
+								            <p class="help-tit2">4.1 文本实时检测</p>
+								            <p>4.1.1 请求数据</p>
+								            <p>请求需包含请求公共字段，其他字段信息如下：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>id</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户数据唯一标识，能够根据该值定位到该条数据</td>
+								                </tr>
+								                <tr>
+								                	<td>content</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>10000</td>
+								                    <td>用户发表内容，建议对内容中HTML标签、UBB标签、JSON格式、表情符等做过滤，只发送纯文本内容。</td>
+								                </tr>
+								                <tr>
+								                	<td>extension</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>扩展信息，用于实时检测没有准确结果，待结果变更时回调使用。玖安云回调时，会原样返回id和extension两个字段，作为用户数据处理标识。例如用户修改昵称的数据，修改了多次，id是一样的，无法区分先后顺序，用户就可以在这个字段设置时间戳等。此字段完全由用户根据业务自行设计，目的就是通过id+extension可以准确确定一条数据。如果没有此类需求，此字段可不填写</td>
+								                </tr>
+								                <tr>
+								                	<td>ip</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>32</td>
+								                    <td>用户IP地址</td>
+								                </tr>
+								                <tr>
+								                	<td>userId</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>用户唯一标识，如果无需登录则为空</td>
+								                </tr>
+								                <tr>
+								                	<td>deviceId</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>用户设备 id</td>
+								                </tr>
+								                <tr>
+								                	<td>publishTime</td>
+								                    <td>Number</td>
+								                    <td>N</td>
+								                    <td>13</td>
+								                    <td>发表时间，UNIX 时间戳(毫秒值)</td>
+								                </tr>
+								            </table>
+								            <p>4.1.2 响应数据</p>
+								            <p>响应需包含响应公共字段，result的json字段信息如下</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>action</td>
+								                    <td>Number</td>
+								                    <td>检测结果，0：不通过，1：通过，2：可疑</td>
+								                </tr>
+								                <tr>
+								                	<td>score</td>
+								                    <td>Double</td>
+								                    <td>可信度0-100.0，分值越高，可信度越大</td>
+								                </tr>
+								                <tr>
+								                	<td>reason</td>
+								                    <td>String</td>
+								                    <td>参考分类，包含：政治、色情、广告、灌水等。通过时没有原因</td>
+								                </tr>
+								            </table>
+								            <p>格式如：</p>
+								            <p><img src="../img/development/development02.png"/></p>
+								            <p>4.1.3 代码示例</p>
+								            <p><img src="../img/development/development03.png" alt="" /></p>
+								            <p class="help-tit2">4.2 文本离线结果回调</p>
+								            <p>离线数据，结果有变更时，玖安云会及时回调用户。</p>
+								            <p>需要用户开发相应接口，能够接收玖安云回调的数据，并在玖安云客户平台配置回调地址。</p>
+								            <p>鉴于网络原因，有可能会出现超时等情况，如果调用失败玖安云平台会尝试3次，间隔20秒。</p>
+								            <p>4.2.1 回调请求数据</p>
+								            <p>请求由玖安云平台发起，请求json格式说明：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>appId</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>产品标识，由玖安云为您分配</td>
+								                </tr>
+								                <tr>
+								                	<td>id</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户数据唯一标识，能够根据该值定位到该条数据</td>
+								                </tr>
+								                <tr>
+								                	<td>extension</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户自定义的数据，原样返回</td>
+								                </tr>
+								                <tr>
+								                	<td>result</td>
+								                    <td>Json Object</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>数据结果，json对象</td>
+								                </tr>
+								            </table>
+								            <p>result对象的格式说明（定义为json方便扩展）</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>action</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>结果，0：不通过，1：通过，2：可疑</td>
+								                </tr>
+								            </table>
+								            <p>4.2.2 回调响应数据</p>
+								            <p>客户收到数据处理后，反馈的响应json，如果code为非200的值或没有正常反馈json结构，玖安云会认为调用失败，最多尝试3次调用。</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>code</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>200-正常；其余值为存在问题</td>
+								                </tr>
+								            </table>
+								        </div>
+								        <div class="help-docs">
+								        	<div class="help-tit1">5、图片类</div>
+								            <p class="help-tit2">5.1 图片实时检测</p>
+								            <p>5.1.1 请求数据</p>
+								            <p>请求需包含请求公共字段，其他字段信息如下：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>id</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户数据唯一标识，能够根据该值定位到该条数据</td>
+								                </tr>
+								                <tr>
+								                	<td>images</td>
+								                    <td>Array</td>
+								                    <td>Y</td>
+								                    <td>10张图片</td>
+								                    <td>图片对象数组,json格式，见image说明</td>
+								                </tr>
+								                <tr>
+								                	<td>ip</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>32</td>
+								                    <td>用户IP地址</td>
+								                </tr>
+								                <tr>
+								                	<td>userId</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>用户唯一标识，如果无需登录则为空</td>
+								                </tr>
+								                <tr>
+								                	<td>deviceId</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>用户设备 id</td>
+								                </tr>
+								                <tr>
+								                	<td>publishTime</td>
+								                    <td>Number</td>
+								                    <td>N</td>
+								                    <td>13</td>
+								                    <td>发表时间，UNIX 时间戳(毫秒值)</td>
+								                </tr>
+								                <tr>
+								                	<td>extension</td>
+								                    <td>String</td>
+								                    <td>N</td>
+								                    <td>128</td>
+								                    <td>扩展信息，用于实时检测没有准确结果，待结果变更时回调使用。玖安云回调时，会原样返回id和extension两个字段，作为用户数据处理标识。例如用户修改昵称的数据，修改了多次，id是一样的，无法区分先后顺序，用户就可以在这个字段设置时间戳等。此字段完全由用户根据业务自行设计，目的就是通过id+extension可以准确确定一条数据。如果没有此类需求，此字段可不填写</td>
+								                </tr>
+								            </table>
+								            <p>image对象说明</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>name</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>512</td>
+								                    <td>图片名称，超出512会截断保存</td>
+								                </tr>
+								                <tr>
+								                	<td>data</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>2048</td>
+								                    <td>图片url</td>
+								                </tr>
+								            </table>
+								            <p>5.1.2 响应数据</p>
+								            <p>响应需包含响应公共字段，result的json字段信息如下：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>参数名称</th>
+								                    <th>类型</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>action</td>
+								                    <td>Number</td>
+								                    <td>检测结果，0：不通过，1：通过，2：可疑</td>
+								                </tr>
+								                <tr>
+								                	<td>score</td>
+								                    <td>Double</td>
+								                    <td>可信度0-100，分值越高，可信度越大</td>
+								                </tr>
+								                <tr>
+								                	<td>reason</td>
+								                    <td>Number</td>
+								                    <td>1</td>
+								                </tr>
+								            </table>
+								            <p>说明：批量检测时，action优先级为 不通过、可疑、通过。</p>
+								            <p>格式如：</p>
+								            <p><img src="../img/development/development02.png"/></p>
+								            <p>5.1.3 代码示例</p>
+								            <p><img src="../img/development/development04.png"/></p>
+								            <p class="help-tit2">5.2 图片离线结果回调</p>
+								            <p>离线数据，结果有变更时，玖安云会及时回调用户。</p>
+								            <p>需要用户开发相应接口，能够接收玖安云回调的数据，并在玖安云客户平台配置回调地址。</p>
+								            <p>鉴于网络原因，有可能会出现超时等情况，如果调用失败玖安云平台会尝试3次，间隔20秒。</p>
+								            <p>5.2.1 回调请求数据</p>
+								            <p>请求由玖安云平台发起，请求json格式说明：</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>appId</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>产品标识，由玖安云为您分配</td>
+								                </tr>
+								                <tr>
+								                	<td>id</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户数据唯一标识，能够根据该值定位到该条数据</td>
+								                </tr>
+								                <tr>
+								                	<td>extension</td>
+								                    <td>String</td>
+								                    <td>Y</td>
+								                    <td>128</td>
+								                    <td>用户自定义的数据，原样返回</td>
+								                </tr>
+								                <tr>
+								                	<td>result</td>
+								                    <td>Json Object</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>数据结果，json对象</td>
+								                </tr>
+								            </table>
+								            <p>result对象的格式说明（定义为json方便扩展）</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>action</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>结果，0：不通过，1：通过，2：可疑</td>
+								                </tr>
+								            </table>
+								            <p>5.2.2 回调响应数据</p>
+								            <p>客户收到数据处理后，反馈的响应json，如果code为非200的值或没有正常反馈json结构，玖安云会认为调用失败，最多尝试3次调用。</p>
+								            <table class="help-table">
+								            	<tr>
+								                	<th>字段名称</th>
+								                    <th>类型</th>
+								                    <th>必选</th>
+								                    <th>最大长度</th>
+								                    <th>描述</th>
+								                </tr>
+								                <tr>
+								                	<td>code</td>
+								                    <td>Number</td>
+								                    <td>Y</td>
+								                    <td></td>
+								                    <td>200-正常；其余值为存在问题</td>
+								                </tr>
+								            </table>
+								        </div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="view-box">
+			<div class="view-bg"></div>
+			<div class="scroller" data-height="100%" data-always-visible="1" data-rail-visible="1">
+				<img src="" alt="" id="viewImg"/>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+		<script type="text/javascript" src="../js/a-script/common.js"></script>
+		<script type="text/javascript">
+			$('.help img').click(function(){
+				var src = $(this).attr('src');
+				$('#viewImg').attr('src',src);
+				$('.view-box').show();
+				$('.development-body').addClass('overflow');
+			});
+			$('.scroller').click(function(){
+				$('.view-box').hide();
+				$('.development-body').removeClass('overflow');
+			});
+			$('.scroller').each(function () {
+	            $(this).slimScroll({
+	                size: '0px',
+	                color: '#a1b2bd',
+					height: $(this).attr("data-height"),
+	                alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
+	                railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
+					railOpacity: 0.1,
+	                disableFadeOut: true
+	            });
+	        });
+		</script>
+	</body>
+</html>
