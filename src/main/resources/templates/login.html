@@ -1,65 +1,69 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
-		<script type="text/javascript" src="/static/js/jquery/jquery-2.0.3.min.js"></script>
-		<script src="/static/js/a-script/Particleground.js" type="text/javascript" charset="utf-8"></script>
-		<script src="/static/js/a-script/verificationNumbers.js" type="text/javascript" charset="utf-8"></script>
+		<meta charset="UTF-8" />
+		<title>欢迎登录绿盾后台管理系统</title>
+		<link rel="stylesheet" type="text/css" href="/css/cloud-admin.css" />
+		<link rel="stylesheet" type="text/css" href="/css/themes/nature.css" id="skin-switcher" />
+		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css"/>
 	</head>
 	<body>
+		<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"></h4>
+					</div>
+					<div class="modal-body"></div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary">保存</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<dl class="admin_login">
 			<dt>
-				<img src="/static/img/logo/logo.png"/>
+				<img src="/img/logo/logo.png"/>
 				<strong>绿盾后台管理系统</strong>
 			</dt>
 			<dd class="user_icon">
-				<input type="text" placeholder="账号" class="login_txtbx" data-form-un="1497234149117.933">
+				<input type="hidden" name="email" />
+				<input type="text" placeholder="账号" id="email" class="login_txtbx"/>
 			</dd>
 			<dd class="pwd_icon">
-				<input type="password" placeholder="密码" class="login_txtbx" data-form-pw="1497234149117.933">
+				<input type="hidden" name="password" />
+				<input type="password" placeholder="密码" id="password" class="login_txtbx"/>
 			</dd>
 			<dd class="val_icon">
 				<div class="checkcode">
-					<input type="text" id="J_codetext" placeholder="验证码" maxlength="4" class="login_txtbx" data-form-vc="1497234149117.933">
-					<canvas class="J_codeimg" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+					<input type="text" id="picCode" placeholder="验证码" maxlength="4" class="login_txtbx"/>
+					<img class="J_codeimg" id="myCanvas" src="../getAuthImage?date=12345" alt="" />
 				</div>
-				<input type="button" value="验证码核验" class="ver_btn" onclick="validate();">
+				<input type="button" value="验证码刷新" class="ver_btn" />
 			</dd>
 			<dd class="psd-relevant">
-				<div class="left"><i class="fa fa-square-o"></i>记住密码</div>
+				<div class="left"><i class="fa fa-square-o" id="remember"></i>记住密码</div>
 				<div class="right"><a href="forgot-password.html" class="forgot-psd">忘记密码？</a></div>
 			</dd>
 			<dd>
-				<input type="button" value="登录" class="submit_btn">
+				<input type="button" value="登录" class="submit_btn" id="loginBtn"/>
 			</dd>
 			<dd class="register-dd">
-				<a href="register.html" class="register-btn">注册</a>
+				<a href="../toRegister" class="register-btn">注册</a>
 			</dd>
 		</dl>
 		<div class="bottom">
 			<p>© 2015-2016 jq22 版权所有</p>
 			<p>京B2-8998988-1</p>
 		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				//粒子背景特效
-				$('body').particleground({
-					dotColor: '#5cbdaa',
-					lineColor: '#5cbdaa'
-				});
-				//验证码
-				createCode();
-				//测试提交，对接程序删除即可
-				$(".submit_btn").click(function(){
-					location.href="index.html";
-				});
-			});
-			$('.psd-relevant .left').click(function(){
-				$(this).children('.fa').toggleClass('fa-check-square-o').toggleClass('fa-square-o');
-			});
-		</script>
+		<script type="text/javascript" src="/js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="/bootstrap-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/a-script/Particleground.js"></script>
+		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
+		<script type="text/javascript" src="/js/a-script/common.js"></script>
+		<script type="text/javascript" src="/js/a-script/login.js"></script>
 	</body>
 </html>
