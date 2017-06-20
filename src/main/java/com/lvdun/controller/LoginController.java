@@ -72,6 +72,7 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
+
     public String register(HttpSession session, String email, String companyName, String name, String mobile, String password, String confirmPassword, String verificationCode, RedirectAttributes attributes) {
         if (!password.equals(confirmPassword)) {
             attributes.addFlashAttribute("msg", MsgConstants.WRONG_VERCODE);
@@ -93,6 +94,7 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/loginAjax", method = RequestMethod.POST)
+    @ResponseBody
     public Object loginAjax(HttpSession session, String username, String password, String verificationCode) {
         Map resutltMap = new HashMap();
         Map result = new HashMap();
