@@ -6815,7 +6815,7 @@ fieldset[disabled] .btn-yellow.active {
 .box.solid > .box-title h4 {
   display: inline-block;
   font-size: 18px;
-  font-weight: 550;
+  font-weight: 500;
   margin: 0;
   padding: 0;
   margin-bottom: 7px;
@@ -9233,10 +9233,6 @@ ul.stats li small {
 }
 .left-input .error-span{
 	position: absolute; left: 100%; top: 0; line-height: 34px; white-space: nowrap;
-}
-.J_codeimg{
-	position: absolute;
-	z-index: 1;
 }
 .pic-code{
 	width: 68px;
