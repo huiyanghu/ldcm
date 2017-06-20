@@ -81,10 +81,10 @@ public class MD5 {
 			return null;
 	}
 
-	//public static void main(String[] args) {
-		//System.out.println(MD5.MD516("!gmwqaz123").toUpperCase());
-		//System.out.println(MD5.MD5("123456").toUpperCase());
-		//System.out.println(MD5.MD524("!gmwqaz123").toUpperCase());
+	public static void main(String[] args) {
+		System.out.println(MD5.MD516("!gmwqaz123").toUpperCase());
+		System.out.println(MD5.MD5("123456").toUpperCase());
+		System.out.println(MD5.MD524("!gmwqaz123").toUpperCase());
 
-	//}
+	}
 }

@@ -32,6 +32,7 @@ public class CmAccountServiceImpl implements CmAccountService {
     @Autowired
     BaseLdUserRepository baseLdUserDao;
 
+
     @Override
     public Map login(String username, String password) {
 
@@ -43,9 +44,9 @@ public class CmAccountServiceImpl implements CmAccountService {
                 map.put("id", account.getId());
                 map.put("name", account.getName());
                 map.put("account", account.getAccount());
-                map.put("customId",account.getCustumerId());
-                CmCustumer custumer=custumerDao.findOne(account.getCustumerId());
-                map.put("platformId",custumer.getPlatformId());
+                map.put("customId", account.getCustumerId());
+                CmCustumer custumer = custumerDao.findOne(account.getCustumerId());
+                map.put("platformId", custumer.getPlatformId());
                 return map;
             }
         }

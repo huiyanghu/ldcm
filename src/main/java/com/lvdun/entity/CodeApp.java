@@ -14,15 +14,17 @@ public class CodeApp {
     @Column(name = "id")
     private Long id;
 
+    //@ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "platform_id")
+    @Column(name = "platform_id")
+    private Long platformId;
+
     @Column(name = "app_code")
     private String appCode;//app代码
 
     @Column(name = "app_name")
     private String appName;//App名称
 
-    @ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "platform_id")
-    private CodePlatform platform;
 
     @Column(name = "type")
     private Integer type;//类型：1-文字；2-图片
@@ -49,6 +51,7 @@ public class CodeApp {
     @Column(name = "authenticated")
     private Integer authenticated;//是否需要鉴权：0-不需要，1-需要；默认为1
 
+
     public Long getId() {
         return id;
     }
@@ -57,11 +60,19 @@ public class CodeApp {
         this.id = id;
     }
 
+    public Long getPlatformId() {
+        return platformId;
+    }
+
+    public void setPlatformId(Long platformId) {
+        this.platformId = platformId;
+    }
+
     public String getAppCode() {
         return appCode;
     }
 
-    public void setAppId(String appCode) {
+    public void setAppCode(String appCode) {
         this.appCode = appCode;
     }
 
@@ -71,14 +82,6 @@ public class CodeApp {
 
     public void setAppName(String appName) {
         this.appName = appName;
-    }
-
-    public CodePlatform getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(CodePlatform platform) {
-        this.platform = platform;
     }
 
     public Integer getType() {
@@ -143,23 +146,5 @@ public class CodeApp {
 
     public void setAuthenticated(Integer authenticated) {
         this.authenticated = authenticated;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeApp{" +
-                "id=" + id +
-                ", appCode='" + appCode + '\'' +
-                ", appName='" + appName + '\'' +
-                ", platform=" + platform +
-                ", type=" + type +
-                ", feedbackUrl='" + feedbackUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", filterGroupId=" + filterGroupId +
-                ", craateTime=" + craateTime +
-                ", policyTemplateId=" + policyTemplateId +
-                ", feedbackType=" + feedbackType +
-                ", authenticated=" + authenticated +
-                '}';
     }
 }

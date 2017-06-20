@@ -13,6 +13,9 @@ public class BaseLdUser {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "account_id")
+    private Long accountId;
+
     @Column(name = "customer_id")
     private Long custumerId;
 
@@ -34,12 +37,23 @@ public class BaseLdUser {
     @Column(name = "user_icon")
     private String icon;
 
+    @Column(name = "is_prime")
+    private Integer isPrime;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Long getCustumerId() {
