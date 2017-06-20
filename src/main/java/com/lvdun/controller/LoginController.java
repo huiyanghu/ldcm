@@ -121,9 +121,18 @@ public class LoginController {
         } else {
             Map map = null;
             try {
+                System.out.println("username  : " + username);
                 map = accountService.login(username, password);
-                session.setAttribute("loginUser", map);
-                isSuccess = 1;
+                if (map!=null){
+                    code=-1;
+                    session.setAttribute("loginUser", map);
+                    isSuccess = 1;
+                }else{
+                    code=10;
+                    isSuccess = 1;
+                }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
                 isSuccess = 0;
