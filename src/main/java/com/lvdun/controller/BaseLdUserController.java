@@ -31,7 +31,6 @@ public class BaseLdUserController {
         Map resutltMap = new HashMap();
         int isSuccess = 0;
         Map result = new HashMap();
-
         try {
             result = baseLdUserService.getBaseLdUserPage(customerId, page, pageSize);
             isSuccess = 1;
