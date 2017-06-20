@@ -37,6 +37,8 @@ public class CmAccount {
     @Column(name = "status")
     private Integer status;//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
 
+    @Column(name = "role_flag")
+    private Integer roleFlag;
 
     public Long getId() {
         return id;
@@ -44,6 +46,14 @@ public class CmAccount {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCustumerId() {
+        return custumerId;
+    }
+
+    public void setCustumerId(Long custumerId) {
+        this.custumerId = custumerId;
     }
 
     public String getAccount() {
@@ -94,11 +104,11 @@ public class CmAccount {
         this.status = status;
     }
 
-    public Long getCustumerId() {
-        return custumerId;
+    public Integer getRoleFlag() {
+        return roleFlag;
     }
 
-    public void setCustumerId(Long custumerId) {
-        this.custumerId = custumerId;
+    public void setRoleFlag(Integer roleFlag) {
+        this.roleFlag = roleFlag;
     }
 }

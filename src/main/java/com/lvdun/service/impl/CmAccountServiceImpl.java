@@ -6,7 +6,7 @@ import com.lvdun.dao.CmCustumerRepository;
 import com.lvdun.dao.CodePlatformRepository;
 import com.lvdun.entity.BaseLdUser;
 import com.lvdun.entity.CmAccount;
-import com.lvdun.entity.CmCustumer;
+import com.lvdun.entity.CmCustomer;
 import com.lvdun.entity.CodePlatform;
 import com.lvdun.service.CmAccountService;
 import com.lvdun.util.MD5;
@@ -45,7 +45,7 @@ public class CmAccountServiceImpl implements CmAccountService {
                 map.put("name", account.getName());
                 map.put("account", account.getAccount());
                 map.put("customId", account.getCustumerId());
-                CmCustumer custumer = custumerDao.findOne(account.getCustumerId());
+                CmCustomer custumer = custumerDao.findOne(account.getCustumerId());
                 map.put("platformId", custumer.getPlatformId());
                 return map;
             }
@@ -72,20 +72,14 @@ public class CmAccountServiceImpl implements CmAccountService {
         platformDao.save(platform);
 
         /*客户(公司)*/
-        CmCustumer custumer = new CmCustumer();
+        CmCustomer custumer = new CmCustomer();
         custumer.setCustomerName(companyName);
         custumer.setContactsMobile(mobile);
         custumer.setStatus(0);
         custumer.setPlatformId(platform.getId());
         custumerDao.save(custumer);
 
-        /*运营人员*/
-        BaseLdUser baseLdUser = new BaseLdUser();
-        baseLdUser.setCustumerId(custumer.getId());
-        baseLdUser.setEmail(email);
-        baseLdUser.setMobile(mobile);
-        baseLdUser.setName(name);
-        baseLdUserDao.save(baseLdUser);
+
 
         /*账户*/
         CmAccount account = new CmAccount();
@@ -97,6 +91,15 @@ public class CmAccountServiceImpl implements CmAccountService {
         account.setStatus(0);//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
         account.setCustumerId(custumer.getId());
         CmAccount cmAccount = accountDao.save(account);
+
+        /*运营人员*/
+        BaseLdUser baseLdUser = new BaseLdUser();
+        baseLdUser.setCustomerId(custumer.getId());
+        baseLdUser.setAccount(account);
+        baseLdUser.setEmail(email);
+        baseLdUser.setMobile(mobile);
+        baseLdUser.setName(name);
+        baseLdUserDao.save(baseLdUser);
 
         return cmAccount;
     }

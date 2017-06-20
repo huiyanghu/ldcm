@@ -5,10 +5,11 @@ import com.lvdun.dao.CmCustumerRepository;
 import com.lvdun.dao.CodeAppRepository;
 import com.lvdun.dao.CodePlatformRepository;
 import com.lvdun.entity.BaseLdUser;
-import com.lvdun.entity.CmCustumer;
+import com.lvdun.entity.CmCustomer;
 import com.lvdun.entity.CodeApp;
 import com.lvdun.entity.CodePlatform;
 import com.lvdun.service.CustomerService;
+import com.lvdun.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,23 +33,37 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Map getCustomerInfo(Long custumerId) {
-        CmCustumer custumer = custumerDao.findOne(custumerId);
+    public Map getCustomerInfo(Long customerId) {
+        CmCustomer custumer = custumerDao.findOne(customerId);
         CodePlatform platform = platformDao.findOne(custumer.getPlatformId());
-        List<BaseLdUser> baseLdUserList = baseLdUserDao.getPrimeBaseLdUser(custumerId);
+        List<BaseLdUser> baseLdUserList = baseLdUserDao.getPrimeBaseLdUser(customerId);
 
         BaseLdUser baseLdUser = null;
         if (baseLdUserList != null && !baseLdUserList.isEmpty()) {
             baseLdUser = baseLdUserList.get(0);
         }
 
-        List<CodeApp> appList=appDao.getCodeAppByPlatformId(custumer.getPlatformId());
+        List<CodeApp> appList = appDao.getCodeAppByPlatformId(custumer.getPlatformId());
 
         Map map = new HashMap();
         map.put("basicInfo", custumer);
         map.put("commonInfo", platform);
         map.put("operateInfo", baseLdUser);
-        map.put("appList",appList);
+        map.put("appList", appList);
         return map;
+    }
+
+    @Override
+    public void updateCustomerBasicInfo(Long customerId, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
+        CmCustomer customer = custumerDao.findOne(customerId);
+        customer.setCustomerName(customerName);
+        customer.setContactsName(contactsName);
+        customer.setContactsMobile(contactsMobile);
+        customer.setApprovalTime(DateUtil.getDateByStr(approvalTime));
+        customer.setProvince(province);
+        customer.setCity(city);
+        customer.setRegion(region);
+
+        custumerDao.save(customer);
     }
 }

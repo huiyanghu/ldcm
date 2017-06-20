@@ -13,11 +13,12 @@ public class BaseLdUser {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "account_id")
-    private Long accountId;
+    @ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id")
+    private CmAccount account;
 
     @Column(name = "customer_id")
-    private Long custumerId;
+    private Long customerId;
 
     @Column(name = "user_name")
     private String name;
@@ -37,8 +38,6 @@ public class BaseLdUser {
     @Column(name = "user_icon")
     private String icon;
 
-    @Column(name = "is_prime")
-    private Integer isPrime;
 
     public Long getId() {
         return id;
@@ -48,20 +47,20 @@ public class BaseLdUser {
         this.id = id;
     }
 
-    public Long getAccountId() {
-        return accountId;
+    public CmAccount getAccount() {
+        return account;
     }
 
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
+    public void setAccount(CmAccount account) {
+        this.account = account;
     }
 
-    public Long getCustumerId() {
-        return custumerId;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustumerId(Long custumerId) {
-        this.custumerId = custumerId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {
@@ -111,4 +110,5 @@ public class BaseLdUser {
     public void setIcon(String icon) {
         this.icon = icon;
     }
+
 }

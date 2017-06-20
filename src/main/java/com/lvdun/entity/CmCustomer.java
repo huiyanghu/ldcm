@@ -1,13 +1,14 @@
 package com.lvdun.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/6/14.
  */
 @Entity
 @Table(name = "cm_customer")
-public class CmCustumer {
+public class CmCustomer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -32,7 +33,8 @@ public class CmCustumer {
     private String contactsMobile;//联系人手机
 
     @Column(name = "approval_time")
-    private String approvalTime;//超级管理员审批时间
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date approvalTime;//超级管理员审批时间
 
     @Column(name = "province")
     private String province;//所在省
@@ -95,11 +97,11 @@ public class CmCustumer {
         this.contactsMobile = contactsMobile;
     }
 
-    public String getApprovalTime() {
+    public Date getApprovalTime() {
         return approvalTime;
     }
 
-    public void setApprovalTime(String approvalTime) {
+    public void setApprovalTime(Date approvalTime) {
         this.approvalTime = approvalTime;
     }
 

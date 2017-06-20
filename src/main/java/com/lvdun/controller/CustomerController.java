@@ -21,6 +21,7 @@ public class CustomerController {
 
     /**
      * 客户信息
+     *
      * @param session
      * @return
      */
@@ -30,11 +31,11 @@ public class CustomerController {
 
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId=1L;
-        Map customerInfo=new HashMap();
+        Long customerId = 1L;
+        Map customerInfo = new HashMap();
         int isSuccess = 0;
         try {
-            customerInfo= customerService.getCustomerInfo(customerId);
+            customerInfo = customerService.getCustomerInfo(customerId);
             isSuccess = 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,22 +50,21 @@ public class CustomerController {
 
     @RequestMapping("/updateBasicInfo")
     @ResponseBody
-    public Object updateBasicInfo(HttpSession session) {
+    public Object updateBasicInfo(HttpSession session, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
 
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId=1L;
-        Map customerInfo=new HashMap();
+        Long customerId = 1L;
         int isSuccess = 0;
         try {
-            customerInfo= customerService.getCustomerInfo(customerId);
+            customerService.updateCustomerBasicInfo(customerId, customerName, contactsName, contactsMobile, approvalTime, province, city, region);
             isSuccess = 1;
         } catch (Exception e) {
+            isSuccess = 0;
             e.printStackTrace();
         }
         Map resutltMap = new HashMap();
         resutltMap.put("isSuccess", isSuccess);
-        resutltMap.put("result", customerInfo);
 
         System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);

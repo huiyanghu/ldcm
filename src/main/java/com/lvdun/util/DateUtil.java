@@ -413,13 +413,13 @@ public class DateUtil {
             return null;
         }
         if (sDate.length() != DateUtil.DATE_FORMAT_DATEONLY.length()
-            && sDate.length() != DateUtil.DATE_FORMAT_DATETIME.length()) {
+                && sDate.length() != DateUtil.DATE_FORMAT_DATETIME.length()) {
             return null;
         }
         return toSqlTimestamp(sDate,
-            sDate.length() == DateUtil.DATE_FORMAT_DATEONLY.length()
-                ? DateUtil.DATE_FORMAT_DATEONLY
-                : DateUtil.DATE_FORMAT_DATETIME);
+                sDate.length() == DateUtil.DATE_FORMAT_DATEONLY.length()
+                        ? DateUtil.DATE_FORMAT_DATEONLY
+                        : DateUtil.DATE_FORMAT_DATETIME);
 
     }
 
@@ -540,7 +540,7 @@ public class DateUtil {
         temp = dt.toString();
         if (sFmt.equals(DateUtil.DATE_FORMAT_DATETIME) || // "YYYY/MM/DD
 // HH24:MI:SS"
-            sFmt.equals(DateUtil.DATE_FORMAT_DATEONLY)) { // YYYY/MM/DD
+                sFmt.equals(DateUtil.DATE_FORMAT_DATEONLY)) { // YYYY/MM/DD
             temp = temp.substring(0, sFmt.length());
             out = temp.replace('/', '-');
 // }else if( sFmt.equals (DateUtil.DATE_FORMAT_SESSION ) ){
@@ -596,20 +596,20 @@ public class DateUtil {
      * @param interModel 区间的模式
      *                   <p>
      *                   <pre>
-     *                                     取值：
-     *                                     LEFT_OPEN_RIGHT_OPEN
-     *                                     LEFT_CLOSE_RIGHT_OPEN
-     *                                     LEFT_OPEN_RIGHT_CLOSE
-     *                                     LEFT_CLOSE_RIGHT_CLOSE
-     *                                     </pre>
+     *                                                       取值：
+     *                                                       LEFT_OPEN_RIGHT_OPEN
+     *                                                       LEFT_CLOSE_RIGHT_OPEN
+     *                                                       LEFT_OPEN_RIGHT_CLOSE
+     *                                                       LEFT_CLOSE_RIGHT_CLOSE
+     *                                                       </pre>
      * @param compModel  比较的模式
      *                   <p>
      *                   <pre>
-     *                                     取值：
-     *                                     COMP_MODEL_DATE 只比较日期，不比较时间
-     *                                     COMP_MODEL_TIME 只比较时间，不比较日期
-     *                                     COMP_MODEL_DATETIME 比较日期，也比较时间
-     *                                     </pre>
+     *                                                       取值：
+     *                                                       COMP_MODEL_DATE 只比较日期，不比较时间
+     *                                                       COMP_MODEL_TIME 只比较时间，不比较日期
+     *                                                       COMP_MODEL_DATETIME 比较日期，也比较时间
+     *                                                       </pre>
      * @return
      */
     public static boolean isBetween(Date date, Date start, Date end, int interModel, int compModel) {
@@ -1279,8 +1279,8 @@ public class DateUtil {
             Date date2 = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 
             diff = (date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000) > 0 ? (date1.getTime() - date2.getTime())
-                / (24 * 60 * 60 * 1000)
-                : (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+                    / (24 * 60 * 60 * 1000)
+                    : (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
         } catch (ParseException e) {
         }
         return diff;
@@ -1291,7 +1291,7 @@ public class DateUtil {
             return 0L;
         }
         long diff = (date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000) > 0 ? (date1.getTime() - date2
-            .getTime()) / (24 * 60 * 60 * 1000) : (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
+                .getTime()) / (24 * 60 * 60 * 1000) : (date2.getTime() - date1.getTime()) / (24 * 60 * 60 * 1000);
         return diff;
     }
 
@@ -1367,21 +1367,25 @@ public class DateUtil {
         return value;
 
     }
+
     public static Date stringToDate(String strTime, String formatType)
-        throws ParseException {
+            throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat(formatType);
         Date date = null;
         date = formatter.parse(strTime);
         return date;
     }
+
     public static Date long2Date(long time) throws ParseException {
-        String str  = formatFromDate(FORMATER_YYYY_MM_DD_HH_MM_SS, time);
-        return stringToDate(str,FORMATER_YYYY_MM_DD_HH_MM_SS);
+        String str = formatFromDate(FORMATER_YYYY_MM_DD_HH_MM_SS, time);
+        return stringToDate(str, FORMATER_YYYY_MM_DD_HH_MM_SS);
     }
+
     /**
      * 按照给定的格式，格式化日期
-     * @param formater	需要的格式，常用的例如"yyyy-MM-dd HH:mm:ss"
-     * @param time 日期
+     *
+     * @param formater 需要的格式，常用的例如"yyyy-MM-dd HH:mm:ss"
+     * @param time     日期
      * @return
      */
     public static String formatFromDate(String formater, Long time) {
