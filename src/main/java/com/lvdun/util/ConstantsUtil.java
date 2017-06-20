@@ -36,11 +36,6 @@ public class ConstantsUtil {
     }
 
 
-    /*public static void main(String[] args) {
-        List<Map> list = ConstantsUtil.getConstants("grabListRuleListStatus");
-        System.out.println(list);
-        String value = ConstantsUtil.getConstants("grabListRuleListStatus", "1");
-        System.out.println(value);
-    }*/
+
 
 }

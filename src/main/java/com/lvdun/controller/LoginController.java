@@ -122,6 +122,7 @@ public class LoginController {
             Map map = null;
             try {
                 map = accountService.login(username, password);
+                session.setAttribute("loginUser", map);
                 isSuccess = 1;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -212,5 +213,10 @@ public class LoginController {
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
         return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "hello/list";
     }
 }
