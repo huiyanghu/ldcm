@@ -5,6 +5,7 @@ import com.lvdun.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -15,9 +16,35 @@ import java.util.Map;
  * Created by Administrator on 2017/6/19.
  */
 @Controller
+@RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     CustomerService customerService;
+
+    /**
+     * 绿盾超级管理员有此功能
+     *
+     * @param session
+     * @return
+     */
+    @RequestMapping("/list")
+    public Object getCustomerList(HttpSession session, @RequestParam(required = false, name = "page", defaultValue = "1") Integer page, @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize) {
+        Map resutltMap = new HashMap();
+        int isSuccess = 0;
+        Map result = new HashMap();
+        try {
+            result=customerService.getCustomerPage(page,pageSize);
+            isSuccess = 1;
+        } catch (Exception e) {
+            isSuccess = 0;
+            e.printStackTrace();
+        }
+
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        System.out.println(JSON.toJSONString(resutltMap));
+        return JSON.toJSON(resutltMap);
+    }
 
     /**
      * 客户信息

@@ -3,6 +3,7 @@ package com.lvdun.controller;
 import com.alibaba.fastjson.JSON;
 import com.lvdun.entity.CmAccount;
 import com.lvdun.service.CmAccountService;
+import com.lvdun.service.CustomerService;
 import com.lvdun.util.MsgConstants;
 import com.lvdun.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     CmAccountService accountService;
+    @Autowired
+    CustomerService customerService;
 
     @RequestMapping("/")
     public String toIndex() {
@@ -80,6 +83,7 @@ public class LoginController {
             attributes.addFlashAttribute("msg", MsgConstants.WRONG_VERCODE);
             return "redirect:/toRegister";
         } else {
+
             CmAccount cmAccount = accountService.register(email, companyName, name, mobile, password);
             attributes.addFlashAttribute("msg", MsgConstants.REGISTER_SUCCESS);
             return "redirect:/toLogin";
@@ -88,43 +92,123 @@ public class LoginController {
 
     }
 
-    @RequestMapping(path = "/registerAjax", method = RequestMethod.POST)
-    @ResponseBody
-    public Object registerAjax(HttpSession session, String email, String companyName, String name, String mobile, String password, String confirmPassword, String verificationCode) {
-        //code:0//失败  1//成功  2//验证码
+    @RequestMapping(path = "/loginAjax", method = RequestMethod.POST)
+    public Object loginAjax(HttpSession session, String username, String password, String verificationCode, RedirectAttributes attributes) {
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-
-        if (!password.equals(confirmPassword)) {
-            result.put("code", 0);
+        int isSuccess = 0;
+        int code = -1;////code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
+        if (StringUtil.isEmpty(username)) {
+            result.put("code", 1);
             resutltMap.put("isSuccess", 1);
             resutltMap.put("result", result);
             return JSON.toJSON(resutltMap);
         }
+        if (StringUtil.isEmpty(password)) {
+            result.put("code", 5);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+
         verificationCode = verificationCode.toLowerCase();
         String verCode = "" + session.getAttribute("verCode");
         if (!verificationCode.equals(verCode)) {
+            code = 0;
+            isSuccess = 1;
+        } else {
+            Map map = null;
+            try {
+                map = accountService.login(username, password);
+                isSuccess = 1;
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping(path = "/registerAjax", method = RequestMethod.POST)
+    @ResponseBody
+    public Object registerAjax(HttpSession session, String email, String companyName, String name, String mobile, String password, String confirmPassword, String verificationCode) {
+
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 0;
+        int code = -1;////code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
+
+        if (StringUtil.isEmpty(email)) {
+            result.put("code", 1);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(companyName)) {
             result.put("code", 2);
             resutltMap.put("isSuccess", 1);
             resutltMap.put("result", result);
             return JSON.toJSON(resutltMap);
-        } else {
-            try {
-                accountService.register(email, companyName, name, mobile, password);
-                result.put("code", 1);
-                resutltMap.put("isSuccess", 1);
-                resutltMap.put("result", result);
-                return JSON.toJSON(resutltMap);
-            } catch (Exception e) {
-                e.printStackTrace();
-                result.put("code", 0);
-                resutltMap.put("isSuccess", 0);
-                resutltMap.put("result", result);
-                return JSON.toJSON(resutltMap);
-            }
+        }
+        if (StringUtil.isEmpty(name)) {
+            result.put("code", 3);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(mobile)) {
+            result.put("code", 4);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(password)) {
+            result.put("code", 5);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
 
+        if (!password.equals(confirmPassword)) {
+            result.put("code", 6);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
         }
 
 
+        verificationCode = verificationCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!verificationCode.equals(verCode)) {
+            code = 2;
+            isSuccess = 1;
+        } else {
+            try {
+                if (customerService.checkIsExists(companyName)) {
+                    code = 8;
+                    isSuccess = 1;
+                } else {
+                    if (accountService.checkIsExists(email)) {
+                        code = 7;
+                        isSuccess = 1;
+                    } else {
+                        accountService.register(email, companyName, name, mobile, password);
+                        code = 1;
+                        isSuccess = 1;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
+
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
     }
 }

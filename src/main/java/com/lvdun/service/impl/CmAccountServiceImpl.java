@@ -2,7 +2,7 @@ package com.lvdun.service.impl;
 
 import com.lvdun.dao.BaseLdUserRepository;
 import com.lvdun.dao.CmAccountRepository;
-import com.lvdun.dao.CmCustumerRepository;
+import com.lvdun.dao.CmCustomerRepository;
 import com.lvdun.dao.CodePlatformRepository;
 import com.lvdun.entity.BaseLdUser;
 import com.lvdun.entity.CmAccount;
@@ -26,11 +26,12 @@ public class CmAccountServiceImpl implements CmAccountService {
     @Autowired
     CmAccountRepository accountDao;
     @Autowired
-    CmCustumerRepository custumerDao;
+    CmCustomerRepository customerDao;
     @Autowired
     CodePlatformRepository platformDao;
     @Autowired
     BaseLdUserRepository baseLdUserDao;
+
 
 
     @Override
@@ -44,9 +45,10 @@ public class CmAccountServiceImpl implements CmAccountService {
                 map.put("id", account.getId());
                 map.put("name", account.getName());
                 map.put("account", account.getAccount());
-                map.put("customId", account.getCustumerId());
-                CmCustomer custumer = custumerDao.findOne(account.getCustumerId());
-                map.put("platformId", custumer.getPlatformId());
+                map.put("customId", account.getCustomerId());
+                CmCustomer customer = customerDao.findOne(account.getCustomerId());
+                map.put("platformId", customer.getPlatformId());
+                map.put("roleFlag", account.getRoleFlag());
                 return map;
             }
         }
@@ -54,12 +56,12 @@ public class CmAccountServiceImpl implements CmAccountService {
     }
 
     @Override
-    public Integer checkIsExists(String username) {
+    public Boolean checkIsExists(String username) {
         List<CmAccount> accountList = accountDao.getByAccount(username);
         if (accountList != null && accountList.size() > 0) {
-            return accountList.size();
+            return true;
         }
-        return 0;
+        return false;
     }
 
 
@@ -72,29 +74,28 @@ public class CmAccountServiceImpl implements CmAccountService {
         platformDao.save(platform);
 
         /*客户(公司)*/
-        CmCustomer custumer = new CmCustomer();
-        custumer.setCustomerName(companyName);
-        custumer.setContactsMobile(mobile);
-        custumer.setStatus(0);
-        custumer.setPlatformId(platform.getId());
-        custumerDao.save(custumer);
-
-
+        CmCustomer customer = new CmCustomer();
+        customer.setCustomerName(companyName);
+        customer.setContactsMobile(mobile);
+        customer.setStatus(0);
+        customer.setPlatformId(platform.getId());
+        customerDao.save(customer);
 
         /*账户*/
         CmAccount account = new CmAccount();
         account.setAccount(email);
         account.setName(name);
         account.setEmail(email);
+        account.setRoleFlag(1);//管理员
         account.setMobile(mobile);
         account.setPassword(MD5.MD5(password));
         account.setStatus(0);//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
-        account.setCustumerId(custumer.getId());
+        account.setCustomerId(customer.getId());
         CmAccount cmAccount = accountDao.save(account);
 
         /*运营人员*/
         BaseLdUser baseLdUser = new BaseLdUser();
-        baseLdUser.setCustomerId(custumer.getId());
+        baseLdUser.setCustomerId(customer.getId());
         baseLdUser.setAccount(account);
         baseLdUser.setEmail(email);
         baseLdUser.setMobile(mobile);

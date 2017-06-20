@@ -1,9 +1,12 @@
 package com.lvdun.service.impl;
 
 import com.lvdun.dao.BaseLdUserRepository;
+import com.lvdun.dao.CmAccountRepository;
 import com.lvdun.entity.BaseLdUser;
+import com.lvdun.entity.CmAccount;
 import com.lvdun.service.BaseLdUserService;
 import com.lvdun.util.ConstantsUtil;
+import com.lvdun.util.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +16,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +29,13 @@ import java.util.Map;
 public class BaseLdUserServiceImpl implements BaseLdUserService {
     @Autowired
     BaseLdUserRepository baseLdUserDao;
+    @Autowired
+    CmAccountRepository accountDao;
 
     public Map getBaseLdUserPage(Long customerId, Integer page, Integer pageSize) {
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
         Sort sort = new Sort(order);
-        Pageable pageable = new PageRequest(page-1, pageSize, sort);
+        Pageable pageable = new PageRequest(page - 1, pageSize, sort);
 
         Specification<BaseLdUser> specification = new Specification<BaseLdUser>() {
             @Override
@@ -43,25 +49,92 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
 
         Page<BaseLdUser> baseLdUserPage = baseLdUserDao.findAll(specification, pageable);
         List<BaseLdUser> baseLdUserList = baseLdUserPage.getContent();
-        Map result=new HashMap();
+        Map result = new HashMap();
         List<Map> list = new ArrayList<>();
         for (BaseLdUser baseLdUser : baseLdUserList) {
             Map map = new HashMap();
-            map.put("id", baseLdUser.getId());
+            map.put("baseLdUserId", baseLdUser.getId());
             map.put("account", baseLdUser.getAccount() == null ? "" : baseLdUser.getAccount().getAccount());
             map.put("name", baseLdUser.getName());
             map.put("mobile", baseLdUser.getMobile());
             map.put("roleFlag", baseLdUser.getAccount() == null ? "" : baseLdUser.getAccount().getRoleFlag());
-            map.put("roleFlagStr", baseLdUser.getAccount() == null ? "" : ConstantsUtil.getConstants("CmAccount_RoleFlag", "" + baseLdUser.getAccount().getRoleFlag()));
+            map.put("roleFlagStr", baseLdUser.getAccount() == null ? "" : ConstantsUtil.getConstants("CmAccount_roleFlag", "" + baseLdUser.getAccount().getRoleFlag()));
             list.add(map);
         }
 
-        result.put("content",list);
-        result.put("total",baseLdUserPage.getTotalElements());
-        result.put("pageCount",baseLdUserPage.getTotalPages());
-        result.put("currentPage",baseLdUserPage.getNumber()+1);
-        result.put("pageSize",baseLdUserPage.getSize());
+        result.put("content", list);
+        result.put("total", baseLdUserPage.getTotalElements());
+        result.put("pageCount", baseLdUserPage.getTotalPages());
+        result.put("currentPage", baseLdUserPage.getNumber() + 1);
+        result.put("pageSize", baseLdUserPage.getSize());
 
         return result;
+    }
+
+    @Override
+    @Transactional
+    public void addUser(Long customerId, String email, String name, String mobile, Integer roleFlag, String password) {
+        /*账户*/
+        CmAccount account = new CmAccount();
+        account.setAccount(email);
+        account.setName(name);
+        account.setEmail(email);
+        account.setMobile(mobile);
+        account.setPassword(MD5.MD5(password));
+        account.setStatus(0);//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
+        if (roleFlag == 1) {
+            accountDao.updateAccountRoleFlagToZero();
+        }
+        account.setRoleFlag(roleFlag);
+        account.setCustomerId(customerId);
+        accountDao.save(account);
+
+        /*运营人员*/
+        BaseLdUser baseLdUser = new BaseLdUser();
+        baseLdUser.setCustomerId(customerId);
+        baseLdUser.setAccount(account);
+        baseLdUser.setEmail(email);
+        baseLdUser.setMobile(mobile);
+        baseLdUser.setName(name);
+        baseLdUserDao.save(baseLdUser);
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(Long baseLdUserId, String name, String mobile, Integer roleFlag) {
+        BaseLdUser baseLdUser = baseLdUserDao.findOne(baseLdUserId);
+        baseLdUser.setName(name);
+        baseLdUser.setMobile(mobile);
+        baseLdUserDao.save(baseLdUser);
+
+        CmAccount account = accountDao.findOne(baseLdUser.getAccount().getId());
+        account.setName(name);
+        account.setMobile(mobile);
+        if (roleFlag == 1) {
+            accountDao.updateAccountRoleFlagToZero();
+        }
+        account.setRoleFlag(roleFlag);
+        accountDao.save(account);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUser(Long baseLdUserId) {
+        BaseLdUser baseLdUser = baseLdUserDao.findOne(baseLdUserId);
+        baseLdUserDao.delete(baseLdUserId);
+        accountDao.delete(baseLdUser.getAccount().getId());
+    }
+
+    @Override
+    public void changeBaseLdUserRole(Long baseLdUserId) {
+        BaseLdUser baseLdUser = baseLdUserDao.findOne(baseLdUserId);
+        CmAccount account = accountDao.findOne(baseLdUser.getAccount().getId());
+        if (account.getRoleFlag() == 0) {
+            accountDao.updateAccountRoleFlagToZero();
+            account.setRoleFlag(1);
+        } else {
+            account.setRoleFlag(0);
+        }
+        accountDao.save(account);
     }
 }

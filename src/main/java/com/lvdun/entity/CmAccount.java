@@ -17,7 +17,7 @@ public class CmAccount {
     //@ManyToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
     //@JoinColumn(name = "customer_id")
     @Column(name = "customer_id")
-    private Long custumerId;
+    private Long customerId;
 
     @Column(name = "account")
     private String account;//登录账号，邮箱登录(唯一)
@@ -48,12 +48,13 @@ public class CmAccount {
         this.id = id;
     }
 
-    public Long getCustumerId() {
-        return custumerId;
+
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustumerId(Long custumerId) {
-        this.custumerId = custumerId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getAccount() {
