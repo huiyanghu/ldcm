@@ -93,7 +93,7 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/loginAjax", method = RequestMethod.POST)
-    public Object loginAjax(HttpSession session, String username, String password, String verificationCode, RedirectAttributes attributes) {
+    public Object loginAjax(HttpSession session, String username, String password, String verificationCode) {
         Map resutltMap = new HashMap();
         Map result = new HashMap();
         int isSuccess = 0;
