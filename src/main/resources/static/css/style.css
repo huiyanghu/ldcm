@@ -36,7 +36,7 @@ small,weak{color:#666}
 input::-webkit-input-placeholder {color:#222;line-height:inherit;} 
 input:-moz-placeholder {color:#222;line-height:inherit;} 
 input::-moz-placeholder {color:#222;line-height:inherit;}
-
+*, *:before, *:after{-webkit-box-sizing:content-box;box-sizing:content-box;}
 /*login*/
 body{height:100%;background:#16a085;overflow:hidden;}
 canvas{z-index:-1;position:absolute;}
@@ -66,9 +66,10 @@ canvas{z-index:-1;position:absolute;}
 .admin_login dd.pwd_icon:before{content:"\f023";}
 .admin_login dd.val_icon:before{content:"n";}
 .admin_login dd .ver_btn{text-align:right;border:none;color:#048f74;height:42px;line-height:42px;margin:0;z-index:1;position:relative;float:right;background:#fff;}
-.admin_login dd .checkcode{float:left;width:182px;height:42px;background:#fff}
+.admin_login dd .checkcode{float:left;width:216px;height:42px;background:#fff}
 .admin_login dd .checkcode input{width:120px;height:36px;line-height:36px;padding:3px;color:#666;outline:none;border:none;text-indent:2.8em;}
-.admin_login dd .checkcode canvas{width:85px;height:36px;padding:3px;z-index:0;background:#fff;}
+.admin_login dd .checkcode #myCanvas{width:85px;height:42px;padding: 0;z-index:0;background:#fff;vertical-align: top;
+    float: right;}
 .admin_login dd.psd-relevant{line-height:42px;color: #fff;}
 .admin_login dd.psd-relevant .left{float: left; cursor: pointer;}
 .admin_login dd.psd-relevant .left .fa{display: inline-block; margin-right: 5px; width: 14px;}

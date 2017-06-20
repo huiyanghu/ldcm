@@ -2278,11 +2278,11 @@ input[type="button"].btn-block {
   -webkit-transition: height 0.35s ease;
   transition: height 0.35s ease;
 }
-@font-face {
+/*@font-face {
   font-family: 'Glyphicons Halflings';
   src: url('../bootstrap/fonts/glyphicons-halflings-regular.eot');
   src: url('../bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
-}
+}*/
 .glyphicon {
   position: relative;
   top: 1px;
@@ -5487,9 +5487,9 @@ button.close {
 .affix {
   position: fixed;
 }
-@-ms-viewport {
+/*@-ms-viewport {
   width: device-width;
-}
+}*/
 .visible-xs,
 tr.visible-xs,
 th.visible-xs,
@@ -6503,7 +6503,7 @@ fieldset[disabled] .btn-yellow.active {
   margin-top: -8px;
   padding: 10px;
   cursor: pointer;
-  min-width: 275x;
+  min-width: 275px;
   color: #fff;
   border-radius: 0 4px 4px 0;
   background-color: #a8bc7b;
@@ -6515,7 +6515,7 @@ fieldset[disabled] .btn-yellow.active {
   font-weight: normal;
 }
 .date-range .reportrange .fa-calendar {
-  text-transform: normal;
+  /*text-transform: normal;*/
   color: #fff;
   margin-top: 0px;
   font-size: 14px;
@@ -6941,7 +6941,7 @@ fieldset[disabled] .btn-yellow.active {
 .box:after,
 .box:before {
   display: table;
-  color: "";
+  color: #fff;
 }
 /* Misc */
 .list-group-header {
@@ -8176,17 +8176,17 @@ div[data-role="editor-toolbar"] {
 .filter-content .hover-content a.hover-link i {
   color: #FFFFFF;
 }
-/* Login Screen */
+/* Login Screen *//*
 .login {
   background: url("../img/light_noise_diagonal.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
   height: 100%;
   min-height: 100%;
-}
+}*/
 .login #logo {
   margin-top: 30px;
   text-align: center;
 }
-.login-box {
+/*.login-box {
   background: url("../img/lockscreen.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
   color: #FFFFFF;
   border-radius: 7px 7px 7px 7px;
@@ -8194,7 +8194,7 @@ div[data-role="editor-toolbar"] {
   padding: 55px 60px 60px;
   position: relative;
   min-height: 300px;
-}
+}*/
 .login-box input,
 .login-box textarea {
   background: none repeat scroll 0 0 #FFFFFF;
@@ -8717,7 +8717,7 @@ div[data-role="editor-toolbar"] {
   text-transform: uppercase;
 }
 #not-found-bg {
-  background: url(../img/gallery/img/1.jpg) 0 0 no-repeat fixed;
+  /*background: url(../img/gallery/img/1.jpg) 0 0 no-repeat fixed;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -8977,7 +8977,7 @@ ul.stats li small {
   white-space: -moz-pre-wrap;
   /* Mozilla, since 1999 */
 
-  white-space: -pre-wrap;
+  /*white-space: -pre-wrap;*/
   /* Opera 4-6 */
   white-space: -o-pre-wrap;
   /* Opera 7 */
@@ -9010,7 +9010,7 @@ ul.stats li small {
 .well.well-bottom {
   border-radius: 0 0 4px 4px;
 }
-.tips{ width: 100px; list-style: none; position: absolute; top: 25px; right: 20px;}\
+.tips{ width: 100px; list-style: none; position: absolute; top: 25px; right: 20px;}
 .tips .ui-select{ width: 100% !important;}
 .tips .ui-select .ui-select-wrap{ width: 100% !important;}
 
