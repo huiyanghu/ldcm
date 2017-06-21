@@ -149,9 +149,14 @@ public class StatArriveController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping("/test")
-    public void test() {
-        statArriveService.getDistinctApp(1L);
+    @RequestMapping("/trendAnalysis")
+    public String trendAnalysis(){
+        return "business-overview/trend-analysis";
+    }
+
+    @RequestMapping("/rejectAnalysis")
+    public String rejectAnalysis(){
+        return "business-overview/reject-analysis";
     }
 
 }
