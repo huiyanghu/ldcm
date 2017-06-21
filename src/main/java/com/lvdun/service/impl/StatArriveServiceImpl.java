@@ -37,12 +37,13 @@ public class StatArriveServiceImpl implements StatArriveService {
         //String str_total = "[";
         //String str_pass = "[";
 
-        List totalList=new ArrayList();
-        List passList=new ArrayList();
+        List totalList = new ArrayList();
+        List passList = new ArrayList();
 
         for (Map map : chapterGeneral) {
-            List totalListTemp=new ArrayList();
-            List passListTemp=new ArrayList();
+            List totalListTemp = new ArrayList();
+            List passListTemp = new ArrayList();
+
 
             Date date = DateUtil.getDateByStr("" + map.get("time_stamp"));
             totalListTemp.add(date.getTime());
@@ -93,12 +94,12 @@ public class StatArriveServiceImpl implements StatArriveService {
     public List getChapterByType(Integer flag, Long platformId, String field) {
         List<Map> typeList = statArriveDao.getDistinctType(platformId);
         String bigStr = "[";
-        List  bigList=new ArrayList();
+        List bigList = new ArrayList();
         for (Map type : typeList) {
             List<Map> list = statArriveDao.getChapterByType(flag, platformId, Integer.parseInt("" + type.get("data_type")));
-            List smallList=new ArrayList();
+            List smallList = new ArrayList();
             for (Map map : list) {
-                List littleList=new ArrayList();
+                List littleList = new ArrayList();
                 Date date = DateUtil.getDateByStr("" + map.get("time_stamp"));
                 littleList.add(date.getTime());
                 Integer count_total = Integer.parseInt("" + map.get(field));
@@ -114,12 +115,12 @@ public class StatArriveServiceImpl implements StatArriveService {
     @Override
     public List getChapterByApp(Integer flag, Long platformId, String field) {
         List<Map> appList = statArriveDao.getDistinctApp(platformId);
-        List  bigList=new ArrayList();
+        List bigList = new ArrayList();
         for (Map app : appList) {
             List<Map> list = statArriveDao.getChapterByApp(flag, platformId, Long.parseLong("" + app.get("id")));
-            List smallList=new ArrayList();
+            List smallList = new ArrayList();
             for (Map map : list) {
-                List littleList=new ArrayList();
+                List littleList = new ArrayList();
                 Date date = DateUtil.getDateByStr("" + map.get("time_stamp"));
                 littleList.add(date.getTime());
                 Integer count_total = Integer.parseInt("" + map.get(field));
@@ -130,6 +131,18 @@ public class StatArriveServiceImpl implements StatArriveService {
         }
         return bigList;
     }
+
+
+    /*public static void main(String[] args) throws Exception {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(Long.parseLong("1394194605000")));
+        System.out.println("======================");
+
+        String dateStr1 = "2014-3-7 20:16:45";
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = dateFormat.parse(dateStr1);
+        System.out.println(dateStr1 + "  is  " + date.getTime());
+    }*/
 
 
 }

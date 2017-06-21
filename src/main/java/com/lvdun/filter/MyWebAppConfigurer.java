@@ -2,6 +2,7 @@ package com.lvdun.filter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -26,5 +27,11 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
         };
         LoginInterceptor loginInterceptor1 = new LoginInterceptor();
         registry.addInterceptor(loginInterceptor1).addPathPatterns(addPath).excludePathPatterns(excludePath);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        super.addResourceHandlers(registry);
     }
 }
