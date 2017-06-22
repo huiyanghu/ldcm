@@ -22,6 +22,7 @@ public class BaseLdUserController {
     @Autowired
     BaseLdUserService baseLdUserService;
 
+
     @RequestMapping("/list")
     @ResponseBody
     public Object list(HttpSession session, @RequestParam(required = false, name = "page", defaultValue = "1") Integer page, @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize) {
