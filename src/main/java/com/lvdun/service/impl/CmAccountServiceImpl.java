@@ -56,8 +56,17 @@ public class CmAccountServiceImpl implements CmAccountService {
     }
 
     @Override
-    public Boolean checkIsExists(String username) {
-        List<CmAccount> accountList = accountDao.getByAccount(username);
+    public Boolean checkAccountIsExists(String acccount) {
+        List<CmAccount> accountList = accountDao.getByAccount(acccount);
+        if (accountList != null && accountList.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean checkMobileIsExists(String mobile) {
+        List<CmAccount> accountList = accountDao.getByMobile(mobile);
         if (accountList != null && accountList.size() > 0) {
             return true;
         }

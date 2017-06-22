@@ -27,7 +27,6 @@ public class BaseLdUserController {
     CmAccountService accountService;
 
 
-
     @RequestMapping("/list")
     @ResponseBody
     public Object list(HttpSession session, @RequestParam(required = false, name = "page", defaultValue = "1") Integer page, @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize) {
@@ -97,21 +96,24 @@ public class BaseLdUserController {
             isSuccess = 1;
         } else {
             try {
-                if (accountService.checkIsExists(email)) {
-                    code = 7;
+                if (accountService.checkMobileIsExists(mobile)) {
+                    code = 9;//手机号已存在
                     isSuccess = 1;
-                }else{
-                    baseLdUserService.addUser(customerId, email, name, mobile, roleFlag, password);
-                    code = -1;
-                    isSuccess = 1;
+                } else {
+                    if (accountService.checkAccountIsExists(email)) {
+                        code = 7;
+                        isSuccess = 1;
+                    } else {
+                        baseLdUserService.addUser(customerId, email, name, mobile, roleFlag, password);
+                        code = -1;
+                        isSuccess = 1;
+                    }
                 }
-
             } catch (Exception e) {
                 isSuccess = 0;
                 e.printStackTrace();
             }
         }
-
 
         resutltMap.put("isSuccess", isSuccess);
         result.put("code", code);

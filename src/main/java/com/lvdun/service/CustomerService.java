@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by Administrator on 2017/6/19.
  */
 public interface CustomerService {
-    public Boolean checkIsExists(String customerName);
+    public Boolean checkCustomerNameIsExists(String customerName);
 
     public Map getCustomerInfo(Long customerId);
 

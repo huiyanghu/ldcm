@@ -18,6 +18,9 @@ public interface CmAccountRepository extends CrudRepository<CmAccount, Long> {
     @Query("select account from CmAccount account where account.account=:account")
     public List<CmAccount> getByAccount(@Param("account") String username);
 
+    @Query("select account from CmAccount account where account.mobile=:mobile")
+    public List<CmAccount> getByMobile(@Param("mobile") String mobile);
+
     @Query("select account from CmAccount account where account.roleFlag=1 and account.customerId = :customerId ")
     public List<CmAccount> getPrimeCmAccount(@Param("customerId") Long customerId);
 

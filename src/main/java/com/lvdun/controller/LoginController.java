@@ -199,19 +199,25 @@ public class LoginController {
             isSuccess = 1;
         } else {
             try {
-                if (customerService.checkIsExists(companyName)) {
-                    code = 8;
+                if (accountService.checkMobileIsExists(mobile)) {
+                    code = 9;//手机号已存在
                     isSuccess = 1;
                 } else {
-                    if (accountService.checkIsExists(email)) {
-                        code = 7;
+                    if (customerService.checkCustomerNameIsExists(companyName)) {
+                        code = 8;
                         isSuccess = 1;
                     } else {
-                        accountService.register(email, companyName, name, mobile, password);
-                        code = -1;
-                        isSuccess = 1;
+                        if (accountService.checkAccountIsExists(email)) {
+                            code = 7;
+                            isSuccess = 1;
+                        } else {
+                            accountService.register(email, companyName, name, mobile, password);
+                            code = -1;
+                            isSuccess = 1;
+                        }
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
                 isSuccess = 0;
@@ -231,20 +237,32 @@ public class LoginController {
         return null;
     }
 
+    /**
+     * 短信校验用户名,手机号是否合法
+     *
+     * @param session
+     * @param email
+     * @param mobile
+     * @param msgCode
+     * @return
+     */
     @RequestMapping(path = "/checkByMobile", method = RequestMethod.POST)
     @ResponseBody
-    public Object registerAjax(HttpSession session, String email, String phone, String msgCode) {
+    public Object checkByMobile(HttpSession session, String email, String mobile, String msgCode) {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
         int code = -1;////code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
-
-
-
-         {
+        {
             try {
+                accountService.checkAccountIsExists(email);
+                if (!accountService.checkAccountIsExists(email)){
+                    code=1;//用户名不存在
 
+                }else if(accountService.checkMobileIsExists(mobile)){
+
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 isSuccess = 0;
@@ -256,8 +274,6 @@ public class LoginController {
         resutltMap.put("result", result);
         return JSON.toJSON(resutltMap);
     }
-
-
 
 
     @RequestMapping("/test")

@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
-    public Boolean checkIsExists(String customerName) {
+    public Boolean checkCustomerNameIsExists(String customerName) {
         List<CmCustomer> customerList = customerDao.getByCustomerName(customerName);
         if (customerList != null && customerList.size() > 0) {
             return true;
