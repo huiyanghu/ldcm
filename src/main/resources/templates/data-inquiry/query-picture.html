@@ -56,7 +56,7 @@
 								<div class="breadcrumb">
 									<li>
 										<!--<i class="fa fa-home"></i>-->
-										<a href="/business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+										<a href="../statArrive/trendAnalysis" onclick="homePage()">首页</a>
 									</li>
 									<li>
 										<!--<i class="fa fa-home"></i>-->
@@ -75,18 +75,12 @@
 											<div class="form-group">
 												<div class="col-md-3 no-padding-left">
 													<label for="" class="col-md-4 control-label width-70">产品名称：</label>
-													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
-															<option value="">请选择</option>
-															<option value="1">产品1</option>
-															<option value="2">产品2</option>
-														</select>
-													</div>
+													<div class="col-md-8 no-padding-left" id="appNameDiv"></div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">审核结果：</label>
+													<label for="status" class="col-md-4 control-label width-70">审核结果：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="status" id="status" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
 															<option value="1">通过</option>
 															<option value="2">不通过</option>
@@ -95,9 +89,9 @@
 													</div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">原因分析：</label>
+													<label for="reasonCode" class="col-md-4 control-label width-70">原因分析：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="reasonCode" id="reasonCode" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
 															<option value="0">内容正常</option>
 															<option value="7">广告</option>
@@ -111,9 +105,9 @@
 													</div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">审核方式：</label>
+													<label for="reviewType" class="col-md-4 control-label width-70">审核方式：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="reviewType" id="reviewType" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
 															<option value="1">智能审核</option>
 															<option value="2">人工审核</option>
@@ -125,32 +119,32 @@
 												<div class="col-md-6 no-padding-left">
 													<label class="col-md-2 control-label width-70">按时间段：</label>
 													<div class="col-md-5 no-padding-left time-far">
-														<input type="tel" name="startTime" class="form-control" value="2017-05-05" onClick="WdatePicker()"/>
+														<input type="tel" name="startTime" id="startTime" class="form-control" placeholder="请选择开始时间" value="" onClick="WdatePicker()"/>
 														<span class="arrow open"></span>
 													</div>
 													<div class="col-md-5 no-padding-left time-far">
-														<input type="tel" name="endTime" class="form-control" value="2017-05-05" onClick="WdatePicker()"/>
+														<input type="tel" name="endTime" id="endTime" class="form-control" placeholder="请选择结束时间" value="" onClick="WdatePicker()"/>
 														<span class="arrow open"></span>
 													</div>
 												</div>
 												<div class="col-md-6 no-padding-left">
-													<label for="" class="col-md-2 control-label width-70">字段查询：</label>
+													<label for="conditionName" class="col-md-2 control-label width-70">字段查询：</label>
 													<div class="col-md-5 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="conditionName" id="conditionName" class="form-control ui-select" style="width: 100%;">
 															<option value="">请选择要查询的字段</option>
-															<option value="1">指定内容</option>
-															<option value="2">指定用户</option>
-															<option value="3">指定IP</option>
-															<option value="4">指定设备号</option>
+															<option value="data_content">指定内容</option>
+															<option value="user_id">指定用户</option>
+															<option value="user_ip">指定IP</option>
+															<option value="device_id">指定设备号</option>
 														</select>
 													</div>
 													<div class="col-md-5 no-padding-left">
-														<input type="email" class="form-control no-padding-right" id="" placeholder="请输入要查询的字段值"/>
+														<input type="text" class="form-control no-padding-right" name="conditionValue" id="conditionValue" placeholder="请输入要查询的字段值"/>
 													</div>
 												</div>
 											</div>
 											<div class="form-actions clearfix">
-												<input type="submit" value="搜索" class="btn btn-primary btn-self"/>
+												<input type="button" value="搜索" class="btn btn-primary btn-self"/>
 											</div>
 										</form>
 									</div>
@@ -168,254 +162,8 @@
 								<div class="box-body">
 									<div class="row">
 										<div class="col-md-12 no-padding">
-											<ul class="pic-list">
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/img1.jpg" alt="" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">1</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-04-05</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i value="1" title="通过" class="fa fa-check-circle active"></i>
-																	<i value="2" title="不通过" class="fa fa-times-circle"></i>
-																	<i value="3"title="待审核" class="fa fa-question-circle"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" disabled="disabled" class="form-control ui-select" style="width: 90%;">
-																		<option value="0" selected="selected">内容正常</option>
-																		<option value="7">广告</option>
-																		<option value="2">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6">异常行为</option>
-																		<option value="9">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/img2.jpg" alt="" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">2</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-05-05</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i value="1" title="通过" class="fa fa-check-circle"></i>
-																	<i value="2" title="不通过" class="fa fa-times-circle"></i>
-																	<i value="3"title="待审核" class="fa fa-question-circle active"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" value="7" class="form-control ui-select" style="width: 90%;">
-																		<option value="0">内容正常</option>
-																		<option value="7" selected="selected">广告</option>
-																		<option value="2">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6">异常行为</option>
-																		<option value="9">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/img3.jpg" alt="" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">3</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-05-05</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i title="通过" class="fa fa-check-circle active"></i>
-																	<i title="不通过" class="fa fa-times-circle"></i>
-																	<i title="待审核" class="fa fa-question-circle"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" value="0" disabled="disabled" class="form-control ui-select" style="width: 90%;">
-																		<option value="0" selected="selected">内容正常</option>
-																		<option value="7">广告</option>
-																		<option value="2">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6">异常行为</option>
-																		<option value="9">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/avatars/avatar6.jpg" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">4</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-05-25</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i title="通过" class="fa fa-check-circle"></i>
-																	<i title="不通过" class="fa fa-times-circle active"></i>
-																	<i title="待审核" class="fa fa-question-circle"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" value="2" class="form-control ui-select" style="width: 90%;">
-																		<option value="0">内容正常</option>
-																		<option value="7">广告</option>
-																		<option value="2" selected="selected">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6">异常行为</option>
-																		<option value="9">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/avatars/avatar7.jpg" alt="" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">5</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-05-25</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i title="通过" class="fa fa-check-circle"></i>
-																	<i title="不通过" class="fa fa-times-circle active"></i>
-																	<i title="待审核" class="fa fa-question-circle"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" value="6" class="form-control ui-select" style="width: 90%;">
-																		<option value="0">内容正常</option>
-																		<option value="7">广告</option>
-																		<option value="2">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6" selected="selected">异常行为</option>
-																		<option value="9">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="top">
-														<div class="pic-over">
-															<img src="/img/gallery/1.png" alt="" />
-														</div>
-														<div class="bottom">
-															<div class="bg"></div>
-															<div class="field">
-																<div class="pull-left left-half">数据ID：</div>
-																<div class="pull-left">6</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">发布时间：</div>
-																<div class="pull-left">2017-06-05</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">审核结果：</div>
-																<div class="pull-left review-td">
-																	<i title="通过" class="fa fa-check-circle"></i>
-																	<i title="不通过" class="fa fa-times-circle active"></i>
-																	<i title="待审核" class="fa fa-question-circle"></i>
-																</div>
-															</div>
-															<div class="field">
-																<div class="pull-left left-half">原因分析：</div>
-																<div class="pull-left">
-																	<select name="" id="" value="9" class="form-control ui-select" style="width: 90%;">
-																		<option value="0">内容正常</option>
-																		<option value="7">广告</option>
-																		<option value="2">色情</option>
-																		<option value="1">政治</option>
-																		<option value="3">违法</option>
-																		<option value="4">违规</option>
-																		<option value="6">异常行为</option>
-																		<option value="9" selected="selected">自定义识别</option>
-																	</select>
-																</div>
-															</div>
-														</div>
-													</div>
-												</li>
-											</ul>
+											<div class="noData">抱歉，亲，没有搜到您想要的结果。</div>
+											<ul class="pic-list"></ul>
 											<div class="pagination" id="pagination"></div>
 										</div>
 									</div>
@@ -441,34 +189,11 @@
 		<script type="text/javascript" src="/js/bootstrap-wizard/form-wizard.min.js"></script>
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablecloth.js"></script>
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
 		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript" src="/js/a-script/pagination.js"></script>
 		<script type="text/javascript" src="/js/a-script/ui-select.js"></script>
 		<script type="text/javascript" src="/js/a-script/common.js"></script>
-		<script type="text/javascript">
-			$('.ui-select').ui_select();
-			var paginationJson = {
-		        currentPage: 1,
-		        pageSize: 10,
-		        pageCount: 1,
-		        total: 4,
-		    }
-		    creat_pagination(paginationJson);
-		    var w = $('.pic-list li').width();
-		    $('.pic-list li .top').css({'height':w,'line-height':w+'px'});
-		    window.onresize = function(){
-		    	var w = $('.pic-list li').width();
-		    	$('.pic-list li .top').css({'height':w,'line-height':w+'px'});
-		    }
-		    $('.review-td .fa').click(function(){
-		    	var value = $(this).attr('value');
-		    	$(this).addClass('active').siblings().removeClass('active');
-		    	if(value == '1'){
-		    		$(this).parents('.bottom').find('.ui-select').ui_select().disable().val(0);
-		    	}else{
-		    		$(this).parents('.bottom').find('.ui-select').ui_select().enable();
-		    	}
-		    });
-		</script>
+		<script type="text/javascript" src="/js/a-script/query-picture.js"></script>
 	</body>
 </html>

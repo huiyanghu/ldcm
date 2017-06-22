@@ -56,11 +56,9 @@
 							<div class="page-header">
 								<div class="breadcrumb">
 									<li>
-										<!--<i class="fa fa-home"></i>-->
-										<a href="/business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+										<a href="../statArrive/trendAnalysis" onclick="homePage()">首页</a>
 									</li>
 									<li>
-										<!--<i class="fa fa-home"></i>-->
 										<a href="javascript:void(0);">查询文本内容</a>
 									</li>
 								</div>
@@ -76,29 +74,23 @@
 											<div class="form-group">
 												<div class="col-md-3 no-padding-left">
 													<label for="" class="col-md-4 control-label width-70">产品名称：</label>
-													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
-															<option value="">请选择</option>
-															<option value="1">产品1</option>
-															<option value="2">产品2</option>
-														</select>
-													</div>
+													<div class="col-md-8 no-padding-left" id="appNameDiv"></div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">审核结果：</label>
+													<label for="status" class="col-md-4 control-label width-70">审核结果：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="status" id="status" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
 															<option value="1">通过</option>
-															<option value="2">不通过</option>
-															<option value="3">不确定</option>
+															<option value="0">不通过</option>
+															<option value="2">不确定</option>
 														</select>
 													</div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">原因分析：</label>
+													<label for="reasonCode" class="col-md-4 control-label width-70">原因分析：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="reasonCode" id="reasonCode" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
 															<option value="0">内容正常</option>
 															<option value="7">广告</option>
@@ -112,46 +104,46 @@
 													</div>
 												</div>
 												<div class="col-md-3 no-padding-left">
-													<label for="" class="col-md-4 control-label width-70">审核方式：</label>
+													<label for="reviewType" class="col-md-4 control-label width-70">审核方式：</label>
 													<div class="col-md-8 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="reviewType" id="reviewType" class="form-control ui-select" style="width: 100%;">
 															<option value="">全部</option>
-															<option value="1">智能审核</option>
-															<option value="2">人工审核</option>
+															<option value="-1">智能审核</option>
+															<option value="0">人工审核</option>
 														</select>
 													</div>
 												</div>
 											</div>
 											<div class="form-group">
 												<div class="col-md-6 no-padding-left">
-													<label class="col-md-2 control-label width-70">按时间段：</label>
+													<label for="" class="col-md-2 control-label width-70">按时间段：</label>
 													<div class="col-md-5 no-padding-left time-far">
-														<input type="tel" name="startTime" class="form-control" value="2017-05-05" onClick="WdatePicker()"/>
+														<input type="tel" name="startTime" id="startTime" class="form-control" placeholder="请选择开始时间" value="" onClick="WdatePicker()"/>
 														<span class="arrow open"></span>
 													</div>
 													<div class="col-md-5 no-padding-left time-far">
-														<input type="tel" name="endTime" class="form-control" value="2017-05-05" onClick="WdatePicker()"/>
+														<input type="tel" name="endTime" id="endTime" class="form-control" placeholder="请选择结束时间" value="" onClick="WdatePicker()"/>
 														<span class="arrow open"></span>
 													</div>
 												</div>
 												<div class="col-md-6 no-padding-left">
-													<label for="" class="col-md-2 control-label width-70">字段查询：</label>
+													<label for="conditionName" class="col-md-2 control-label width-70">字段查询：</label>
 													<div class="col-md-5 no-padding-left">
-														<select name="" id="" class="form-control ui-select" style="width: 100%;">
+														<select name="conditionName" id="conditionName" class="form-control ui-select" style="width: 100%;">
 															<option value="">请选择要查询的字段</option>
-															<option value="1">指定内容</option>
-															<option value="2">指定用户</option>
-															<option value="3">指定IP</option>
-															<option value="4">指定设备号</option>
+															<option value="data_content">指定内容</option>
+															<option value="user_id">指定用户</option>
+															<option value="user_ip">指定IP</option>
+															<option value="device_id">指定设备号</option>
 														</select>
 													</div>
 													<div class="col-md-5 no-padding-left">
-														<input type="email" class="form-control no-padding-right" id="" placeholder="请输入要查询的字段值"/>
+														<input type="text" class="form-control no-padding-right" name="conditionValue" id="conditionValue" placeholder="请输入要查询的字段值"/>
 													</div>
 												</div>
 											</div>
 											<div class="form-actions clearfix">
-												<input type="submit" value="搜索" class="btn btn-primary btn-self"/>
+												<input type="button" value="搜索" id="dataBtn" class="btn btn-primary btn-self"/>
 											</div>
 										</form>
 									</div>
@@ -168,112 +160,11 @@
 								</div>
 								<div class="box-body">
 									<div class="row">
-										<div class="col-md-12 no-padding">
+										<div class="col-md-12 no-padding" id="dataTable">
+											<div class="noData">抱歉，亲，没有搜到您想要的结果。</div>
 											<table class="table table-bordered table-striped data-table">
-												<thead>
-													<tr>
-														<th>审核结果</th>
-														<th>原因分析</th>
-														<th>文本内容</th>
-														<th>发布时间</th>
-														<th>用户IP</th>
-														<th>数据ID</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td class="review-td">
-															<i value="1" title="通过" class="fa fa-check-circle active"></i>
-															<i value="2" title="不通过" class="fa fa-times-circle"></i>
-															<i value="3"title="待审核" class="fa fa-question-circle"></i>
-														</td>
-														<td class="reason-td">
-															<select name="" id="" disabled="disabled" class="form-control ui-select" style="width: 100%;">
-																<option value="0">内容正常</option>
-																<option value="7">广告</option>
-																<option value="2">色情</option>
-																<option value="1">政治</option>
-																<option value="3">违法</option>
-																<option value="4">违规</option>
-																<option value="6">异常行为</option>
-																<option value="9">自定义识别</option>
-															</select>
-														</td>
-														<td title="http://www.baidu.com/">http://www.baidu.com/</td>
-														<td>2015-12-05 00:00</td>
-														<td>192.168.1.1</td>
-														<td>1</td>
-													</tr>
-													<tr>
-														<td class="review-td">
-															<i value="1" title="通过" class="fa fa-check-circle"></i>
-															<i value="2" title="不通过" class="fa fa-times-circle active"></i>
-															<i value="3"title="待审核" class="fa fa-question-circle"></i>
-														</td>
-														<td class="reason-td">
-															<select name="" id="" value="1" class="form-control ui-select" style="width: 100%;">
-																<option value="0">内容正常</option>
-																<option value="7">广告</option>
-																<option value="2">色情</option>
-																<option value="1" selected="selected">政治</option>
-																<option value="3">违法</option>
-																<option value="4">违规</option>
-																<option value="6">异常行为</option>
-																<option value="9">自定义识别</option>
-															</select>
-														</td>
-														<td title="http://blog.csdn.net/pdw2009/article/details/46916205">http://blog.csdn.net/pdw2009/article/details/46916205</td>
-														<td>2017-04-06 00:00</td>
-														<td>192.168.2.2</td>
-														<td>2</td>
-													</tr>
-													<tr>
-														<td class="review-td">
-															<i value="1" title="通过" class="fa fa-check-circle"></i>
-															<i value="2" title="不通过" class="fa fa-times-circle"></i>
-															<i value="3"title="待审核" class="fa fa-question-circle active"></i>
-														</td>
-														<td class="reason-td">
-															<select name="" id="" value="4" class="form-control ui-select" style="width: 100%;">
-																<option value="0">内容正常</option>
-																<option value="7">广告</option>
-																<option value="2">色情</option>
-																<option value="1">政治</option>
-																<option value="3">违法</option>
-																<option value="4" selected="selected">违规</option>
-																<option value="6">异常行为</option>
-																<option value="9">自定义识别</option>
-															</select>
-														</td>
-														<td title="http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html">http://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html</td>
-														<td>2017-05-05 00:00</td>
-														<td>192.168.3.3</td>
-														<td>3</td>
-													</tr>
-													<tr>
-														<td class="review-td">
-															<i value="1" title="通过" class="fa fa-check-circle"></i>
-															<i value="2" title="不通过" class="fa fa-times-circle"></i>
-															<i value="3"title="待审核" class="fa fa-question-circle active"></i>
-														</td>
-														<td class="reason-td">
-															<select name="" id="" value="9" class="form-control ui-select" style="width: 100%;">
-																<option value="0">内容正常</option>
-																<option value="7">广告</option>
-																<option value="2">色情</option>
-																<option value="1">政治</option>
-																<option value="3">违法</option>
-																<option value="4">违规</option>
-																<option value="6">异常行为</option>
-																<option value="9" selected="selected">自定义识别</option>
-															</select>
-														</td>
-														<td title="https://s.click.taobao.com/lk7o3Bx">https://s.click.taobao.com/lk7o3Bx</td>
-														<td>2017-05-06 00:00</td>
-														<td>192.168.4.4</td>
-														<td>4</td>
-													</tr>
-												</tbody>
+												<thead id="datatHead"></thead>
+												<tbody id="datatBody"></tbody>
 											</table>
 											<div class="pagination" id="pagination"></div>
 										</div>
@@ -300,28 +191,11 @@
 		<script type="text/javascript" src="/js/bootstrap-wizard/form-wizard.min.js"></script>
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablecloth.js"></script>
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
 		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript" src="/js/a-script/pagination.js"></script>
 		<script type="text/javascript" src="/js/a-script/ui-select.js"></script>
 		<script type="text/javascript" src="/js/a-script/common.js"></script>
-		<script type="text/javascript">
-			$('.ui-select').ui_select();
-			var paginationJson = {
-		        currentPage: 1,
-		        pageSize: 10,
-		        pageCount: 1,
-		        total: 4,
-		    }
-		    creat_pagination(paginationJson);
-		    $('.review-td .fa').click(function(){
-		    	var value = $(this).attr('value');
-		    	$(this).addClass('active').siblings().removeClass('active');
-		    	if(value == '1'){
-		    		$(this).parents('tr').find('.ui-select').ui_select().disable().val(0);
-		    	}else{
-		    		$(this).parents('tr').find('.ui-select').ui_select().enable();
-		    	}
-		    });
-		</script>	
+		<script type="text/javascript" src="/js/a-script/query-text.js"></script>
 	</body>
 </html>

@@ -9281,6 +9281,13 @@ ul.stats li small {
   color: #999;
 }
 
+.noData{
+  width: 100%;
+  text-align: center;
+  line-height: 100px;
+  color: #999;
+  display: none;
+}
 /*load旋转*/
 .loadDiv{
   position: absolute;

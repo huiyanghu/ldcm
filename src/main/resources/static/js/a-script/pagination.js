@@ -33,6 +33,12 @@ function creat_pagination(paginationJson){
     $('#pagination').html(pageHtml);
     creat_paging(currentPaging,pageCount);
     $('#pageSize').html(currentPageSize);
+    $.each($('.selectCon li'),function(){
+        var sizeNum = Number($(this).text());
+        if(sizeNum == currentPageSize){
+            $(this).addClass('active').siblings().removeClass('active');
+        }
+    });
     $('.pageSelect').click(function(){
         if($('.selectCon').is(':hidden')){
             $('.selectCon').show();
@@ -54,6 +60,7 @@ function creat_pagination(paginationJson){
         }
         $('#pageJump').attr('max',newPageCount);
         creat_paging(currentPaging,pageCount);
+        getDataList(currentPaging);
         $('.selectCon').hide();
     });
     /* 上一页 */
@@ -62,6 +69,7 @@ function creat_pagination(paginationJson){
             return false;
         }else{
             creat_paging(currentPaging-1,pageCount);
+            getDataList(currentPaging);
         }
     });
     /* 下一页 */
@@ -70,6 +78,7 @@ function creat_pagination(paginationJson){
             return false;
         }else{
             creat_paging(currentPaging+1,pageCount);
+            getDataList(currentPaging);
         }
     });
     /* 跳转某页 */
@@ -78,6 +87,7 @@ function creat_pagination(paginationJson){
         if(page != '' || page != undefined || page != null){
             page = Number(page);
             creat_paging(page,pageCount);
+            getDataList(page);
         }
     });
     document.onkeyup = keyUp;
@@ -96,11 +106,6 @@ function keyUp(e) {
     } else if (currKey == 39 || currKey == 34) {
         $('.nextPage').click();
     }
-}
-/* 获取数据 */
-function get_list_data(){
-    //console.log('get_list_data--currentPage>'+currentPaging);
-    //console.log('get_list_data--pageSize>'+currentPageSize);
 }
 /* 根据currentPage，重写pageing */
 function creat_paging(currentPage,pageCount){
@@ -148,5 +153,6 @@ function creat_paging(currentPage,pageCount){
         $(this).addClass('active').siblings().removeClass('active');
         var page = Number($(this).html());
         creat_paging(page,pageCount);
+        getDataList(page);
     });
 }
