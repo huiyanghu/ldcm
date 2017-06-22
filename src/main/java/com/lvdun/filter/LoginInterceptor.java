@@ -19,6 +19,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             System.out.println("session  : " + session.getAttribute("loginUser"));
             if (session.getAttribute("loginUser") == null) {
                 response.sendRedirect("/toLogin");//登录
+
                 return false;
             }
             return true;

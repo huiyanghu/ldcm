@@ -32,6 +32,7 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
     @Autowired
     CmAccountRepository accountDao;
 
+    @Override
     public Map getBaseLdUserPage(Long customerId, Integer page, Integer pageSize) {
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
         Sort sort = new Sort(order);
@@ -126,6 +127,7 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
     }
 
     @Override
+    @Transactional
     public void changeBaseLdUserRole(Long baseLdUserId) {
         BaseLdUser baseLdUser = baseLdUserDao.findOne(baseLdUserId);
         CmAccount account = accountDao.findOne(baseLdUser.getAccount().getId());
