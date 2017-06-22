@@ -129,5 +129,14 @@ public class DataRecordController {
         return JSON.toJSON(resutltMap);
     }
 
+    @RequestMapping("/queryText")
+    public String queryText(){
+        return "data-inquiry/query-text";
+    }
+
+    @RequestMapping("/queryPicture")
+    public String queryPicture(){
+        return "data-inquiry/query-picture";
+    }
 
 }
