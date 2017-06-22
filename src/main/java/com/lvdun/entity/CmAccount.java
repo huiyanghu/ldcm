@@ -1,6 +1,7 @@
 package com.lvdun.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2017/6/14.
@@ -40,6 +41,13 @@ public class CmAccount {
     @Column(name = "role_flag")
     private Integer roleFlag;
 
+    @Column(name = "activity_code")
+    private String activityCode;
+
+    @Column(name = "send_email_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sendEmailDate;
+
     public Long getId() {
         return id;
     }
@@ -47,7 +55,6 @@ public class CmAccount {
     public void setId(Long id) {
         this.id = id;
     }
-
 
     public Long getCustomerId() {
         return customerId;
@@ -111,5 +118,21 @@ public class CmAccount {
 
     public void setRoleFlag(Integer roleFlag) {
         this.roleFlag = roleFlag;
+    }
+
+    public String getActivityCode() {
+        return activityCode;
+    }
+
+    public void setActivityCode(String activityCode) {
+        this.activityCode = activityCode;
+    }
+
+    public Date getSendEmailDate() {
+        return sendEmailDate;
+    }
+
+    public void setSendEmailDate(Date sendEmailDate) {
+        this.sendEmailDate = sendEmailDate;
     }
 }

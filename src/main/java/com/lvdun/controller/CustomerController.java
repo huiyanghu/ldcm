@@ -35,7 +35,7 @@ public class CustomerController {
         int isSuccess = 0;
         Map result = new HashMap();
         try {
-            result=customerService.getCustomerPage(page,pageSize);
+            result = customerService.getCustomerPage(page, pageSize);
             isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
@@ -48,7 +48,7 @@ public class CustomerController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping(path = "/reviewCustomer",method = RequestMethod.GET)
+    @RequestMapping(path = "/reviewCustomer", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public Object reviewCustomer(HttpSession session, Long customerId) {
 
@@ -99,7 +99,7 @@ public class CustomerController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping(path = "/updateBasicInfo",method = RequestMethod.POST)
+    @RequestMapping(path = "/updateBasicInfo", method = RequestMethod.POST)
     @ResponseBody
     public Object updateBasicInfo(HttpSession session, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
 

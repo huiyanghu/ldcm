@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lvdun.entity.CmAccount;
 import com.lvdun.service.CmAccountService;
 import com.lvdun.service.CustomerService;
-import com.lvdun.util.MsgConstants;
-import com.lvdun.util.StringUtil;
+import com.lvdun.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -233,8 +233,95 @@ public class LoginController {
     @RequestMapping("/sendMessage")
     @ResponseBody
     public Object sendMessage(String mobile) {
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 1;
+        Long mobileMsgId;
+        {
+            try {
+                mobileMsgId = 999L;
+                result.put("mobileMsgId", mobileMsgId);
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
 
-        return null;
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
+    }
+
+
+    @RequestMapping("/sendEmail")
+    @ResponseBody
+    public Object sendEmail(HttpSession session, String email, String veriCode) {
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 1;
+        int code = -1;
+
+        veriCode = veriCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!veriCode.equals(verCode)) {
+            code = 1;//验证码不正确
+        } else {
+            try {
+                CmAccount account = accountService.getByAccount(email);
+                String activityCode = account.getActivityCode();
+
+
+                StringBuffer emailContent = new StringBuffer();
+                emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次！/n");
+                emailContent.append("<a href=\"");
+                emailContent.append("http://");
+                emailContent.append(ConstantsUtil.SERVER_IP);
+                emailContent.append(":");
+                emailContent.append(ConstantsUtil.SERVER_PORT);
+                emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+                emailContent.append("\">");
+                emailContent.append("http://");
+                emailContent.append(ConstantsUtil.SERVER_IP);
+                emailContent.append(":");
+                emailContent.append(ConstantsUtil.SERVER_PORT);
+                emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+                emailContent.append("</a>");
+
+                SendEmailUtil.send(email, emailContent.toString());
+
+                account.setSendEmailDate(new Date());
+                accountService.save(account);
+            } catch (Exception e) {
+                isSuccess = 0;
+                e.printStackTrace();
+            }
+        }
+
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping("/checkEmail")
+    public String checkEmail(HttpSession session, String email, String activityCode, Map map) {
+
+        CmAccount account = accountService.getByAccount(email);
+        account.getSendEmailDate();
+        DateUtil.addHour(new Date(), 1);
+        if (DateUtil.addHour(new Date(), 1).before(account.getSendEmailDate())) {
+            return "";
+        } else if (!account.getActivityCode().equals(activityCode)) {
+            return "";
+        } else {
+            map.put("email", email);
+            String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
+            account.setActivityCode(activityCodeNew);
+            accountService.save(account);
+            return "redirect:/toChangePassword";
+        }
+
+
     }
 
     /**
@@ -248,7 +335,7 @@ public class LoginController {
      */
     @RequestMapping(path = "/checkByMobile", method = RequestMethod.POST)
     @ResponseBody
-    public Object checkByMobile(HttpSession session, String email, String mobile, String msgCode) {
+    public Object checkByMobile(HttpSession session, String email, String mobile, String msgCode, Long mobileMsgId) {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
@@ -257,11 +344,14 @@ public class LoginController {
         {
             try {
                 accountService.checkAccountIsExists(email);
-                if (!accountService.checkAccountIsExists(email)){
-                    code=1;//用户名不存在
-
-                }else if(accountService.checkMobileIsExists(mobile)){
-
+                if (!accountService.checkAccountIsExists(email)) {
+                    code = 1;//用户名不存在
+                } else if (accountService.checkMobileIsExists(mobile)) {
+                    code = 2;//手机号不存在
+                } else {
+                    if ("111111".equals(msgCode)) {
+                        code = -1;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -277,7 +367,9 @@ public class LoginController {
 
 
     @RequestMapping("/test")
-    public String test() {
-        return "hello/test";
+    public void test() {
+        SendEmailUtil.send("915854720@qq.com", "http://localhost:8080/dataRecord/list?dataType=1");
     }
+
+
 }

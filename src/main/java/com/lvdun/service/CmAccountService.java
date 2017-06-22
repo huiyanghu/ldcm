@@ -11,7 +11,12 @@ public interface CmAccountService {
     public Map login(String username, String password);
 
     public Boolean checkAccountIsExists(String username);
+
     public Boolean checkMobileIsExists(String username);
 
     public CmAccount register(String email, String companyName, String name, String mobile, String password);
+
+    public CmAccount getByAccount(String email);
+
+    void save(CmAccount account);
 }

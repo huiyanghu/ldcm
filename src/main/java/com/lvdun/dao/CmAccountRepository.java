@@ -27,4 +27,6 @@ public interface CmAccountRepository extends CrudRepository<CmAccount, Long> {
     @Query("update CmAccount set roleFlag=0")
     @Modifying
     public void updateAccountRoleFlagToZero();
+
+
 }

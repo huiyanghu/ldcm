@@ -114,5 +114,20 @@ public class CmAccountServiceImpl implements CmAccountService {
         return cmAccount;
     }
 
+    @Override
+    public CmAccount getByAccount(String email) {
+        List<CmAccount> accountList= accountDao.getByAccount(email);
+        if (accountList!=null&&!accountList.isEmpty()){
+            return accountList.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public void save(CmAccount account) {
+        accountDao.save(account);
+    }
+
 
 }

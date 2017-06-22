@@ -10,8 +10,11 @@ import java.util.Map;
  * Created by Administrator on 2017/5/27.
  */
 public class ConstantsUtil {
-    public static Map constants = new HashMap();
+    public static String SERVER_IP="localhost";
+    public static String SERVER_PORT="80";
 
+
+    public static Map constants = new HashMap();
     static {
         constants.put("CmAccount_roleFlag", "[{'key':1,'value':'管理员'},{'key':0,'value':'操作员'}]");
         constants.put("CmCustomer_status", "[{'key':0,'value':'新注册用户'},{'key':-1,'value':'体验用户'},{'key':1,'value':'正式收费用户'},{'key':2,'value':'正式免费用户'},{'key':3,'value':'暂停客户'}]");
