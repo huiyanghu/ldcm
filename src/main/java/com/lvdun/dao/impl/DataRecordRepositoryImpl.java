@@ -25,7 +25,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         String sql = "select " +
                 " data_record.id, " +
                 " data_record.user_ip, " +
-                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I:%S') as publish_date"+
+                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I:%S') as publish_date,"+
                 " data_resource.data_content, " +
                 " data_record.reason_code, " +
                 " data_record.status " +
@@ -57,7 +57,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
 
             }
         }
-        if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName())) {
+        if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName())&&StringUtil.isNotEmpty(dataRecordQuery.getConditionValue())) {
             if ("data_content".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_resource." + dataRecordQuery.getConditionName() + " like %" + dataRecordQuery.getConditionValue() + "%";
             } else if ("user_ip".equals(dataRecordQuery.getConditionName())) {
@@ -65,7 +65,6 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
             } else if ("device_id".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_record." + dataRecordQuery.getConditionName() + "  like %" + dataRecordQuery.getConditionValue() + "%";
             }
-
         }
         sql += sqlCondition;
 
@@ -76,7 +75,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         List<Map> list = query.list();
 
 
-        String sqlCount = "select count(id) " +
+        String sqlCount = "select count(*) as count " +
                 " from data_record " +
                 " left join data_resource on data_record.id=data_resource.data_record_id " +
                 " left join code_app on data_record.code_app_id=code_app.id " +
@@ -84,7 +83,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
                 " where 1=1 " +
                 " and code_platform.id=" + platformId;
         sqlCount += sqlCondition;
-        query = session.createSQLQuery(sqlCount).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        query = session.createSQLQuery(sqlCount);
         Integer count = Integer.parseInt("" + query.uniqueResult());
 
 

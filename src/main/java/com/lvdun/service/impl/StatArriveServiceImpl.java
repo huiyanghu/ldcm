@@ -93,7 +93,6 @@ public class StatArriveServiceImpl implements StatArriveService {
     @Override
     public List getChapterByType(Integer flag, Long platformId, String field) {
         List<Map> typeList = statArriveDao.getDistinctType(platformId);
-        String bigStr = "[";
         List bigList = new ArrayList();
         for (Map type : typeList) {
             List<Map> list = statArriveDao.getChapterByType(flag, platformId, Integer.parseInt("" + type.get("data_type")));
@@ -133,16 +132,7 @@ public class StatArriveServiceImpl implements StatArriveService {
     }
 
 
-    /*public static void main(String[] args) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(sdf.format(Long.parseLong("1394194605000")));
-        System.out.println("======================");
 
-        String dateStr1 = "2014-3-7 20:16:45";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = dateFormat.parse(dateStr1);
-        System.out.println(dateStr1 + "  is  " + date.getTime());
-    }*/
 
 
 }
