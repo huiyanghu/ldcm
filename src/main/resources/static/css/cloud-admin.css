@@ -6807,7 +6807,7 @@ fieldset[disabled] .btn-yellow.active {
   /* border-radius: 4px 4px 0 0; */
   margin-bottom: 0;
   position: relative;
-  z-index: 99;
+  z-index: 1;
 }
 .box.border.register > .box-title{
 	width: 800px;
