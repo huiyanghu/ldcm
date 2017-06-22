@@ -5,7 +5,6 @@ import com.lvdun.entity.CodeApp;
 import com.lvdun.queryModel.DataRecordQuery;
 import com.lvdun.service.CodeAppService;
 import com.lvdun.service.DataRecordService;
-import com.lvdun.util.ConstantsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,22 +40,22 @@ public class DataRecordController {
         Map result = new HashMap();
         int isSuccess = 0;
         Map dataRecordPage = new HashMap();
-        List<CodeApp> codeAppList = new ArrayList();
-        List<Map> statusList = ConstantsUtil.getConstants("DataRecord_status");
-        List<Map> reasonCodeList = ConstantsUtil.getConstants("DataRecord_reasonCode");
-        List<Map> reviewTypeList = ConstantsUtil.getConstants("DataRecord_reviewType");
-        List<Map> condationList = ConstantsUtil.getConstants("DataRecord_condation");
+        //List<CodeApp> codeAppList = new ArrayList();
+        //List<Map> statusList = ConstantsUtil.getConstants("DataRecord_status");
+        //List<Map> reasonCodeList = ConstantsUtil.getConstants("DataRecord_reasonCode");
+        //List<Map> reviewTypeList = ConstantsUtil.getConstants("DataRecord_reviewType");
+        //List<Map> condationList = ConstantsUtil.getConstants("DataRecord_condation");
 
         try {
             dataRecordPage = dataRecordService.getDataRecordPage(page, pageSize, platformId, dataRecordQuery);
-            codeAppList = codeAppService.getCodeAppByPlatformId(platformId);
+            //codeAppList = codeAppService.getCodeAppByPlatformId(platformId);
 
             result.put("dataRecordPage", dataRecordPage);
-            result.put("codeAppList", codeAppList);
-            result.put("statusList", statusList);
-            result.put("reasonCodeList", reasonCodeList);
-            result.put("reviewTypeList", reviewTypeList);
-            result.put("condationList", condationList);
+            //result.put("codeAppList", codeAppList);
+            //result.put("statusList", statusList);
+            //result.put("reasonCodeList", reasonCodeList);
+            //result.put("reviewTypeList", reviewTypeList);
+            //result.put("condationList", condationList);
             isSuccess = 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,7 +64,34 @@ public class DataRecordController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString( resutltMap));
+        System.out.println(JSON.toJSONString(resutltMap));
+        return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping("/getAppList")
+    @ResponseBody
+    public Object getAppList(HttpSession session) {
+        Map loginUser = (Map) session.getAttribute("loginUser");
+        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        Long platformId = 1L;
+
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 0;
+
+        List<CodeApp> codeAppList = new ArrayList();
+        try {
+            codeAppList = codeAppService.getCodeAppByPlatformId(platformId);
+            result.put("codeAppList", codeAppList);
+            isSuccess = 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            isSuccess = 0;
+        }
+
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -76,7 +102,7 @@ public class DataRecordController {
         Map resutltMap = new HashMap();
         int isSuccess = 0;
         try {
-            dataRecordService.setStatus(id,status);
+            dataRecordService.setStatus(id, status);
             isSuccess = 1;
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +119,7 @@ public class DataRecordController {
         Map resutltMap = new HashMap();
         int isSuccess = 0;
         try {
-            dataRecordService.setReasonCode(id,reasonCode);
+            dataRecordService.setReasonCode(id, reasonCode);
             isSuccess = 1;
         } catch (Exception e) {
             e.printStackTrace();

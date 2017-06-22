@@ -1,10 +1,14 @@
 package com.lvdun.service.impl;
 
 import com.lvdun.dao.*;
-import com.lvdun.entity.*;
+import com.lvdun.entity.BaseLdUser;
+import com.lvdun.entity.CmCustomer;
+import com.lvdun.entity.CodeApp;
+import com.lvdun.entity.CodePlatform;
 import com.lvdun.service.CustomerService;
 import com.lvdun.util.ConstantsUtil;
 import com.lvdun.util.DateUtil;
+import com.lvdun.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/6/19.
@@ -53,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
         BaseLdUser baseLdUser = null;
         if (baseLdUserList != null && !baseLdUserList.isEmpty()) {
             baseLdUser = baseLdUserList.get(0);
+            baseLdUser.setAccount(null);
         }
 
         List<CodeApp> appList = appDao.getCodeAppByPlatformId(customer.getPlatformId());
@@ -72,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setCustomerName(customerName);
         customer.setContactsName(contactsName);
         customer.setContactsMobile(contactsMobile);
-        customer.setApprovalTime(DateUtil.getDateByStr(approvalTime));
+        customer.setApprovalTime(StringUtil.isEmpty(approvalTime) ? null : DateUtil.getDateByStr(approvalTime));
         customer.setProvince(province);
         customer.setCity(city);
         customer.setRegion(region);
@@ -112,5 +114,13 @@ public class CustomerServiceImpl implements CustomerService {
         result.put("pageSize", cmCustomerPage.getSize());
 
         return result;
+    }
+
+    @Override
+    public void reviewCustomer(Long customerId) {
+        CmCustomer customer = customerDao.getOne(customerId);
+        customer.setApprovalTime(new Date());
+        customer.setStatus(1);
+        customerDao.save(customer);
     }
 }

@@ -2,6 +2,8 @@ package com.lvdun.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lvdun.service.BaseLdUserService;
+import com.lvdun.service.CmAccountService;
+import com.lvdun.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ import java.util.Map;
 public class BaseLdUserController {
     @Autowired
     BaseLdUserService baseLdUserService;
+    @Autowired
+    CmAccountService accountService;
 
 
 
@@ -48,30 +52,61 @@ public class BaseLdUserController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping(path = "/addBaseLdUser", method = RequestMethod.POST)
+    @RequestMapping(path = "/addUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object addBaseLdUser(HttpSession session, String email, String name, String mobile, Integer roleFlag, String password, String verificationCode) {
+    public Object addUser(HttpSession session, String email, String name, String mobile, Integer roleFlag, String password, String verificationCode) {
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
         Long customerId = 1L;
 
         Map resutltMap = new HashMap();
-        int isSuccess = 0;
-        int code = 0;////code:0//失败  1//成功  2//验证码
         Map result = new HashMap();
+        int isSuccess = 0;
+        int code = -1;////code:0//失败  1//成功  2//验证码
+
+        if (StringUtil.isEmpty(email)) {
+            result.put("code", 1);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(name)) {
+            result.put("code", 3);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(mobile)) {
+            result.put("code", 4);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+        if (StringUtil.isEmpty(password)) {
+            result.put("code", 5);
+            resutltMap.put("isSuccess", 1);
+            resutltMap.put("result", result);
+            return JSON.toJSON(resutltMap);
+        }
+
 
         verificationCode = verificationCode.toLowerCase();
         String verCode = "" + session.getAttribute("verCode");
         if (!verificationCode.equals(verCode)) {
             code = 2;
-            isSuccess = 0;
+            isSuccess = 1;
         } else {
             try {
-                baseLdUserService.addUser(customerId, email, name, mobile, roleFlag, password);
-                code = 1;
-                isSuccess = 1;
+                if (accountService.checkIsExists(email)) {
+                    code = 7;
+                    isSuccess = 1;
+                }else{
+                    baseLdUserService.addUser(customerId, email, name, mobile, roleFlag, password);
+                    code = -1;
+                    isSuccess = 1;
+                }
+
             } catch (Exception e) {
-                code = 0;
                 isSuccess = 0;
                 e.printStackTrace();
             }
@@ -85,7 +120,7 @@ public class BaseLdUserController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping(path = "/updateBaseLdUser", method = RequestMethod.POST)
+    @RequestMapping(path = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public Object updateBaseLdUser(HttpSession session, Long baseLdUserId, String name, String mobile, Integer roleFlag, String verificationCode) {
 
@@ -118,7 +153,7 @@ public class BaseLdUserController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping(path = "/deleteBaseLdUser", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(path = "/deleteUser", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public Object deleteBaseLdUser(HttpSession session, Long baseLdUserId) {
 

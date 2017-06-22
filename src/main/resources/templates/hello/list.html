@@ -23,9 +23,14 @@
 <input type="button" onclick="getData()" value="测试获取数据"/>
 <img src="img/img1.jpg"/>
 
-<form method="post" action="../dataRecord/setReasonCode">
-    Id:<input name="id"/>
-    status:<input name="reasonCode"/>
+<form method="post" action="../customer/updateBasicInfo">
+    customerName:<input name="customerName"/>
+    contactsName:<input name="contactsName"/>
+    contactsMobile:<input name="contactsMobile"/>
+    approvalTime:<input name="approvalTime"/>
+    province:<input name="province"/>
+    city:<input name="city"/>
+    region:<input name="region"/>
 
     <br/>
     <input type="submit"  value="测试保存数据"/>

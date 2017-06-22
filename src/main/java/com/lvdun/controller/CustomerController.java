@@ -5,6 +5,7 @@ import com.lvdun.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,6 +29,7 @@ public class CustomerController {
      * @return
      */
     @RequestMapping("/list")
+    @ResponseBody
     public Object getCustomerList(HttpSession session, @RequestParam(required = false, name = "page", defaultValue = "1") Integer page, @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize) {
         Map resutltMap = new HashMap();
         int isSuccess = 0;
@@ -42,6 +44,28 @@ public class CustomerController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
+        System.out.println(JSON.toJSONString(resutltMap));
+        return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping(path = "/reviewCustomer",method = RequestMethod.GET)
+    @ResponseBody
+    public Object reviewCustomer(HttpSession session, Long customerId) {
+
+        Map loginUser = (Map) session.getAttribute("loginUser");
+        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
+
+        int isSuccess = 0;
+        try {
+            customerService.reviewCustomer(customerId);
+            isSuccess = 1;
+        } catch (Exception e) {
+            isSuccess = 0;
+            e.printStackTrace();
+        }
+        Map resutltMap = new HashMap();
+        resutltMap.put("isSuccess", isSuccess);
+
         System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
@@ -75,7 +99,7 @@ public class CustomerController {
         return JSON.toJSON(resutltMap);
     }
 
-    @RequestMapping("/updateBasicInfo")
+    @RequestMapping(path = "/updateBasicInfo",method = RequestMethod.POST)
     @ResponseBody
     public Object updateBasicInfo(HttpSession session, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
 

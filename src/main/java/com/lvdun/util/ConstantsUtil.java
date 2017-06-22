@@ -14,12 +14,12 @@ public class ConstantsUtil {
 
     static {
         constants.put("CmAccount_roleFlag", "[{'key':1,'value':'管理员'},{'key':0,'value':'操作员'}]");
-        constants.put("CmCustomer_status", "[{'key':0,'value':'新注册用户'},{'key':-1,'value':'体验用户'},{'key':2,'value':'正式收费用户'},{'key':3,'value':'正式免费用户'},{'key':4,'value':'停用'}]");
+        constants.put("CmCustomer_status", "[{'key':0,'value':'新注册用户'},{'key':-1,'value':'体验用户'},{'key':1,'value':'正式收费用户'},{'key':2,'value':'正式免费用户'},{'key':3,'value':'暂停客户'}]");
 
         //审核结果
         constants.put("DataRecord_status", "[{'key':0,'value':'删除'},{'key':1,'value':'通过'},{'key':2,'value':'人工审核'}]");
         //不通过原因
-        constants.put("DataRecord_reasonCode", "[{'key':0,'value':'正常'},{'key':1,'value':'政治'},{'key':2,'value':'色情'},{'key':3,'value':'违法'},{'key':4,'value':'违规'},{'key':6,'value':'用户行为'},{'key':7,'value':'疑似广告'},{'key':9,'value':'个性化定制'}]");
+        constants.put("DataRecord_reasonCode", "[{'key':0,'value':'正常内容'},{'key':7,'value':'广告'},{'key':2,'value':'色情'},{'key':1,'value':'政治'},{'key':3,'value':'违法'},{'key':4,'value':'违规'},{'key':6,'value':'异常行为'},{'key':9,'value':'自定义识别'}]");
         //审核方式
         constants.put("DataRecord_reviewType", "[{'key':-1,'value':'智能审核'},{'key':0,'value':'人工审核'}]");
         //查询字段

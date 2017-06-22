@@ -208,7 +208,7 @@ public class LoginController {
                         isSuccess = 1;
                     } else {
                         accountService.register(email, companyName, name, mobile, password);
-                        code = 1;
+                        code = -1;
                         isSuccess = 1;
                     }
                 }

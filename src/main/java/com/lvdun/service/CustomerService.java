@@ -13,4 +13,6 @@ public interface CustomerService {
     public void updateCustomerBasicInfo(Long customerId, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region);
 
     public Map getCustomerPage(Integer page, Integer pageSize);
+
+    public void reviewCustomer(Long customerId);
 }
