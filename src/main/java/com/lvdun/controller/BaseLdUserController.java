@@ -194,4 +194,15 @@ public class BaseLdUserController {
         System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
+
+    @RequestMapping("/userManagement")
+    public String userManagement(){
+        return "user-management/user-management";
+    }
+
+    @RequestMapping("/addEditUser")
+    public String addEditUser(){
+        return "user-management/add-edit-user";
+    }
+
 }

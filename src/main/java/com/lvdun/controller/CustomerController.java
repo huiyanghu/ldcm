@@ -121,5 +121,14 @@ public class CustomerController {
         return JSON.toJSON(resutltMap);
     }
 
+    @RequestMapping("/customerInfo")
+    public String customerInfo(){
+        return "customer-info/customer-info";
+    }
+
+    @RequestMapping("/privilegeManagement")
+    public String privilegeManagement(){
+        return "privilege-management/privilege-management";
+    }
 
 }
