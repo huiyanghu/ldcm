@@ -123,12 +123,12 @@ public class LoginController {
             try {
                 System.out.println("username  : " + username);
                 map = accountService.login(username, password);
-                if (map!=null){
-                    code=-1;
+                if (map != null) {
+                    code = -1;
                     session.setAttribute("loginUser", map);
                     isSuccess = 1;
-                }else{
-                    code=10;
+                } else {
+                    code = 10;
                     isSuccess = 1;
                 }
 
@@ -224,8 +224,44 @@ public class LoginController {
         return JSON.toJSON(resutltMap);
     }
 
+    @RequestMapping("/sendMessage")
+    @ResponseBody
+    public Object sendMessage(String mobile) {
+
+        return null;
+    }
+
+    @RequestMapping(path = "/checkByMobile", method = RequestMethod.POST)
+    @ResponseBody
+    public Object registerAjax(HttpSession session, String email, String phone, String msgCode) {
+
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 0;
+        int code = -1;////code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
+
+
+
+         {
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
+
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
+    }
+
+
+
+
     @RequestMapping("/test")
-    public String test(){
-        return "hello/list";
+    public String test() {
+        return "hello/test";
     }
 }

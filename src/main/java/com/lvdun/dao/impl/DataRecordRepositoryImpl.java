@@ -25,7 +25,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         String sql = "select " +
                 " data_record.id, " +
                 " data_record.user_ip, " +
-                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I:%S') as publish_date,"+
+                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I') as publish_date,"+
                 " data_resource.data_content, " +
                 " data_record.reason_code, " +
                 " data_record.status " +

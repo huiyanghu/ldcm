@@ -129,6 +129,22 @@ public class DataRecordController {
         return JSON.toJSON(resutltMap);
     }
 
+    @RequestMapping(path = "/setReasonCodeBatch", method = RequestMethod.POST)
+    @ResponseBody
+    public Object setReasonCodeBatch(HttpSession session, String reasonCodeJson) {
+        Map resutltMap = new HashMap();
+        int isSuccess = 0;
+        try {
+            dataRecordService.setReasonCodeBatch(reasonCodeJson);
+            isSuccess = 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            isSuccess = 0;
+        }
+        resutltMap.put("isSuccess", isSuccess);
+        return JSON.toJSON(resutltMap);
+    }
+
     @RequestMapping("/queryText")
     public String queryText(){
         return "data-inquiry/query-text";

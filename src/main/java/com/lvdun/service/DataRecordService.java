@@ -13,4 +13,6 @@ public interface DataRecordService {
     public void setStatus(Long id, Integer status);
 
     public void setReasonCode(Long id, Integer reasonCode);
+
+    void setReasonCodeBatch(String reasonCodeJson);
 }
