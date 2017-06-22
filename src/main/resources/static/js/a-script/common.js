@@ -11,9 +11,32 @@ function UrlSearch() {
 			name=arr[i].substring(0,num);
 			value=arr[i].substr(num+1);
 			this[name]=value;
-		} 
+		}
 	} 
 }
+//ajax访问时，刷新区域遮盖蒙板
+var loadMask = function (){
+	return{
+		loadStart:function(obj){
+			var loadDiv = $(obj).find('.loadDiv');
+			if(loadDiv.length == 0){
+				var loadHtml = '<div class="loadDiv">'
+									+'<div class="cover"></div>'
+									+'<div class="loader-inner ball-clip-rotate-multiple">'
+										+'<div></div>'
+										+'<div></div>'
+									+'</div>'
+								+'</div>';
+				obj.append(loadHtml);
+			}else{
+				loadDiv.show();
+			}
+		},
+		loadEnd:function(obj){
+			$(obj).find('.loadDiv').hide();
+		}
+	}
+}();
 //返回登录页
 function returnLogin(){
 	window.location.href = '../toLogin';
@@ -173,6 +196,7 @@ function confirmAlert(msg,title,btnCall,funCall,data){
 		funCall.call();
 	}
 }
+//点击首页时，左侧菜单回到接入量分析
 function homePage(){
 	parent.toHomePage();
 }

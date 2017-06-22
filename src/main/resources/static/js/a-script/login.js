@@ -5,7 +5,7 @@ $(document).ready(function() {
         lineColor: '#5cbdaa'
     });
 });
-picCode();
+//picCode();
 $('#myCanvas').click(function(){
     picCode();
 });
@@ -48,7 +48,7 @@ $('.psd-relevant .left').click(function(){
 });
 function loginError(num){
     if(num == 1 || num == 9){
-        objArr[0].focus().attr('placeholder',codeStr[num]);
+        objArr[0].focus().val().attr('placeholder',codeStr[num]);
     }else if(num == 5 || num == 10){
         objArr[4].focus().attr('placeholder',codeStr[num]);
     }else if(num == 0){
@@ -56,7 +56,7 @@ function loginError(num){
     }
     picCode();
 }
-$('#loginBtn').click(function(){
+function login(){
     var email = isEmpty(0);
     var password = isEmpty(4);
     var verificationCode = isEmpty(6);
@@ -79,7 +79,7 @@ $('#loginBtn').click(function(){
                     }else if($('#remember').hasClass('fa-check-square-o')){
                         setLoginInfo();
                     }
-                    //window.location.href = '../';
+                    window.location.href = '../';
                 }else{
                     loginError(data.result.code);
                 }
@@ -91,4 +91,13 @@ $('#loginBtn').click(function(){
             noticeAlert('登录失败，请重新填写登录信息。','失败','','','');
         }
     });
+}
+$('#loginBtn').click(function(){
+    login();
 });
+document.onkeydown = function(event) {
+    e = event ? event : (window.event ? window.event : null);
+    if (e.keyCode == 13) {
+        login();
+    }
+};

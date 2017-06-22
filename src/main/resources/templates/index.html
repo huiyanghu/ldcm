@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="UTF-8" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="/static/css/cloud-admin.css" >
-		<link rel="stylesheet" type="text/css" href="/static/css/themes/nature.css" id="skin-switcher" >
-		<link rel="stylesheet" type="text/css" href="/static/css/responsive.css" >
-		<link rel="stylesheet" type="text/css" href="/static/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="/static/css/animatecss/animate.min.css" />
-		<link rel="stylesheet" type="text/css" href="/static/js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-		<link rel="stylesheet" type="text/css" href="/static/js/jquery-todo/css/styles.css" />
-		<link rel="stylesheet" type="text/css" href="/static/js/fullcalendar/fullcalendar.min.css" />
-		<link rel="stylesheet" type="text/css" href="/static/js/gritter/css/jquery.gritter.css" />
+		<link rel="stylesheet" type="text/css" href="/css/cloud-admin.css" />
+		<link rel="stylesheet" type="text/css" href="/css/themes/nature.css" id="skin-switcher" />
+		<link rel="stylesheet" type="text/css" href="/css/responsive.css" />
+		<link rel="stylesheet" type="text/css" href="/font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/animatecss/animate.min.css" />
+		<link rel="stylesheet" type="text/css" href="/js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+		<link rel="stylesheet" type="text/css" href="/js/jquery-todo/css/styles.css" />
+		<link rel="stylesheet" type="text/css" href="/js/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="/js/gritter/css/jquery.gritter.css" />
 		<!--[if lt IE 9]>
-			<script src="/static/js/flot/excanvas.min.js"></script>
+			<script src="/js/flot/excanvas.min.js"></script>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 		<![endif]-->
@@ -23,7 +23,7 @@
 			<div class="container">
 				<div class="navbar-brand">
 					<a href="index.html">
-						<img src="/static/img/logo/logo.png" alt="Cloud Admin Logo" class="img-responsive">
+						<img src="/img/logo/logo.png" alt="绿盾后台管理系统" class="img-responsive" />
 					</a>
 					<div id="sidebar-collapse" class="sidebar-collapse btn">
 						<i class="fa fa-bars" data-icon1="fa fa-bars" data-icon2="fa fa-bars"></i>
@@ -41,7 +41,6 @@
 				<ul class="nav navbar-nav pull-right">
 					<li class="dropdown user" id="header-user">
 						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" id="username">
-							<!--<img alt="" src="img/avatars/avatar3.jpg">-->
 							<span class="username">用户</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
@@ -88,7 +87,7 @@
 						<a href="javascript:void(0);">
 							<span class="title">专属安全运营 </span>
 							<span class="image pull-left">
-								<img src="/static/img/avatars/avatar1.jpg" alt="" />
+								<img src="/img/avatars/avatar1.jpg" alt="" />
 							</span>
 							<span class="status pull-left">
 								<div class="field">
@@ -125,12 +124,12 @@
 							</a>	
 							<ul class="sub">
 								<li class="active">
-									<a class="" href="javascript:void(0);" flag="business-1" url="business-overview/trend-analysis.html">
+									<a class="" href="javascript:void(0);" flag="business-1" url="../statArrive/trendAnalysis">
 										<span class="sub-menu-text">接入量趋势分析</span>
 									</a>
 								</li>
 								<li>
-									<a class="" href="javascript:void(0);" flag="business-2" url="business-overview/reject-analysis.html">
+									<a class="" href="javascript:void(0);" flag="business-2" url="../statArrive/rejectAnalysis">
 										<span class="sub-menu-text">不通过原因分析</span>
 									</a>
 								</li>
@@ -196,19 +195,20 @@
 				</div>
 			</div>
 			<div id="main-content">
-				<iframe src="business-overview/trend-analysis.html" id="rightIframe" frameborder="0" width="100%" height=""></iframe>
+				<iframe src="../statArrive/trendAnalysis" id="rightIframe" frameborder="0" width="100%" height=""></iframe>
 			</div>
 		</section>
-		<script type="text/javascript" src="/static/js/jquery/jquery-2.0.3.min.js"></script>
-		<script type="text/javascript" src="/static/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script type="text/javascript" src="/static/bootstrap-dist/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
-		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
-		<script type="text/javascript" src="/static/js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
-		<script type="text/javascript" src="/static/js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
-		<script type="text/javascript" src="/static/js/sparklines/jquery.sparkline.min.js"></script>
-		<script type="text/javascript" src="/static/js/jQuery-Cookie/jquery.cookie.min.js"></script>
-		<script type="text/javascript" src="/static/js/a-script/index.js"></script>
-		<script type="text/javascript" src="/static/js/a-script/common.js"></script>
+		<script type="text/javascript" src="/js/jquery/jquery-2.0.3.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script type="text/javascript" src="/bootstrap-dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="/js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+		<script type="text/javascript" src="/js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+		<script type="text/javascript" src="/js/sparklines/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="/js/jQuery-Cookie/jquery.cookie.min.js"></script>
+		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
+		<script type="text/javascript" src="/js/a-script/index.js"></script>
+		<script type="text/javascript" src="/js/a-script/common.js"></script>
 	</body>
 </html>

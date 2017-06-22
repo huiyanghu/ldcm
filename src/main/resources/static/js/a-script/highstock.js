@@ -2561,13 +2561,13 @@
 				animation: a.svg,
 				borderRadius: 3,
 				dateTimeLabelFormats: {
-					millisecond: "%A, %b %e, %H:%M:%S.%L",
-					second: "%A, %b %e, %H:%M:%S",
-					minute: "%A, %b %e, %H:%M",
-					hour: "%A, %b %e, %H:%M",
-					day: "%A, %b %e, %Y",
-					week: "%A, %b %e, %Y",
-					month: "%B %Y",
+					millisecond: "%Y-%m-%d,%H:%M:%S",
+					second: "%Y-%m-%d,%H:%M:%S",
+					minute: "%Y-%m-%d,%H:%M",
+					hour: "%Y-%m-%d,%A",
+					day: "%Y-%m-%d,%A",
+					week: "%Y-%m-%d,%A",
+					month: "%Y-%m",
 					year: "%Y"
 				},
 				footerFormat: "",
@@ -2809,14 +2809,14 @@
 		a.extend(I.prototype, {
 			defaultOptions: {
 				dateTimeLabelFormats: {
-					millisecond: "%H:%M:%S.%L",
-					second: "%H:%M:%S",
-					minute: "%H:%M",
-					hour: "%H:%M",
-					day: "%e. %b",
-					week: "%e. %b",
-					month: "%b '%y",
-					year: "%Y"
+					millisecond: "%H:%M",
+					second: '%H:%M',
+					minute: '%H:%M',
+					hour: '%H:00',
+					day: '%Y<br/>%m-%d',
+					week: '%Y<br/>%m-%d',
+					month: '%Y-%m',
+					year: '%Y'
 				},
 				endOnTick: !1,
 				labels: {
@@ -9104,13 +9104,13 @@
 				approximation: "average",
 				groupPixelWidth: 2,
 				dateTimeLabelFormats: {
-					millisecond: ["%A, %b %e, %H:%M:%S.%L", "%A, %b %e, %H:%M:%S.%L", "-%H:%M:%S.%L"],
-					second: ["%A, %b %e, %H:%M:%S", "%A, %b %e, %H:%M:%S", "-%H:%M:%S"],
-					minute: ["%A, %b %e, %H:%M", "%A, %b %e, %H:%M", "-%H:%M"],
-					hour: ["%A, %b %e, %H:%M", "%A, %b %e, %H:%M", "-%H:%M"],
-					day: ["%A, %b %e, %Y", "%A, %b %e", "-%A, %b %e, %Y"],
-					week: ["Week from %A, %b %e, %Y", "%A, %b %e", "-%A, %b %e, %Y"],
-					month: ["%B %Y", "%B", "-%B %Y"],
+					millisecond: ["%H:%M:%S", "%H:%M:%S", "-%H:%M:%S"],
+					second: ["%H:%M:%S", "%H:%M:%S", "-%H:%M:%S"],
+					minute: ["%H:%M", "%H:%M", "-%H:%M"],
+					hour: ["%H:00", "%H:00", "-%H:00"],
+					day: ["%Y-%m-%d,%A", "%Y-%m-%d,%A", "-%Y-%m-%d,%A"],
+					week: ["%Y-%m-%d,%A", "%Y-%m-%d,%A", "-%Y-%m-%d,%A"],
+					month: ["%Y-%m", "%Y-%m", "-%Y-%m"],
 					year: ["%Y", "%Y", "-%Y"]
 				}
 			},
