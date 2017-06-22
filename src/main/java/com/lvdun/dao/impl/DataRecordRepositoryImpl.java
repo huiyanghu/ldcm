@@ -37,7 +37,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
                 " and code_platform.id=" + platformId;
         String sqlCondition = "";
         if (StringUtil.isNotEmpty(dataRecordQuery.getDataType())) {
-            sqlCondition += " and code_app.data_type =" + dataRecordQuery.getDataType();
+            sqlCondition += " and data_record.data_type =" + dataRecordQuery.getDataType();
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getAppName())) {
             sqlCondition += " and code_app.app_name like %" + dataRecordQuery.getAppName() + "%";
@@ -59,11 +59,11 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName())&&StringUtil.isNotEmpty(dataRecordQuery.getConditionValue())) {
             if ("data_content".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_resource." + dataRecordQuery.getConditionName() + " like %" + dataRecordQuery.getConditionValue() + "%";
+                sqlCondition += " and data_resource.data_content  like %" + dataRecordQuery.getConditionValue() + "%";
             } else if ("user_ip".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record." + dataRecordQuery.getConditionName() + " =" + dataRecordQuery.getConditionValue();
+                sqlCondition += " and data_record.user_ip  =" + dataRecordQuery.getConditionValue();
             } else if ("device_id".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record." + dataRecordQuery.getConditionName() + "  like %" + dataRecordQuery.getConditionValue() + "%";
+                sqlCondition += " and data_record.device_id like %" + dataRecordQuery.getConditionValue() + "%";
             }
         }
         sql += sqlCondition;
