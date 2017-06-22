@@ -68,6 +68,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
                 sqlCondition += " and data_record.user_id like %" + dataRecordQuery.getConditionValue() + "%";
             }
         }
+
         sql += sqlCondition;
 
         Session session = entityManager.unwrap(org.hibernate.Session.class);
