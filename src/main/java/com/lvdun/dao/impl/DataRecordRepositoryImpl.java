@@ -61,9 +61,11 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
             if ("data_content".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_resource.data_content  like %" + dataRecordQuery.getConditionValue() + "%";
             } else if ("user_ip".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record.user_ip  =" + dataRecordQuery.getConditionValue();
+                sqlCondition += " and data_record.user_ip  like %" + dataRecordQuery.getConditionValue()+"%";
             } else if ("device_id".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_record.device_id like %" + dataRecordQuery.getConditionValue() + "%";
+            }else if ("user_id".equals(dataRecordQuery.getConditionName())) {
+                sqlCondition += " and data_record.user_id like %" + dataRecordQuery.getConditionValue() + "%";
             }
         }
         sql += sqlCondition;

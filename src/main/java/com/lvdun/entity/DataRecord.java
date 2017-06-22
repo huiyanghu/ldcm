@@ -20,7 +20,7 @@ public class DataRecord {
     //@ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
     //@JoinColumn(name = "code_app_id")
     @Column(name = "user_id")
-    private Long userId;//用户发布UserId
+    private String userId;//用户发布UserId
 
     @Column(name = "user_ip")
     private String userIp;//用户发布IP
@@ -96,11 +96,11 @@ public class DataRecord {
         this.userPublishDataId = userPublishDataId;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
