@@ -9,23 +9,11 @@ import org.springframework.data.jpa.repository.query.Procedure;
 /**
  * Created by Administrator on 2017/6/15.
  */
-//@Repository
-public interface StatArriveRepository extends JpaRepository<StatArrive, Long>,StatArriveDao {
-
+public interface StatArriveRepository extends JpaRepository<StatArrive, Long>, StatArriveDao {
     /**
-     * 插入 数据审核结果 统计
-     * @return
+     * 存储过程:统计data_record表 包括status和reason_code
      */
-    @Procedure(procedureName="p1")
+    @Procedure(procedureName = "prc")
     @Modifying
-    public void insertIntoStatArrive();
-
-    /**
-     * 插入 数据审核结果 不通过原因 统计
-     * @return
-     */
-    @Procedure()
-    @Modifying
-    public void insertIntoStatArriveDelete();
-
+    void executeProcedure();
 }

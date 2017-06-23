@@ -18,12 +18,7 @@ public class StatArriveServiceImpl implements StatArriveService {
     @Autowired
     StatArriveRepository statArriveDao;
 
-    @Override
-    @Transactional
-    public void insertStatArrive() {
-        statArriveDao.insertIntoStatArrive();
-        //statArriveDao.insertIntoStatArriveDelete();
-    }
+
 
     @Override
     public Map getTotalResult(Integer flag, Long platformId) {
@@ -131,8 +126,11 @@ public class StatArriveServiceImpl implements StatArriveService {
         return bigList;
     }
 
-
-
+    @Override
+    @Transactional
+    public void executeProcedure() {
+        statArriveDao.executeProcedure();
+    }
 
 
 }
