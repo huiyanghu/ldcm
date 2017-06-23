@@ -38,7 +38,7 @@ var loadMask = function (){
 	}
 }();
 //ajax访问失败，点击弹窗确认件，取消蒙板
-function loadMaskHide(alertBox,data){
+function loadMaskHide(data){
 	loadMask.loadEnd(data);
 }
 //返回登录页
@@ -46,7 +46,7 @@ function returnLogin(){
 	window.location.href = '../toLogin';
 }
 // 常量数组 0 邮箱  1 公司名称  2 姓名  3 手机  4 密码  5 密码确认  6 图片验证码
-//code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在  # 9 账号不存在  # 10 密码错误
+//code # -1 没有错误 # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在  # 9 账号不存在  # 10 密码错误
 var objArr = [$('#email'),$('#company'),$('#name'),$('#phone'),$('#password'),$('#password2'),$('#picCode')];
 var regularArr = [isEmail,specialCharacter,noNumber,phoneNumber,passwordCheck];
 var emptyStr = ["邮箱不能为空","公司名称不能为空","姓名不能为空","手机号码不能为空","密码不能为空","两次密码不一致","请输入验证码"];
@@ -116,7 +116,6 @@ function psdConfirm(obj1,obj2){
 	obj2.focus(function(){
 		if(obj1.val() == ''){
 			obj1.focus().siblings('.error-span').html('请输入密码');
-			return false;
 		}else{
 			return false;
 		}
@@ -125,15 +124,12 @@ function psdConfirm(obj1,obj2){
 		if($(this).val() != obj1.val()){
 			$(this).parents('.form-group').removeClass('has-success').addClass('has-error');
 			$(this).siblings('.error-span').html('两次密码不一致');
-			return false;
 		}else if(($(this).val() == obj1.val()) && obj1.val() != ''){
 			$(this).parents('.form-group').removeClass('has-error').addClass('has-success');
 			$(this).siblings('.error-span').html('');
-			return true;
 		}else if(obj1.val() == ''){
 			$(this).parents('.form-group').removeClass('has-error').removeClass('has-success');
 			$(this).siblings('.error-span').html('');
-			return true;
 		}
 	});
 }
@@ -142,22 +138,19 @@ function checkFormat(num){
 	objArr[num].blur(function(){
 		if($(this).val() == ''){
 			$(this).siblings('.error-span').html(emptyStr[num]);
-			return false;
 		}else{
 			if(regularArr[num]($(this).val())){
 	    		$(this).parents('.form-group').removeClass('has-error').addClass('has-success');
 	    		$(this).siblings('.error-span').html('');
-				return true;
 	    	}else{
 	    		$(this).parents('.form-group').removeClass('has-success').addClass('has-error');
 	    		$(this).siblings('.error-span').html(errorStr[num]);
-				return false;
 	    	}
 		}
     });
 }
 //弹窗通知
-function noticeAlert(msg,title,btnCall,funCall,data){
+function noticeAlert(msg,title,btnCall,data){
 	var alertBox = bootbox.dialog({
 		message: msg,
 		title: title,
@@ -167,7 +160,7 @@ function noticeAlert(msg,title,btnCall,funCall,data){
 				className: "btn-primary btn-red",
 				callback: function() {
 					if(btnCall){
-						btnCall(alertBox,data);
+						btnCall(data);
 					}else{
 						alertBox.hide();
 					}
@@ -175,12 +168,9 @@ function noticeAlert(msg,title,btnCall,funCall,data){
 			}
 		}
 	});
-	if(funCall){
-		funCall.call();
-	}
 }
 //弹窗确认  || 弹窗修改密码
-function confirmAlert(msg,title,btnCall,funCall,data){
+function confirmAlert(msg,title,btnCall,data){
 	var alertBox = bootbox.dialog({
 		message: msg,
 		title: title,
@@ -197,15 +187,12 @@ function confirmAlert(msg,title,btnCall,funCall,data){
 				className: "btn-primary btn-red",
 				callback: function() {
 					if(btnCall){
-						btnCall(alertBox,data);
+						btnCall(data);
 					}
 				}
 			}
 		}
 	});
-	if(funCall){
-		funCall.call();
-	}
 }
 //点击首页时，左侧菜单回到接入量分析
 function homePage(){

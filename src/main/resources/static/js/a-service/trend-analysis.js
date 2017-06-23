@@ -41,11 +41,11 @@ function getTotalResult(flag){
 					$('#count_review').html(data.result.count_review).removeClass('small-text');
 				}
 			}else{
-				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败','','','');
+				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败','','');
 			}
 		},
 		error:function(error){
-			noticeAlert('网络出错，请重新连接网络。','错误！','','','');
+			noticeAlert('网络出错，请重新连接网络。','错误！','','');
 		}
 	});
 }
@@ -114,11 +114,11 @@ function getChapterGeneral(flag){
 					chart($('#chart2'),histogramJson);
 				}
 			}else{
-				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,'',$('#general'));
+				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,$('#general'));
 			}
 		},
 		error:function(error){
-			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#general'));
+			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#general'));
 		}
 	});
 }
@@ -170,11 +170,11 @@ function getChapterByType(flag){
 					chart($('#chart4'),histogramJson2);
 				}
 			}else{
-				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,'',$('#mold'));
+				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,$('#mold'));
 			}
 		},
 		error:function(error){
-			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#mold'));
+			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#mold'));
 		}
 	});
 }
@@ -226,11 +226,11 @@ function getChapterByApp(flag){
 					chart($('#chart6'),histogramJson2);
 				}
 			}else{
-				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,'',$('#product'));
+				noticeAlert('数据获取失败，请重新选择日期以便刷新。','失败',loadMaskHide,$('#product'));
 			}
 		},
 		error:function(error){
-			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#product'));
+			noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#product'));
 		}
 	});
 }

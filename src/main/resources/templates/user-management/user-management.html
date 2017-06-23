@@ -72,56 +72,11 @@
 								</div>
 								<div class="box-body">
 									<div class="row">
-										<div class="col-md-12 no-padding">
+										<div class="col-md-12 no-padding" id="dataTable">
+											<div class="noData">抱歉，亲，没有搜到您想要的结果。</div>
 											<table class="table table-bordered table-striped data-table user-table">
-												<thead>
-													<tr>
-														<th>账号</th>
-														<th>姓名</th>
-														<th>密码</th>
-														<th>手机</th>
-														<th>角色类型</th>
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td title="heyitan@sina.com">heyitan@sina.com</td>
-														<td>何以琛</td>
-														<td>******</td>
-														<td>15866668888</td>
-														<td>管理员</td>
-														<td>
-															<a href="/user-management/add-edit-user.html?flag=edit&dataJson=dataJson" class="color-9">
-																<i title="修改用户信息" class="fa fa-pencil"></i>
-															</a>
-															<a href="javascript:void(0);" class="color-9 refresh-paddword">
-																<i title="重置用户密码" class="fa fa-refresh"></i>
-															</a>
-															<a href="javascript:void(0);" class="color-9 del-user">
-																<i title="删除用户" class="fa fa-trash-o"></i>
-															</a>
-														</td>
-													</tr>
-													<tr>
-														<td title="zhaomosheng@sina.com">zhaomosheng@sina.com</td>
-														<td>赵默笙</td>
-														<td>******</td>
-														<td>13688886666</td>
-														<td>操作员</td>
-														<td>
-															<a href="/user-management/add-edit-user.html?flag=edit" class="color-9">
-																<i title="修改用户信息" class="fa fa-pencil"></i>
-															</a>
-															<a href="javascript:void(0);" class="color-9 refresh-paddword">
-																<i title="重置用户密码" class="fa fa-refresh"></i>
-															</a>
-															<a href="javascript:void(0);" class="color-9 del-user">
-																<i title="删除用户" class="fa fa-trash-o"></i>
-															</a>
-														</td>
-													</tr>
-												</tbody>
+												<thead id="datatHead"></thead>
+												<tbody id="datatBody"></tbody>
 											</table>
 											<div class="pagination" id="pagination"></div>
 										</div>

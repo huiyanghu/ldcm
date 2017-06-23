@@ -50,8 +50,8 @@ function getCustomerInfo(){
                                         +'<th>回调地址</th>'
                                         +'<th>描述信息</th>'
                                     +'</tr>';
-                    $('#tHead').html(tHeadHtml);
-                    $('#tBody').html('');
+                    $('#datatHead').html(tHeadHtml);
+                    $('#datatBody').html('');
                     $.each(appList,function(i,item){
                         var id = item.id;
                         var appName = item.appName;
@@ -71,15 +71,15 @@ function getCustomerInfo(){
                                             +'<td>'+feedbackUrl+'</td>'
                                             +'<td>'+description+'</td>'
                                         +'</tr>';
-                        $('#tBody').append(tBodyHtml);
+                        $('#datatBody').append(tBodyHtml);
                     });
                 }
             }else{
-                noticeAlert('信息获取失败，请重新进入。','失败',loadMaskHide,'',$('.box'));
+                noticeAlert('信息获取失败，请重新进入。','失败',loadMaskHide,$('.box'));
             }
         },
         error: function (error) {
-            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('.box'));
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('.box'));
         }
     });
 }
@@ -105,13 +105,13 @@ function updateBasicInfo(){
         success: function (data){
             loadMask.loadEnd($('#companyInfo'));
             if(data.isSuccess == 1){
-                noticeAlert('修改成功。','成功','','','');
+                noticeAlert('修改成功。','成功','','');
             }else{
-                noticeAlert('修改失败，请重新提交信息。','失败',loadMaskHide,'',$('#companyInfo'));
+                noticeAlert('修改失败，请重新提交信息。','失败',loadMaskHide,$('#companyInfo'));
             }
         },
         error: function (error) {
-            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#companyInfo'));
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#companyInfo'));
         }
     });
 }

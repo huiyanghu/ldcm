@@ -64,16 +64,16 @@ $('#registerBtn').click(function(){
                 if(data.result.code == 2){
                     codeIsWrong();
                 }else if(data.result.code == 1){
-                    noticeAlert('注册成功，请耐心等待管理员审核...','注册',returnLogin,'','');
+                    noticeAlert('注册成功，请耐心等待管理员审核...','注册',returnLogin,'');
                 }else{
                     registerError(data.result.code);
                 }
             }else{
-                noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,'',$('.register'));
+                noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,$('.register'));
             }
         },
         error: function (error) {
-            noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,'',$('.register'));
+            noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,$('.register'));
         }
     });
 });

@@ -48,7 +48,7 @@ $('.psd-relevant .left').click(function(){
 });
 function loginError(num){
     if(num == 1 || num == 9){
-        objArr[0].focus().val().attr('placeholder',codeStr[num]);
+        objArr[0].focus().val('').attr('placeholder',codeStr[num]);
     }else if(num == 5 || num == 10){
         objArr[4].focus().attr('placeholder',codeStr[num]);
     }else if(num == 0){
@@ -84,11 +84,11 @@ function login(){
                     loginError(data.result.code);
                 }
             }else{
-                noticeAlert('登录失败，请重新填写登录信息。','失败','','','');
+                noticeAlert('登录失败，请重新填写登录信息。','失败','','');
             }
         },
         error: function (error) {
-            noticeAlert('登录失败，请重新填写登录信息。','失败','','','');
+            noticeAlert('登录失败，请重新填写登录信息。','失败','','');
         }
     });
 }

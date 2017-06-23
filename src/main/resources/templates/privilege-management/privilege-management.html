@@ -160,9 +160,9 @@
 		    		"status":status
 		    	}
 		    	var dataStr = JSON.stringify(data);
-		    	confirmAlert(msg,title,reviewUser,'',dataStr);
+		    	confirmAlert(msg,title,reviewUser,dataStr);
 		    });
-		    function reviewUser(alertBox,data){
+		    function reviewUser(data){
 		    	var data = JSON.parse(data);
 		    	var obj = data.obj;
 		    	var status = data.status;
@@ -175,7 +175,6 @@
 		    		$('#'+obj).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
 		    		$('#'+obj).parent().siblings('.statusStr').html('关闭');
 		    	}
-		    	alertBox.hide();
 		    }
 		</script>	
 	</body>
