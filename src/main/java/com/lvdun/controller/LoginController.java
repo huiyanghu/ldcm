@@ -269,7 +269,10 @@ public class LoginController {
             try {
                 CmAccount account = accountService.getByAccount(email);
                 String activityCode = account.getActivityCode();
-
+                if (StringUtil.isNotEmpty(activityCode)) {
+                    activityCode = "" + (int) ((Math.random() * 9 + 1) * 100000);
+                    account.setActivityCode(activityCode);
+                }
 
                 StringBuffer emailContent = new StringBuffer();
                 emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次！/n");
@@ -305,7 +308,6 @@ public class LoginController {
 
     @RequestMapping("/checkEmail")
     public String checkEmail(HttpSession session, String email, String activityCode, Map map) {
-
         CmAccount account = accountService.getByAccount(email);
         account.getSendEmailDate();
         DateUtil.addHour(new Date(), 1);
@@ -368,9 +370,31 @@ public class LoginController {
 
     @RequestMapping("/test")
     public void test() {
-        SendEmailUtil.send("915854720@qq.com", "http://localhost:8080/dataRecord/list?dataType=1");
+        String email="915854720@qq.com";
+        String activityCode="986574";
+        StringBuffer emailContent = new StringBuffer();
+        emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次!");
+        emailContent.append("<a href=\"");
+        emailContent.append("http://");
+        emailContent.append(ConstantsUtil.SERVER_IP);
+        emailContent.append(":");
+        emailContent.append(ConstantsUtil.SERVER_PORT);
+        emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+        emailContent.append("\">");
+        emailContent.append("http://");
+        emailContent.append(ConstantsUtil.SERVER_IP);
+        emailContent.append(":");
+        emailContent.append(ConstantsUtil.SERVER_PORT);
+        emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+        emailContent.append("</a>");
+
+        SendEmailUtil.send(email, emailContent.toString());
+
     }
 
+    public static void main(String[] args) {
+
+    }
 
 
 }

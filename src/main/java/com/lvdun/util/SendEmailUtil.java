@@ -11,11 +11,11 @@ import java.util.Properties;
  * Created by Administrator on 2017/6/22.
  */
 public class SendEmailUtil {
-    public static final String HOST = "smtp.163.com";
+    public static final String HOST = "smtp.jiuanyun.com";
     public static final String PROTOCOL = "smtp";
     public static final int PORT = 25;
-    public static final String FROM = "captainHhy@163.com";//发件人的email
-    public static final String PWD = "hhy19860720";//发件人密码
+    public static final String FROM = "support@jiuanyun.com";//发件人的email
+    public static final String PWD = "Lvdun.jay.qaz123";//发件人密码
 
     /**
      * 获取Session
@@ -53,7 +53,7 @@ public class SendEmailUtil {
             msg.setFrom(new InternetAddress(FROM));
             InternetAddress[] address = {new InternetAddress(toEmail)};
             msg.setRecipients(Message.RecipientType.TO, address);
-            msg.setSubject("账号激活邮件");
+            msg.setSubject("修改密码邮件");
             msg.setSentDate(new Date());
             msg.setContent(content, "text/html;charset=utf-8");
 
