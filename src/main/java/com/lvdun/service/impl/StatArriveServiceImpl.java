@@ -22,7 +22,7 @@ public class StatArriveServiceImpl implements StatArriveService {
     @Transactional
     public void insertStatArrive() {
         statArriveDao.insertIntoStatArrive();
-        statArriveDao.insertIntoStatArriveDelete();
+        //statArriveDao.insertIntoStatArriveDelete();
     }
 
     @Override

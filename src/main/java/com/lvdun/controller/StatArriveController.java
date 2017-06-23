@@ -21,6 +21,7 @@ public class StatArriveController {
     @Autowired
     StatArriveService statArriveService;
     //=============test
+
     /**
      * 接入量趋势分析
      *
@@ -150,13 +151,19 @@ public class StatArriveController {
     }
 
     @RequestMapping("/trendAnalysis")
-    public String trendAnalysis(){
+    public String trendAnalysis() {
         return "business-overview/trend-analysis";
     }
 
     @RequestMapping("/rejectAnalysis")
-    public String rejectAnalysis(){
+    public String rejectAnalysis() {
         return "business-overview/reject-analysis";
+    }
+
+
+    @RequestMapping("/test")
+    public void test() {
+        statArriveService.insertStatArrive();
     }
 
 }
