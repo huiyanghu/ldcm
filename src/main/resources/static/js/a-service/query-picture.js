@@ -36,6 +36,7 @@ getDataList(1);
 var currentPaging=1;
 var currentPageSize=10;
 function getDataList(page){
+    loadMask.loadStart($('#dataTable'));
     var appName = $('#appName').val();
     var status = $('#status').val();
     var reasonCode = $('#reasonCode').val();
@@ -63,6 +64,7 @@ function getDataList(page){
         },
         success: function (data) {
             if(data.isSuccess == 1){
+                loadMask.loadEnd($('#dataTable'));
                 var dataRecordPage = data.result.dataRecordPage;
                 var paginationJson = {
                     currentPage: dataRecordPage.currentPage,
@@ -154,11 +156,11 @@ function getDataList(page){
                     });
                 }
             }else{
-                noticeAlert('数据获取失败，请重新搜索。','失败','','','');
+                noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,'',$('#dataTable'));
             }
         },
         error: function (error) {
-            noticeAlert('网络出错，请重新连接网络。','错误！','','','');
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#dataTable'));
         }
     });
 }

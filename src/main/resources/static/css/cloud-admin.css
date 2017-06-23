@@ -7280,7 +7280,7 @@ div.hint {
   /*overflow: hidden;*/
   position: relative;
   top: -15px;
-  z-index:100;
+  z-index:99;
 }
 .box .header-tabs .nav-tabs.top-50{
 	top: -50px;
@@ -9304,7 +9304,7 @@ ul.stats li small {
   opacity: 0.3;
   top:0;
   left:0;
-  z-index: 999999;
+  z-index: 99;
 }
 .ball-clip-rotate-multiple {
   position: absolute;
@@ -9315,7 +9315,7 @@ ul.stats li small {
   -moz-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
   -o-transform: translate(-50%,-50%);
-  z-index: 9999999;
+  z-index: 99;
 }
 .ball-clip-rotate-multiple > div {
   -webkit-animation-fill-mode: both;

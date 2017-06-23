@@ -139,11 +139,11 @@ function getDataList(page){
                     });
                 }
             }else{
-                noticeAlert('数据获取失败，请重新搜索。','失败','','','');
+                noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,'',$('#dataTable'));
             }
         },
         error: function (error) {
-            noticeAlert('网络出错，请重新连接网络。','错误！','','','');
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,'',$('#dataTable'));
         }
     });
 }

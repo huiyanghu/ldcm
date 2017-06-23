@@ -28,6 +28,7 @@ function registerError(num){
     picCode();
 }
 $('#registerBtn').click(function(){
+    loadMask.loadStart($('.register'));
     var email = isEmpty(0);
     if(!email){ return false; }
     var companyName = isEmpty(1);
@@ -57,6 +58,7 @@ $('#registerBtn').click(function(){
         },
         success: function (data) {
             if(data.isSuccess == 1){
+                loadMask.loadEnd($('.register'));
                 //isSuccess  # 0 失败 # 1 成功
                 //code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
                 if(data.result.code == 2){
@@ -67,11 +69,15 @@ $('#registerBtn').click(function(){
                     registerError(data.result.code);
                 }
             }else{
-                noticeAlert('注册失败，请重新填写注册信息。','失败',picCode,'','');
+                noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,'',$('.register'));
             }
         },
         error: function (error) {
-            noticeAlert('注册失败，请重新填写注册信息。','失败',picCode,'','');
+            noticeAlert('注册失败，请重新填写注册信息。','失败',loadMaskAndPic,'',$('.register'));
         }
     });
 });
+function loadMaskAndPic(alertBox,data){
+    loadMask.loadEnd(data);
+    picCode();
+}

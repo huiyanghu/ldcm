@@ -52,11 +52,9 @@
 							<div class="page-header">
 								<ul class="breadcrumb">
 									<li>
-										<!--<i class="fa fa-home"></i>-->
-										<a href="/business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+										<a href="../statArrive/trendAnalysis" onclick="homePage()">首页</a>
 									</li>
 									<li>
-										<!--<i class="fa fa-home"></i>-->
 										<a href="javascript:void(0);">客户信息</a>
 									</li>
 								</ul>
@@ -65,10 +63,9 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<div class="box border">
+							<div class="box border" id="companyInfo">
 								<div class="box-title">
 									<h4>
-										<!--<i class="fa fa-user"></i>-->
 										<span class="hidden-inline-mobile">基本信息</span>
 									</h4>
 								</div>
@@ -80,25 +77,25 @@
 													<div class="col-md-3 no-padding-left">
 														<label class="col-md-2 control-label width-70">客户名称：</label>
 														<div class="col-md-8 no-padding-left">
-															<input type="text" name="regular" class="form-control" value="客户名称"/>
+															<input type="text" disabled="disabled" name="customerName" id="customerName" class="form-control" value=""/>
 														</div>
 													</div>
 													<div class="col-md-3 no-padding">
 														<label class="col-md-2 control-label width-85">联系人姓名：</label>
 														<div class="col-md-8 no-padding-left">
-															<input type="text" name="regular" class="form-control" value="何以琛"/>
+															<input type="text" name="contactsName" id="contactsName" class="form-control" value=""/>
 														</div>
 													</div>
 													<div class="col-md-3 no-padding">
 														<label class="col-md-2 control-label width-70">联系电话：</label>
 														<div class="col-md-8 no-padding-left">
-															<input type="tel" name="regular" class="form-control" value="15866668888"/>
+															<input type="tel" name="contactsMobile" id="contactsMobile" class="form-control" value=""/>
 														</div>
 													</div>
 													<div class="col-md-3 no-padding">
 														<label class="col-md-2 control-label width-70">接入时间：</label>
 														<div class="col-md-8 no-padding-left time-far">
-															<input type="tel" name="regular" class="form-control" value="2017-05-05" onClick="WdatePicker()"/>
+															<input type="tel" name="approvalTime" id="approvalTime" disabled="disabled" class="form-control" value="" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"/>
 															<span class="arrow open"></span>
 														</div>
 													</div>
@@ -109,28 +106,22 @@
 														<div class="col-md-2" style="margin-right: 15px;">
 															<select name="province" id="province" class="col-md-12 full-width-fix">
 																<option value="">请选择省</option>
-																<option value="BJ">北京</option>
-																<option value="TJ">天津</option>
 															</select>
 														</div>
 														<div class="col-md-2" style="margin-right: 15px;">
 															<select name="city" id="city" class="col-md-12 full-width-fix">
 																<option value="">请选择市</option>
-																<option value="BJ">北京</option>
-																<option value="TJ">天津</option>
 															</select>
 														</div>
 														<div class="col-md-2">
-															<select name="area" id="area" class="col-md-12 full-width-fix">
+															<select name="region" id="region" class="col-md-12 full-width-fix">
 																<option value="">请选择区（县）</option>
-																<option value="CY">朝阳</option>
-																<option value="HD">海淀</option>
 															</select>
 														</div>
 													</div>
 												</div>
 												<div class="form-actions clearfix">
-													<input type="submit" value="修改" class="btn btn-primary btn-self"/>
+													<input type="button" value="修改" id="editBtn" class="btn btn-primary btn-self"/>
 												</div>
 											</form>
 										</div>
@@ -149,19 +140,19 @@
 											<div class="form-group">
 												<label class="col-md-2 control-label text-right width-70">秘钥信息：</label>
 												<div class="col-md-8 no-padding-left">
-													<span class="help-block">秘钥信息</span>
+													<span class="help-block" id="shaKey"></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-2 control-label text-right width-70">地址信息：</label>
 												<div class="col-md-8 no-padding-left">
-													<span class="help-block">接入地址信息</span>
+													<span class="help-block" id="domain"></span>
 												</div>
 											</div>
 											<div class="form-group">
 												<label class="col-md-2 control-label text-right width-70">回调地址：</label>
 												<div class="col-md-8 no-padding-left">
-													<span class="help-block">回调地址</span>
+													<span class="help-block" id="feedback"></span>
 												</div>
 											</div>
 										</div>
@@ -170,7 +161,7 @@
 											<div class="col-md-2" style="width: 150px;">
 												<div class="list-group">
 													<li class="list-group-item zero-padding headshot customer-avatars" >
-														<img src="/img/img2.jpg" alt="" class="img-responsive" />
+														<img src="/img/img2.jpg" alt="" id="operatePic" class="img-responsive" />
 													</li>
 												</div>
 											</div>
@@ -178,25 +169,25 @@
 												<div class="form-group">
 													<label class="col-md-4 control-label text-right width-70">姓名：</label>
 													<div class="col-md-8 no-padding-left">
-														<span class="help-block">赵默笙</span>
+														<span class="help-block" id="operateName"></span>
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label text-right width-70">联系电话：</label>
 													<div class="col-md-8 no-padding-left">
-														<span class="help-block">13688886666</span>
+														<span class="help-block" id="operatePhone"></span>
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label text-right width-70">微信号：</label>
 													<div class="col-md-8 no-padding-left">
-														<span class="help-block">moshengzhao</span>
+														<span class="help-block" id="operateWeChat"></span>
 													</div>
 												</div>
 												<div class="form-group">
 													<label class="col-md-4 control-label text-right width-70">QQ号：</label>
 													<div class="col-md-8 no-padding-left">
-														<span class="help-block">888888</span>
+														<span class="help-block" id="operateOICQ"></span>
 													</div>
 												</div>
 											</div>
@@ -211,42 +202,16 @@
 							<div class="box border">
 								<div class="box-title">
 									<h4>
-										<!--<i class="fa fa-user"></i>-->
 										<span class="hidden-inline-mobile">已开通服务列表</span>
 									</h4>
 								</div>
 								<div class="box-body">
 									<div class="row">
 										<div class="col-md-12 common-info no-padding">
+											<div class="noData">抱歉，亲，没有搜到您想要的结果。</div>
 											<table class="table table-bordered table-striped">
-												<thead>
-													<tr>
-														<th>序号</th>
-														<th>产品ID</th>
-														<th>产品名称</th>
-														<th>审核类型</th>
-														<th>回调地址</th>
-														<th>描述信息</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-												  		<td>1</td>
-														<td>APPID1</td>
-														<td>App名称1</td>
-														<td>文字</td>
-														<td>回调地址1</td>
-														<td>描述信息1</td>
-													</tr>
-													<tr>
-												  		<td>2</td>
-														<td>APPID2</td>
-														<td>App名称2</td>
-														<td>文字</td>
-														<td>回调地址2</td>
-														<td>描述信息2</td>
-													</tr>
-												</tbody>
+												<thead id="tHead"></thead>
+												<tbody id="tBody"></tbody>
 											</table>
 										</div>
 									</div>

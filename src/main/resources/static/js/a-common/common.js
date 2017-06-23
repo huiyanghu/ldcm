@@ -37,6 +37,10 @@ var loadMask = function (){
 		}
 	}
 }();
+//ajax访问失败，点击弹窗确认件，取消蒙板
+function loadMaskHide(alertBox,data){
+	loadMask.loadEnd(data);
+}
 //返回登录页
 function returnLogin(){
 	window.location.href = '../toLogin';
@@ -48,7 +52,7 @@ var regularArr = [isEmail,specialCharacter,noNumber,phoneNumber,passwordCheck];
 var emptyStr = ["邮箱不能为空","公司名称不能为空","姓名不能为空","手机号码不能为空","密码不能为空","两次密码不一致","请输入验证码"];
 var errorStr = ["请输入正确的邮箱格式","请输入正确的公司名称","请输入真实的姓名，不能包含数字","请输入正确的手机号码","请输入6-16位的数字和字母组合","两次密码不一致","验证码错误"];
 var codeStr = ["验证码错误","邮箱不能为空","公司名称不能为空","姓名不能为空","手机号码不能为空","密码不能为空","两次密码不一致","邮箱已被注册","公司已被注册","账号不存在","密码错误"];
-//提交表单，验证表单内是否有空，如有空则不提交并空选项获取焦点
+//提交表单，验证表单内是否有空，如有空则不提交,空选项获取焦点
 function isEmpty(num){
 	if(objArr[num].val() == '' || objArr[num].val() == undefined || objArr[num].val() == null){
 		objArr[num].focus().siblings('.error-span').html(emptyStr[num]);
