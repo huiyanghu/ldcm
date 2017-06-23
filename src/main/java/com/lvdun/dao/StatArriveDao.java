@@ -20,4 +20,5 @@ public interface StatArriveDao {
 
     public List<Map> getChapterByApp(Integer flag, Long platformId, Long appId);
 
+    //public void insertIntoStatArrive();
 }

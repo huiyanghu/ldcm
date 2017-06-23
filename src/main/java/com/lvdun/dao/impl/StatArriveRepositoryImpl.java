@@ -20,6 +20,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
 
     @Override
     public Map getTotalResult(Integer flag, Long platformId) {
+
         String sql = "select " +
                 "sum(count_total) as count_total, " +
                 "sum(count_pass) as count_pass, " +
@@ -177,6 +178,12 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
         List<Map> list = query.list();
         return list;
     }
+
+    /*public void insertIntoStatArrive() {
+        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Query query = session.createSQLQuery("{call p1()}");
+        query.executeUpdate();
+    }*/
 
 
 }

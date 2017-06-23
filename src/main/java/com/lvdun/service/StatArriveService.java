@@ -7,7 +7,6 @@ import java.util.Map;
  * Created by Administrator on 2017/6/16.
  */
 public interface StatArriveService {
-    public void insertStatArrive();
 
     public Map getTotalResult(Integer flag, Long platformId);
 
@@ -21,4 +20,5 @@ public interface StatArriveService {
 
     public List getChapterByApp(Integer flag, Long platformId, String field);
 
+    void executeProcedure();
 }
