@@ -54,11 +54,9 @@
 							<div class="page-header">
 								<div class="breadcrumb">
 									<li>
-										<!--<i class="fa fa-home"></i>-->
-										<a href="/business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+										<a href="../statArrive/trendAnalysis" onclick="homePage()">首页</a>
 									</li>
 									<li>
-										<!--<i class="fa fa-home"></i>-->
 										<a href="javascript:void(0);">用户管理</a>
 									</li>
 								</div>
@@ -69,7 +67,7 @@
 						<div class="col-sm-12">
 							<div class="box border">
 								<div class="box-title title-btn">
-									<a href="/user-management/add-edit-user.html?flag=add" class="btn btn-primary btn-red">增加用户</a>
+									<a href="../baseLdUser/addEditUser?flag=add" class="btn btn-primary btn-red">增加用户</a>
 									<span class="help-block title-help"></span>
 								</div>
 								<div class="box-body">
@@ -94,7 +92,7 @@
 														<td>15866668888</td>
 														<td>管理员</td>
 														<td>
-															<a href="/user-management/add-edit-user.html?flag=edit" class="color-9">
+															<a href="/user-management/add-edit-user.html?flag=edit&dataJson=dataJson" class="color-9">
 																<i title="修改用户信息" class="fa fa-pencil"></i>
 															</a>
 															<a href="javascript:void(0);" class="color-9 refresh-paddword">
@@ -152,52 +150,9 @@
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
 		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
-		<script type="text/javascript" src="/js/a-script/pagination.js"></script>
-		<script type="text/javascript" src="/js/a-script/ui-select.js"></script>
-		<script type="text/javascript" src="/js/a-script/common.js"></script>
-		<script type="text/javascript">
-			var paginationJson = {
-		        currentPage: 1,
-		        pageSize: 10,
-		        pageCount: 1,
-		        total: 4,
-		    }
-		    creat_pagination(paginationJson);
-		    $('.refresh-paddword').click(function(){
-		    	var formHtml = '<form action="" class="form-horizontal fill-user-info">'
-		    						+'<div class="form-group">'
-		    							+'<label class="control-label col-md-3 no-padding-right">新密码：</label>'
-		    							+'<div class="col-md-4 no-padding-left left-input">'
-		    								+'<input type="password" class="form-control" id="password" name="password" placeholder="请设置对方账号新密码"/>'
-		    								+'<span class="error-span"></span>'
-		    							+'</div>'
-		    						+'</div>'
-		    						+'<div class="form-group" style="margin-bottom: 0;">'
-		    							+'<label class="control-label col-md-3 no-padding-right">确认新密码：</label>'
-		    							+'<div class="col-md-4 no-padding-left left-input">'
-		    								+'<input type="password" class="form-control" id="password2" name="password2" placeholder="请确认对方账号新密码"/>'
-		    								+'<span class="error-span"></span>'
-		    							+'</div>'
-		    						+'</div>'
-		    					+'</form>';
-		    	var title = '修改密码';
-		    	var data = '1111';
-				confirmAlert(formHtml,title,testFun,checkPsd,data);
-			});
-		    function testFun(alertBox,data){
-		    	console.log('data----->'+data);
-		    	alertBox.hide();
-		    }
-		    $('.del-user').click(function(){
-		    	var msg = '确定要删除吗?';
-		    	var title = '删除';
-		    	var data = '1111';
-				confirmAlert(msg,title,testFun,'',data);
-		    });
-		    function checkPsd(){
-		    	checkFormat($('#password'),passwordCheck,'密码不能为空','请输入6-16位的数字和字母组合');
-		    	psdConfirm($('#password'),$('#password2'));
-		    }
-		</script>	
+		<script type="text/javascript" src="/js/a-common/pagination.js"></script>
+		<script type="text/javascript" src="/js/a-common/ui-select.js"></script>
+		<script type="text/javascript" src="/js/a-common/common.js"></script>
+		<script type="text/javascript" src="/js/a-service/user-management.js"></script>
 	</body>
 </html>

@@ -116,6 +116,7 @@ function psdConfirm(obj1,obj2){
 	obj2.focus(function(){
 		if(obj1.val() == ''){
 			obj1.focus().siblings('.error-span').html('请输入密码');
+			return false;
 		}else{
 			return false;
 		}
@@ -124,12 +125,15 @@ function psdConfirm(obj1,obj2){
 		if($(this).val() != obj1.val()){
 			$(this).parents('.form-group').removeClass('has-success').addClass('has-error');
 			$(this).siblings('.error-span').html('两次密码不一致');
+			return false;
 		}else if(($(this).val() == obj1.val()) && obj1.val() != ''){
 			$(this).parents('.form-group').removeClass('has-error').addClass('has-success');
 			$(this).siblings('.error-span').html('');
+			return true;
 		}else if(obj1.val() == ''){
 			$(this).parents('.form-group').removeClass('has-error').removeClass('has-success');
 			$(this).siblings('.error-span').html('');
+			return true;
 		}
 	});
 }
@@ -138,13 +142,16 @@ function checkFormat(num){
 	objArr[num].blur(function(){
 		if($(this).val() == ''){
 			$(this).siblings('.error-span').html(emptyStr[num]);
+			return false;
 		}else{
 			if(regularArr[num]($(this).val())){
 	    		$(this).parents('.form-group').removeClass('has-error').addClass('has-success');
 	    		$(this).siblings('.error-span').html('');
+				return true;
 	    	}else{
 	    		$(this).parents('.form-group').removeClass('has-success').addClass('has-error');
 	    		$(this).siblings('.error-span').html(errorStr[num]);
+				return false;
 	    	}
 		}
     });
