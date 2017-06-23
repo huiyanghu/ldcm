@@ -201,7 +201,9 @@ public class BaseLdUserController {
     }
 
     @RequestMapping("/addEditUser")
-    public String addEditUser(){
+    public String addEditUser(Map map, String flag, String dataJson) {
+        map.put("flag", flag);
+        map.put("dataJson", dataJson);
         return "user-management/add-edit-user";
     }
 
