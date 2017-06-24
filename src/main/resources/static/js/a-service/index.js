@@ -96,3 +96,32 @@ function toHomePage(){
 	$('.homePage').addClass('active').siblings().find('.arrow').removeClass('open');
 	$('.homePage').children('.sub').show().children('li').eq(0).addClass('active');
 }
+function getCustomerInfo(){
+	$.ajax({
+		url: "../customer/getCustomerInfo",
+		type: "get",
+		success: function (data) {
+			if(data.isSuccess == 1){
+				//运营信息
+				var operateInfo = data.result.operateInfo;
+				$('#operatePic').attr('src',operateInfo.icon);
+				$('#operateName').html(operateInfo.name);
+				$('#operatePhone').html(operateInfo.mobile);
+				$('#operateWeChat').html(operateInfo.weixin);
+				$('#operateOICQ').html(operateInfo.qq);
+				//常见信息
+				var commonInfo = data.result.commonInfo;
+				$('#shaKey').html(commonInfo.shaKey);
+				$('#domain').html(commonInfo.domain);
+				$('#feedback').html(commonInfo.feedback);
+			}else{
+				noticeAlert('信息获取失败，请重新进入。','失败','','');
+			}
+		},
+		error: function (error) {
+			noticeAlert('网络出错，请重新连接网络。','错误！','','');
+		}
+	});
+}
+getCustomerInfo();
+

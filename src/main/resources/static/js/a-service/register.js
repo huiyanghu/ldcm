@@ -28,7 +28,6 @@ function registerError(num){
     picCode();
 }
 $('#registerBtn').click(function(){
-    loadMask.loadStart($('.register'));
     var email = isEmpty(0);
     if(!email){ return false; }
     var companyName = isEmpty(1);
@@ -43,6 +42,7 @@ $('#registerBtn').click(function(){
     if(!confirmPassword){ return false; }
     var verificationCode = isEmpty(6);
     if(!verificationCode){ return false; }
+    loadMask.loadStart($('.register'));
     $.ajax({
         url: "../registerAjax",
         type: "post",

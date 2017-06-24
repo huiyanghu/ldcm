@@ -85,12 +85,12 @@ function getCustomerInfo(){
 }
 getCustomerInfo();
 function updateBasicInfo(){
-    loadMask.loadStart($('#companyInfo'));
     var contactsName = $('#contactsName').val();
     var contactsMobile = $('#contactsMobile').val();
     var province = $('#province').val();
     var city = $('#city').val();
     var region = $('#region').val();
+    loadMask.loadStart($('#companyInfo'));
     $.ajax({
         url: "../customer/updateBasicInfo",
         type: "get",

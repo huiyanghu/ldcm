@@ -36,7 +36,6 @@ getDataList(1);
 var currentPaging=1;
 var currentPageSize=10;
 function getDataList(page){
-    loadMask.loadStart($('#dataTable'));
     var appName = $('#appName').val();
     var status = $('#status').val();
     var reasonCode = $('#reasonCode').val();
@@ -45,6 +44,7 @@ function getDataList(page){
     var endTime = $('#endTime').val();
     var conditionName = $('#conditionName').val();
     var conditionValue = $('#conditionValue').val();
+    loadMask.loadStart($('#dataTable'));
     $.ajax({
         url: "../dataRecord/list",
         type: "get",

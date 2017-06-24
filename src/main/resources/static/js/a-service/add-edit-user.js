@@ -39,7 +39,6 @@ function getUserInfo(){
     $('#userType').ui_select().val(userInfo.userType);
 }
 $('#addEditBtn').click(function(){
-    loadMask.loadStart($('.register'));
     var email = isEmpty(0);
     if(!email){ return false; }
     var companyName = isEmpty(1);
@@ -84,6 +83,7 @@ $('#addEditBtn').click(function(){
         var successMsg = '修改成功。';
         var msg = '修改失败，请重新填写修改信息。';
     }
+    loadMask.loadStart($('.register'));
     $.ajax({
         url: url,
         type: "post",

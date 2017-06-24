@@ -70,44 +70,11 @@
 							<div class="box border">
 								<div class="box-body">
 									<div class="row">
-										<div class="col-md-12 no-padding">
+										<div class="col-md-12 no-padding" id="dataTable">
+											<div class="noData">抱歉，亲，没有搜到您想要的结果。</div>
 											<table class="table table-bordered table-striped data-table user-table">
-												<thead>
-													<tr>
-														<th>公司名称</th>
-														<th>账号</th>
-														<th>姓名</th>
-														<th>手机</th>
-														<th>状态</th>
-														<th>操作</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>绿盾公司</td>
-														<td title="heyitan@sina.com">heyitan@sina.com</td>
-														<td>何以琛</td>
-														<td>15866668888</td>
-														<td class="statusStr">开通</td>
-														<td>
-															<a href="javascript:void(0);" class="color-9 review-user" status="1" id="user01">
-																<i title="审核" class="fa fa-unlock"></i>
-															</a>
-														</td>
-													</tr>
-													<tr>
-														<td>绿盾公司</td>
-														<td title="zhaomosheng@sina.com">zhaomosheng@sina.com</td>
-														<td>赵默笙</td>
-														<td>13688886666</td>
-														<td class="statusStr">未审核</td>
-														<td>
-															<a href="javascript:void(0);" class="color-9 review-user" status="0" id="user02">
-																<i title="审核" class="fa fa-lock"></i>
-															</a>
-														</td>
-													</tr>
-												</tbody>
+												<thead id="datatHead"></thead>
+												<tbody id="datatBody"></tbody>
 											</table>
 											<div class="pagination" id="pagination"></div>
 										</div>
@@ -136,46 +103,9 @@
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
 		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
-		<script type="text/javascript" src="/js/a-script/pagination.js"></script>
-		<script type="text/javascript" src="/js/a-script/ui-select.js"></script>
-		<script type="text/javascript" src="/js/a-script/common.js"></script>
-		<script type="text/javascript">
-			var paginationJson = {
-		        currentPage: 1,
-		        pageSize: 10,
-		        pageCount: 1,
-		        total: 4,
-		    }
-		    creat_pagination(paginationJson);
-		    $('.review-user').click(function(){
-		    	var status = $(this).attr('status');
-		    	if(status == '0' || status == 0){
-		    		var msg = '确定开通此用户吗?';
-		    	}else if(status == '1' || status == 1){
-		    		var msg = '确定关闭此用户吗?';
-		    	}
-		    	var title = '审核';
-		    	var data ={
-		    		"obj":$(this).attr('id'),
-		    		"status":status
-		    	}
-		    	var dataStr = JSON.stringify(data);
-		    	confirmAlert(msg,title,reviewUser,dataStr);
-		    });
-		    function reviewUser(data){
-		    	var data = JSON.parse(data);
-		    	var obj = data.obj;
-		    	var status = data.status;
-		    	if(status == '0' || status == 0){
-		    		$('#'+obj).attr('status','1');
-		    		$('#'+obj).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
-		    		$('#'+obj).parent().siblings('.statusStr').html('开通');
-		    	}else if(status == '1' || status == 1){
-		    		$('#'+obj).attr('status','0');
-		    		$('#'+obj).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
-		    		$('#'+obj).parent().siblings('.statusStr').html('关闭');
-		    	}
-		    }
-		</script>	
+		<script type="text/javascript" src="/js/a-common/pagination.js"></script>
+		<script type="text/javascript" src="/js/a-common/ui-select.js"></script>
+		<script type="text/javascript" src="/js/a-common/common.js"></script>
+		<script type="text/javascript" src="/js/a-service/privilege-management.js"></script>
 	</body>
 </html>
