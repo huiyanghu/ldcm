@@ -396,5 +396,14 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/auditStandard")
+    public String auditStandard(){
+        return "help-documentation/audit-standard";
+    }
+    @RequestMapping("/developmentDocumen")
+    public String developmentDocumen(){
+        return "help-documentation/development-documen";
+    }
+
 
 }
