@@ -17,5 +17,6 @@ public interface BaseLdUserRepository extends JpaRepository<BaseLdUser, Long>, J
     @Query("select user from BaseLdUser user where user.account.roleFlag=1 and user.customerId= :customerId ")
     public List<BaseLdUser> getPrimeBaseLdUser(@Param("customerId") Long customerId);
 
-
+    @Query("select user from BaseLdUser user where user.account.id= :accountId ")
+    public  BaseLdUser  getByAccountId(@Param("accountId") Long accountId);
 }

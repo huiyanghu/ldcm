@@ -9,6 +9,7 @@ import com.lvdun.entity.CmCustomer;
 import com.lvdun.service.BaseLdUserService;
 import com.lvdun.util.ConstantsUtil;
 import com.lvdun.util.MD5;
+import com.lvdun.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -60,6 +61,7 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
             Map map = new HashMap();
             map.put("baseLdUserId", baseLdUser.getId());
             map.put("account", baseLdUser.getAccount() == null ? "" : baseLdUser.getAccount().getAccount());
+            map.put("accountId", baseLdUser.getAccount() == null ? "" : baseLdUser.getAccount().getId());
             map.put("name", baseLdUser.getName());
             map.put("mobile", baseLdUser.getMobile());
             map.put("roleFlag", baseLdUser.getAccount() == null ? "" : baseLdUser.getAccount().getRoleFlag());
@@ -106,19 +108,25 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
 
     @Override
     @Transactional
-    public void updateUser(Long baseLdUserId, String name, String mobile, Integer roleFlag) {
-        BaseLdUser baseLdUser = baseLdUserDao.findOne(baseLdUserId);
+    public void updateUser(Long accountId, String name, String mobile, Integer roleFlag,String newPassword) {
+        BaseLdUser baseLdUser = baseLdUserDao.getByAccountId(accountId);
         baseLdUser.setName(name);
         baseLdUser.setMobile(mobile);
         baseLdUserDao.save(baseLdUser);
 
-        CmAccount account = accountDao.findOne(baseLdUser.getAccount().getId());
+        CmAccount account = accountDao.findOne(accountId);
         account.setName(name);
         account.setMobile(mobile);
-        if (roleFlag == 1) {
-            accountDao.updateAccountRoleFlagToZero();
+        if (StringUtil.isNotEmpty(roleFlag)){
+            if (roleFlag == 1) {
+                accountDao.updateAccountRoleFlagToZero();
+            }
+            account.setRoleFlag(roleFlag);
         }
-        account.setRoleFlag(roleFlag);
+        if (StringUtil.isNotEmpty(newPassword)){
+            account.setPassword(MD5.MD5(newPassword).toUpperCase());
+        }
+
         accountDao.save(account);
     }
 

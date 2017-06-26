@@ -10,7 +10,7 @@ public interface BaseLdUserService {
 
     public void addUser(Long customerId, String email, String name, String mobile, Integer roleFlag, String password);
 
-    public void updateUser(Long baseLdUserId, String name, String mobile, Integer roleFlag);
+    public void updateUser(Long accountId, String name, String mobile, Integer roleFlag,String newPassword);
 
     public void deleteUser(Long baseLdUserId);
 

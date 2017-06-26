@@ -125,15 +125,18 @@ public class BaseLdUserController {
 
     @RequestMapping(path = "/getUserDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Object getUserDetail(HttpSession session) {
+    public Object getUserDetail(HttpSession session,Long accountId) {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-
         int isSuccess = 0;
-        Map loginUser = (Map) session.getAttribute("loginUser");
+        if (StringUtil.isEmpty(accountId)){
+            Map loginUser = (Map) session.getAttribute("loginUser");
+            accountId=Long.parseLong("" + loginUser.get("id"));
+        }
+
         try {
-            Map userDetail = baseLdUserService.getUserDetail(Long.parseLong("" + loginUser.get("id")));
+            Map userDetail = baseLdUserService.getUserDetail(accountId);
             result.put("userDetail", userDetail);
             isSuccess = 1;
         } catch (Exception e) {
@@ -151,12 +154,17 @@ public class BaseLdUserController {
 
     @RequestMapping(path = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object updateBaseLdUser(HttpSession session, Long baseLdUserId, String name, String mobile, Integer roleFlag, String verificationCode) {
+    public Object updateBaseLdUser(HttpSession session, Long accountId, String name, String mobile, Integer roleFlag, String verificationCode,String newPassword) {
 
         Map resutltMap = new HashMap();
         int isSuccess = 0;
         int code = 0;////code:0//失败  1//成功  2//验证码
         Map result = new HashMap();
+
+        if (StringUtil.isEmpty(accountId)){
+            Map loginUser = (Map) session.getAttribute("loginUser");
+            accountId=Long.parseLong("" + loginUser.get("id"));
+        }
 
         verificationCode = verificationCode.toLowerCase();
         String verCode = "" + session.getAttribute("verCode");
@@ -165,7 +173,7 @@ public class BaseLdUserController {
             isSuccess = 0;
         } else {
             try {
-                baseLdUserService.updateUser(baseLdUserId, name, mobile, roleFlag);
+                baseLdUserService.updateUser(accountId, name, mobile, roleFlag,newPassword);
                 code = 1;
                 isSuccess = 1;
             } catch (Exception e) {
