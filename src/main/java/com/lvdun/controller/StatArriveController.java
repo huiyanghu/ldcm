@@ -35,8 +35,8 @@ public class StatArriveController {
 
 
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
         Map map = new HashMap();
         int isSuccess = 0;
         try {
@@ -64,8 +64,8 @@ public class StatArriveController {
     @ResponseBody
     public Object getChapterGeneral(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
         Map chapterGeneralMap = new HashMap();
         int isSuccess = 0;
         try {
@@ -93,8 +93,8 @@ public class StatArriveController {
     @ResponseBody
     public String getChapterByType(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
         Map map = new HashMap();
         int isSuccess = 0;
         try {
@@ -127,8 +127,8 @@ public class StatArriveController {
     @ResponseBody
     public Object getChapterByApp(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
         Map map = new HashMap();
         int isSuccess = 0;
         try {

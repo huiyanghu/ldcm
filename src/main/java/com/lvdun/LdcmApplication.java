@@ -33,10 +33,11 @@ public class LdcmApplication {
     }
 
     @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druidDataSource() {
         return new DruidDataSource();
     }
+
 /*
     @Bean
     public EmbeddedServletContainerCustomizer containerCustomizer() {
@@ -65,7 +66,7 @@ public class LdcmApplication {
     public static void main(String[] args) {
         SpringApplication.run(LdcmApplication.class, args);
         /*SpringApplication app = new SpringApplication(LdcmApplication.class);
-		app.setBannerMode(Banner.Mode.OFF);
+        app.setBannerMode(Banner.Mode.OFF);
 		app.run(args);*/
     }
 }

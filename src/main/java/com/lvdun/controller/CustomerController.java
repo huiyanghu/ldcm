@@ -77,8 +77,8 @@ public class CustomerController {
     public Object getCustomerInfo(HttpSession session) {
 
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId = 1L;
+        Long customerId = Long.parseLong("" + loginUser.get("customerId"));
+        //Long customerId = 1L;
         Map customerInfo = new HashMap();
         int isSuccess = 0;
         try {
@@ -100,8 +100,8 @@ public class CustomerController {
     public Object updateBasicInfo(HttpSession session, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
 
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId = 1L;
+        Long customerId = Long.parseLong("" + loginUser.get("customerId"));
+        //Long customerId = 1L;
         int isSuccess = 0;
         try {
             customerService.updateCustomerBasicInfo(customerId, customerName, contactsName, contactsMobile, approvalTime, province, city, region);

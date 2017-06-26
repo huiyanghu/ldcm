@@ -33,8 +33,8 @@ public class DataRecordController {
     @ResponseBody
     public Object getPage(DataRecordQuery dataRecordQuery, HttpSession session, @RequestParam(name = "page", required = false, defaultValue = "1") Integer page, @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
@@ -72,8 +72,8 @@ public class DataRecordController {
     @ResponseBody
     public Object getAppList(HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
-        Long platformId = 1L;
+        Long platformId=Long.parseLong(""+loginUser.get("platformId"));
+        //Long platformId = 1L;
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
