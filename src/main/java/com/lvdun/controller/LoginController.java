@@ -450,10 +450,15 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/forgotPassword")
+    public String forgotPassword() {
+        return "forgot-password";
+    }
+
     @RequestMapping("/modifyPassword")
-    public String modifyPassword(Map map, String flag) {
-        map.put("flag", flag);
-        return "modify-password.html";
+    public String modifyPassword(Map map, String userId) {
+        map.put("userId", userId);
+        return "modify-password";
     }
 
     @RequestMapping("/personalData")
