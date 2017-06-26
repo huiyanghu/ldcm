@@ -226,15 +226,15 @@ public class LoginController {
 
     @RequestMapping(path = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public Object updatePassword(HttpSession session, @RequestParam(name = "email",required = false) String email, String newPassword) {
+    public Object updatePassword(HttpSession session, @RequestParam(name = "email",required = false) Long id, String newPassword) {
         Map resutltMap = new HashMap();
         int isSuccess = 1;
-        if (StringUtil.isEmpty(email)) {//修改自己的密码
+        if (StringUtil.isEmpty(id)) {//修改自己的密码
             Map loginUser = (Map) session.getAttribute("loginUser");
-            email = (String) loginUser.get("account");
+            id = Long.parseLong(""+loginUser.get("id"));
         }
         try {
-            accountService.updatePassword(email, newPassword);
+            accountService.updatePassword(id, newPassword);
         } catch (Exception e) {
             e.printStackTrace();
             isSuccess = 0;

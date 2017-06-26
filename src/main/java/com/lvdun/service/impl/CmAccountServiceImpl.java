@@ -130,14 +130,10 @@ public class CmAccountServiceImpl implements CmAccountService {
 
     @Override
     @Transactional
-    public void updatePassword(String email, String newPassword) {
-        List<CmAccount> accountList = accountDao.getByAccount(email);
-        if (accountList != null && !accountList.isEmpty()) {
-            CmAccount account = accountList.get(0);
-            account.setPassword(MD5.MD5(newPassword).toUpperCase());
-            accountDao.save(account);
-        }
-
+    public void updatePassword(Long id, String newPassword) {
+        CmAccount account = accountDao.findOne(id);
+        account.setPassword(MD5.MD5(newPassword).toUpperCase());
+        accountDao.save(account);
     }
 
 

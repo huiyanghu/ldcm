@@ -20,5 +20,5 @@ public interface CmAccountService {
 
     void save(CmAccount account);
 
-    void updatePassword(String email, String newPassword);
+    void updatePassword(Long id, String newPassword);
 }
