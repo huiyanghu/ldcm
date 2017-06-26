@@ -430,6 +430,11 @@ public class LoginController {
         return "modify-password.html";
     }
 
+    @RequestMapping("/personalData")
+    public String personalData() {
+        return "personal-data";
+    }
+
     @RequestMapping("/auditStandard")
     public String auditStandard() {
         return "help-documentation/audit-standard";
