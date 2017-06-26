@@ -5,6 +5,7 @@ function checkWindowHeight(){
     $('#rightIframe').attr('style', 'height:' + (height-7) + 'px');
     $('#sidebar').attr('style', 'min-height:' + height + 'px !important; border-right: 1px solid #e9ecf2;');
 }
+//左侧菜单
 function collapseSidebar(){
 	var iconLeft = $('#sidebar-collapse').attr("data-icon1");
 	var iconRight = $('#sidebar-collapse').attr("data-icon2");
@@ -21,14 +22,11 @@ function collapseSidebar(){
 		}
 	});
 }
+//左侧点击，iframe跳转
 var flagStr = 'business-1';
 function setIframeUrl(url,flag){
 	flagStr = flag;
 	$('#rightIframe').attr('src',url);
-}
-function getIframeUrl(){
-	var url = $('#rightIframe').attr('src');
-	return url;
 }
 $(function(){
 	checkWindowHeight();
@@ -91,11 +89,13 @@ $(function(){
     	checkWindowHeight();
     });
 });
+//页面中点击首页，左侧接入量分析获取焦点
 function toHomePage(){
 	$('.homePage').addClass('active').siblings().removeClass('active').children('.sub').hide().find('li').removeClass('active');
 	$('.homePage').addClass('active').siblings().find('.arrow').removeClass('open');
 	$('.homePage').children('.sub').show().children('li').eq(0).addClass('active');
 }
+//常用信息
 function getCustomerInfo(){
 	$.ajax({
 		url: "../customer/getCustomerInfo",
@@ -124,4 +124,21 @@ function getCustomerInfo(){
 	});
 }
 getCustomerInfo();
+//退出登录
+function logout(){
+	$.ajax({
+		url: "../logout",
+		type: "get",
+		success: function (data) {
+			if (data.isSuccess == 1) {
+				returnLogin();
+			} else {
+				noticeAlert('退出失败，请重新退出。', '失败', '', '');
+			}
+		},
+		error: function (error) {
+			noticeAlert('网络出错，请重新连接网络。', '错误！', '', '');
+		}
+	});
+}
 

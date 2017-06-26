@@ -104,12 +104,17 @@ function editPsd(data){
     confirmAlert(formHtml,title,editUserPsd,data);
 }
 function editUserPsd(data){
+    var newPassword = isEmpty(4);
+    if(!newPassword){ return false; }
+    var confirmPassword = isEmpty(5);
+    if(!confirmPassword){ return false; }
     $.ajax({
-        url: "../baseLdUser/",
-        type: "get",
+        url: "../updatePassword",
+        type: "post",
         dataType:"json",
         data:{
-            "baseLdUserId":data
+            "id":data,
+            "newPassword":newPassword
         },
         success: function (data) {
             //code # 5 密码不为空  # 6 两次密码不一致
