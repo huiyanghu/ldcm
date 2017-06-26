@@ -31,8 +31,8 @@ public class BaseLdUserController {
     @ResponseBody
     public Object list(HttpSession session, @RequestParam(required = false, name = "page", defaultValue = "1") Integer page, @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId = 1L;
+        Long customerId = Long.parseLong("" + loginUser.get("customerId"));
+        //Long customerId = 1L;
 
         Map resutltMap = new HashMap();
         int isSuccess = 1;
@@ -54,8 +54,8 @@ public class BaseLdUserController {
     @ResponseBody
     public Object addUser(HttpSession session, String email, String name, String mobile, Integer roleFlag, String password, String verificationCode) {
         Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-        Long customerId = 1L;
+        Long customerId = Long.parseLong("" + loginUser.get("customerId"));
+        //Long customerId = 1L;
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
