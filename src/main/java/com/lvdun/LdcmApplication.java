@@ -1,5 +1,6 @@
 package com.lvdun;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
@@ -18,11 +20,12 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "com.lvdun.dao")
 @EntityScan(basePackages = "com.lvdun.entity")
-@ServletComponentScan//扫描Servlet
+@ServletComponentScan//扫描自己编写的servlet和filter
 @EnableTransactionManagement//开启注解事务管理，等同于xml配置方式的 <tx:annotation-driven />
 @EnableScheduling//发现注解@Scheduled的任务并后台执行
 public class LdcmApplication {
@@ -31,6 +34,12 @@ public class LdcmApplication {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory factory) {
         return new JpaTransactionManager(factory);
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix="spring.datasource")
+    public DataSource druidDataSource() {
+        return new DruidDataSource();
     }
 
     @Bean

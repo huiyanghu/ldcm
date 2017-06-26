@@ -137,7 +137,7 @@ public class LoginController {
         } else {
             Map map = null;
             try {
-                System.out.println("username  : " + username);
+
                 map = accountService.login(username, password);
                 if (map != null) {
                     code = -1;
@@ -382,8 +382,6 @@ public class LoginController {
             accountService.save(account);
             return "redirect:/toChangePassword";
         }
-
-
     }
 
     /**

@@ -49,7 +49,7 @@ public class StatArriveController {
         resutlt.put("isSuccess", isSuccess);
         resutlt.put("result", map);
 
-        System.out.println(JSON.toJSONString(resutlt));
+        //System.out.println(JSON.toJSONString(resutlt));
         return JSON.toJSON(resutlt);
     }
 
@@ -78,7 +78,7 @@ public class StatArriveController {
         resutlt.put("isSuccess", isSuccess);
         resutlt.put("result", chapterGeneralMap);
 
-        System.out.println(JSON.toJSONString(resutlt));
+        //System.out.println(JSON.toJSONString(resutlt));
         return JSON.toJSON(resutlt);
     }
 
@@ -112,7 +112,7 @@ public class StatArriveController {
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", map);
 
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSONString(resutltMap);
     }
 
@@ -146,7 +146,7 @@ public class StatArriveController {
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", map);
 
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 

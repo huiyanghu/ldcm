@@ -74,7 +74,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(org.hibernate.Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
@@ -105,7 +105,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
                 "from code_app " +
                 "left join code_platform on code_platform.id=code_app.platform_id " +
                 "where 1=1 and code_platform.id=" + platformId + ";";
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(org.hibernate.Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
@@ -143,7 +143,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(org.hibernate.Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
@@ -180,7 +180,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(org.hibernate.Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();

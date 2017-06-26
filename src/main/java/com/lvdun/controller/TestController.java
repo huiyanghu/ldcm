@@ -29,18 +29,20 @@ public class TestController {
     public Object insertData() {
 
         String c="" + getRandom(6);
+        DataRecord dataRecord = new DataRecord();
+        DataResource dataResource=new DataResource();
         /**
          * 插入data_record
          */
-        for (int i = 0; i < 20000; i++) {
-            DataRecord dataRecord = new DataRecord();
+        for (int i = 0; i < 30000; i++) {
+            dataRecord = new DataRecord();
             dataRecord.setReasonCode(getRandom(9));
             dataRecord.setStatus(getRandom(2));//012
             dataRecord.setCodeAppId(Long.parseLong("" + getRandom(6)));
-            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-26 23:59:59"));
+            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-30 23:59:59"));
             dataRecord.setDataType(getRandom(1) + 1);
             dataRecord.setHasCount(0);
-            dataRecord.setPublishDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-26 23:59:59"));
+            dataRecord.setPublishDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-30 23:59:59"));
             dataRecord.setDigest(c+"测试data_record:"+i);
             dataRecord.setUserIp("用户ip:"+i);
             if (getRandom(1)==0){
@@ -51,9 +53,15 @@ public class TestController {
 
             dataRecordRepository.save(dataRecord);
 
-            DataResource dataResource=new DataResource();
+            dataResource=new DataResource();
             dataResource.setDataRecordId(dataRecord.getId());
-            dataResource.setContent("测试data_resource "+i);
+            dataResource.setContent("测试data_resource----"+i+"----The Apache Tomcat® software is an open source implementation of the Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket technologies. The Java Servlet, JavaServer Pages, Java Expression Language and Java WebSocket specifications are developed under the Java Community Process.\n" +
+                    "\n" +
+                    "The Apache Tomcat software is developed in an open and participatory environment and released under the Apache License version 2. The Apache Tomcat project is intended to be a collaboration of the best-of-breed developers from around the world. We invite you to participate in this open development project. To learn more about getting involved, click here.\n" +
+                    "\n" +
+                    "Apache Tomcat software powers numerous large-scale, mission-critical web applications across a diverse range of industries and organizations. Some of these users and their stories are listed on the PoweredBy wiki page.\n" +
+                    "\n" +
+                    "Apache Tomcat, Tomcat, Apache, the Apache feather, and the Apache Tomcat project logo are trademarks of the Apache Software Foundation.");
             dataReSourceRepository.save(dataResource);
             System.out.println(i);
         }
@@ -68,11 +76,5 @@ public class TestController {
         return result;
     }
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
 
-            System.out.println(DateUtil.formatDate(DateUtil.randomDate("2017-6-1 00:10:01", "2017-6-25 23:59:59")));
-        }
-
-    }
 }

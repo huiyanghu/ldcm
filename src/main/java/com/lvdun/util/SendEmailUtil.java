@@ -45,7 +45,7 @@ public class SendEmailUtil {
     public static void send(String toEmail, String content) {
         Session session = getSession();
         try {
-            System.out.println("--send--" + content);
+            //System.out.println("--send--" + content);
             // Instantiate a message
             Message msg = new MimeMessage(session);
 

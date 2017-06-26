@@ -44,7 +44,7 @@ public class CustomerController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -66,7 +66,7 @@ public class CustomerController {
         Map resutltMap = new HashMap();
         resutltMap.put("isSuccess", isSuccess);
 
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -95,7 +95,7 @@ public class CustomerController {
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", customerInfo);
 
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -117,7 +117,7 @@ public class CustomerController {
         Map resutltMap = new HashMap();
         resutltMap.put("isSuccess", isSuccess);
 
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 

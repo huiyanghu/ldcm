@@ -78,7 +78,7 @@ public class StatArriveDeleteRepositoryImpl implements StatArriveDeleteDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
@@ -151,7 +151,7 @@ public class StatArriveDeleteRepositoryImpl implements StatArriveDeleteDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
@@ -192,7 +192,7 @@ public class StatArriveDeleteRepositoryImpl implements StatArriveDeleteDao {
         } else if (flag == 7 || flag == 14 || flag == 30) {
             sql = sql_days;
         }
-        System.out.println(sql);
+        //System.out.println(sql);
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();

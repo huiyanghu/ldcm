@@ -21,16 +21,19 @@ public class StatArriveDelete {
     private Integer ugcType;//1文本、2图片
 
     @Column(name = "count_zz")
-    private Integer zz;//到达总数
-    //数据最终状态，包括系统和人工审核的状态：0-删除；1-通过；2-人工审核
+    private Integer zz;//1
+
     @Column(name = "count_sq")
-    private Integer sq;//自动化审核通过量1
+    private Integer sq;//2
 
     @Column(name = "count_wf")
-    private Integer wf;//自动化审核不通过量0
+    private Integer wf;//3
 
     @Column(name = "count_wg")
-    private Integer wg;//自动化审核不确认量2
+    private Integer wg;//5
+
+    @Column(name = "count_total")
+    private Integer total;
 
 
     @Column(name = "time_stamp")
@@ -40,6 +43,7 @@ public class StatArriveDelete {
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+
 
     public Long getId() {
         return id;
@@ -95,6 +99,14 @@ public class StatArriveDelete {
 
     public void setWg(Integer wg) {
         this.wg = wg;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 
     public Date getTimeStamp() {

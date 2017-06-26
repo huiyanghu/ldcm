@@ -47,7 +47,7 @@ public class BaseLdUserController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -118,7 +118,7 @@ public class BaseLdUserController {
         resutltMap.put("isSuccess", isSuccess);
         result.put("code", code);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -147,7 +147,7 @@ public class BaseLdUserController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -157,8 +157,8 @@ public class BaseLdUserController {
     public Object updateBaseLdUser(HttpSession session, Long accountId, String name, String mobile, Integer roleFlag, String verificationCode,String newPassword) {
 
         Map resutltMap = new HashMap();
-        int isSuccess = 0;
-        int code = 0;////code:0//失败  1//成功  2//验证码
+        int isSuccess = 1;
+        int code = -1;
         Map result = new HashMap();
 
         if (StringUtil.isEmpty(accountId)){
@@ -170,14 +170,10 @@ public class BaseLdUserController {
         String verCode = "" + session.getAttribute("verCode");
         if (!verificationCode.equals(verCode)) {
             code = 2;
-            isSuccess = 0;
         } else {
             try {
                 baseLdUserService.updateUser(accountId, name, mobile, roleFlag,newPassword);
-                code = 1;
-                isSuccess = 1;
             } catch (Exception e) {
-                code = 0;
                 isSuccess = 0;
                 e.printStackTrace();
             }
@@ -186,7 +182,7 @@ public class BaseLdUserController {
         resutltMap.put("isSuccess", isSuccess);
         result.put("code", code);
         resutltMap.put("result", result);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -206,7 +202,7 @@ public class BaseLdUserController {
         }
 
         resutltMap.put("isSuccess", isSuccess);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
@@ -226,7 +222,7 @@ public class BaseLdUserController {
         }
 
         resutltMap.put("isSuccess", isSuccess);
-        System.out.println(JSON.toJSONString(resutltMap));
+        //System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 

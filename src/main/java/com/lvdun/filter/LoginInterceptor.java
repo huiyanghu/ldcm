@@ -16,7 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
             HttpSession session = request.getSession();
-            System.out.println("session  : " + session.getAttribute("loginUser"));
+
             if (session.getAttribute("loginUser") == null) {
                 response.sendRedirect("/toLogin");//登录
 

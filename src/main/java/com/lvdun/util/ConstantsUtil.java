@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class ConstantsUtil {
     public static String SERVER_IP="localhost";
-    public static String SERVER_PORT="80";
+    public static String SERVER_PORT="8080";
 
 
     public static Map constants = new HashMap();

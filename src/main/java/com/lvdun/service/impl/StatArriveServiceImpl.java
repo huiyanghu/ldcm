@@ -1,6 +1,5 @@
 package com.lvdun.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.lvdun.dao.StatArriveRepository;
 import com.lvdun.service.StatArriveService;
 import com.lvdun.util.DateUtil;
@@ -66,7 +65,7 @@ public class StatArriveServiceImpl implements StatArriveService {
         for (Map map : appList) {
             list.add("" + map.get("app_name"));
         }
-        System.out.println(JSON.toJSONString(list));
+        //System.out.println(JSON.toJSONString(list));
         return list;
     }
 

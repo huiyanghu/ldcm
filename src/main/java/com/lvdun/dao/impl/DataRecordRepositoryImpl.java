@@ -30,7 +30,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
                 " data_record.reason_code, " +
                 " data_record.status " +
                 " from data_record " +
-                " left join data_resource on data_record.id=data_resource.data_record_id " +
+                " inner join data_resource on data_record.id=data_resource.data_record_id " +
                 " left join code_app on data_record.code_app_id=code_app.id " +
                 " left join code_platform on code_platform.id=code_app.platform_id " +
                 " where 1=1 " +
@@ -84,9 +84,9 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         List<Map> list = query.list();
 
 
-        String sqlCount = "select count(*) as count " +
+        String sqlCount = "select count(data_record.id) as count " +
                 " from data_record " +
-                " left join data_resource on data_record.id=data_resource.data_record_id " +
+                " INNER join data_resource on data_record.id=data_resource.data_record_id " +
                 " left join code_app on data_record.code_app_id=code_app.id " +
                 " left join code_platform on code_platform.id=code_app.platform_id " +
                 " where 1=1 " +
