@@ -115,7 +115,7 @@ function getDataList(page){
                                                 +'</div>'
                                                 +'<div class="field">'
                                                     +'<div class="pull-left left-half">审核结果：</div>'
-                                                    +'<div class="pull-left review-td">'
+                                                    +'<div class="pull-left review-td" id="td'+id+'">'
                                                         +reviewHtml
                                                     +'</div>'
                                                 +'</div>'
@@ -143,17 +143,18 @@ function getDataList(page){
                         }else{
                             $('#select'+id).ui_select().val(reason);
                         }
+                        $('#td'+id+' .fa').click(function(){
+                            var value = $(this).attr('value');
+                            $(this).addClass('active').siblings().removeClass('active');
+                            if(value == '1'){
+                                $(this).parents('.bottom').find('.ui-select').ui_select().disable().val(0);
+                            }else{
+                                $(this).parents('.bottom').find('.ui-select').ui_select().enable();
+                            }
+                            saveChange(id,value);
+                        });
                     });
                     setLiToph();
-                    $('.review-td .fa').click(function(){
-                        var value = $(this).attr('value');
-                        $(this).addClass('active').siblings().removeClass('active');
-                        if(value == '1'){
-                            $(this).parents('.bottom').find('.ui-select').ui_select().disable().val(0);
-                        }else{
-                            $(this).parents('.bottom').find('.ui-select').ui_select().enable();
-                        }
-                    });
                 }
             }else{
                 noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,$('#dataTable'));
@@ -164,7 +165,39 @@ function getDataList(page){
         }
     });
 }
-function saveChange(obj){
-    console.log(obj);
+var reasonCodeJson = [];
+function saveChange(id,value){
+    var dataJson = {};
+    dataJson.id=id;
+    dataJson.status=value;
+    reasonCodeJson.push(dataJson);
 }
-/**/
+function setReasonCodeBatch(){
+    $.each(reasonCodeJson,function(i,item){
+        var id = item.id;
+        item.reason = $('#select'+id).val();
+    });
+    loadMask.loadStart($('#dataTable'));
+    $.ajax({
+        url: "../dataRecord/setReasonCodeBatch",
+        type: "post",
+        dataType:"json",
+        data:{
+            "reasonCodeJson":reasonCodeJson
+        },
+        success: function (data){
+            if(data.isSuccess == 1){
+                loadMask.loadEnd($('#dataTable'));
+                var c
+            }else{
+                noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,$('#dataTable'));
+            }
+        },
+        error: function (error) {
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#dataTable'));
+        }
+    })
+}
+$('#submitAudit').click(function(){
+    setReasonCodeBatch();
+});

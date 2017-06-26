@@ -101,7 +101,7 @@ function getDataList(page){
                         var reason = item.reason_code;
                         var userIp = item.user_ip;
                         var tBodyHtml = '<tr>'
-                                            +'<td class="review-td">'
+                                            +'<td class="review-td" id="td'+id+'">'
                                                 +reviewHtml
                                             +'</td>'
                                             +'<td class="reason-td">'
@@ -127,15 +127,16 @@ function getDataList(page){
                         }else{
                             $('#select'+id).ui_select().val(reason);
                         }
-                    });
-                    $('.review-td .fa').click(function(){
-                        var value = $(this).attr('value');
-                        $(this).addClass('active').siblings().removeClass('active');
-                        if(value == '1'){
-                            $(this).parents('tr').find('.ui-select').ui_select().disable().val(0);
-                        }else{
-                            $(this).parents('tr').find('.ui-select').ui_select().enable();
-                        }
+                        $('#td'+id+' .fa').click(function(){
+                            var value = $(this).attr('value');
+                            $(this).addClass('active').siblings().removeClass('active');
+                            if(value == '1'){
+                                $(this).parents('tr').find('.ui-select').ui_select().disable().val(0);
+                            }else{
+                                $(this).parents('tr').find('.ui-select').ui_select().enable();
+                            }
+                            saveChange(id,value);
+                        });
                     });
                 }
             }else{
@@ -147,6 +148,39 @@ function getDataList(page){
         }
     });
 }
-function saveChange(obj){
-    console.log(obj);
+var reasonCodeJson = [];
+function saveChange(id,value){
+    var dataJson = {};
+    dataJson.id=id;
+    dataJson.status=value;
+    reasonCodeJson.push(dataJson);
 }
+function setReasonCodeBatch(){
+    $.each(reasonCodeJson,function(i,item){
+        var id = item.id;
+        item.reason = $('#select'+id).val();
+    });
+    loadMask.loadStart($('#dataTable'));
+    $.ajax({
+        url: "../dataRecord/setReasonCodeBatch",
+        type: "post",
+        dataType:"json",
+        data:{
+            "reasonCodeJson":reasonCodeJson
+        },
+        success: function (data){
+            if(data.isSuccess == 1){
+                loadMask.loadEnd($('#dataTable'));
+                var c
+            }else{
+                noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,$('#dataTable'));
+            }
+        },
+        error: function (error) {
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#dataTable'));
+        }
+    })
+}
+$('#submitAudit').click(function(){
+    setReasonCodeBatch();
+});
