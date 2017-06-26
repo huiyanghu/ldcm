@@ -424,6 +424,11 @@ public class LoginController {
 
     }
 
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(Map map, String flag) {
+        map.put("flag", flag);
+        return "modify-password.html";
+    }
 
     @RequestMapping("/auditStandard")
     public String auditStandard() {
