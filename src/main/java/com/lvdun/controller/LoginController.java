@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/6/14.
@@ -29,7 +27,17 @@ public class LoginController {
     CustomerService customerService;
 
     @RequestMapping("/")
-    public String toIndex() {
+    public String toIndex(HttpSession session, Map map) {
+        Map loginUser = (Map) session.getAttribute("loginUser");
+        List<Map> urlList = new ArrayList();
+        if (loginUser != null) {
+            Integer roleFlag = Integer.parseInt("" + loginUser.get("roleFlag"));
+            if (roleFlag == 0) {
+
+            }
+        }
+
+        map.put("urlList",urlList);
         return "index";
     }
 
@@ -226,20 +234,32 @@ public class LoginController {
 
     @RequestMapping(path = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public Object updatePassword(HttpSession session, @RequestParam(name = "email",required = false) Long id, String newPassword) {
+    public Object updatePassword(HttpSession session, @RequestParam(name = "id", required = false) Long id, String newPassword, String veriCode) {
         Map resutltMap = new HashMap();
+        Map result = new HashMap();
         int isSuccess = 1;
+        int code = -1;
         if (StringUtil.isEmpty(id)) {//修改自己的密码
             Map loginUser = (Map) session.getAttribute("loginUser");
-            id = Long.parseLong(""+loginUser.get("id"));
+            id = Long.parseLong("" + loginUser.get("id"));
         }
-        try {
-            accountService.updatePassword(id, newPassword);
-        } catch (Exception e) {
-            e.printStackTrace();
-            isSuccess = 0;
+
+        veriCode = veriCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!veriCode.equals(verCode)) {
+            code = 1;//验证码不正确
+        } else {
+            try {
+                accountService.updatePassword(id, newPassword);
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
         }
+
+        result.put("code", code);
         resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
         return JSON.toJSON(resutltMap);
     }
 
@@ -252,7 +272,7 @@ public class LoginController {
             try {
                 session.removeAttribute("loginUser");
             } catch (Exception e) {
-                isSuccess=0;
+                isSuccess = 0;
                 e.printStackTrace();
             }
         } catch (Exception e) {
