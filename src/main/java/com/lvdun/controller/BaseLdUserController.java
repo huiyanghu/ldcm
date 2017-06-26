@@ -35,11 +35,10 @@ public class BaseLdUserController {
         Long customerId = 1L;
 
         Map resutltMap = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
         Map result = new HashMap();
         try {
             result = baseLdUserService.getBaseLdUserPage(customerId, page, pageSize);
-            isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();
@@ -60,7 +59,7 @@ public class BaseLdUserController {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
         int code = -1;////code:0//失败  1//成功  2//验证码
 
         if (StringUtil.isEmpty(email)) {
@@ -93,20 +92,16 @@ public class BaseLdUserController {
         String verCode = "" + session.getAttribute("verCode");
         if (!verificationCode.equals(verCode)) {
             code = 2;
-            isSuccess = 1;
         } else {
             try {
                 if (accountService.checkMobileIsExists(mobile)) {
                     code = 9;//手机号已存在
-                    isSuccess = 1;
                 } else {
                     if (accountService.checkAccountIsExists(email)) {
                         code = 7;
-                        isSuccess = 1;
                     } else {
                         baseLdUserService.addUser(customerId, email, name, mobile, roleFlag, password);
                         code = -1;
-                        isSuccess = 1;
                     }
                 }
             } catch (Exception e) {
@@ -129,7 +124,7 @@ public class BaseLdUserController {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
         if (StringUtil.isEmpty(accountId)){
             Map loginUser = (Map) session.getAttribute("loginUser");
             accountId=Long.parseLong("" + loginUser.get("id"));
@@ -138,7 +133,6 @@ public class BaseLdUserController {
         try {
             Map userDetail = baseLdUserService.getUserDetail(accountId);
             result.put("userDetail", userDetail);
-            isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();
@@ -191,11 +185,10 @@ public class BaseLdUserController {
     public Object deleteBaseLdUser(HttpSession session, Long baseLdUserId) {
 
         Map resutltMap = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
 
         try {
             baseLdUserService.deleteUser(baseLdUserId);
-            isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();
@@ -211,11 +204,10 @@ public class BaseLdUserController {
     public Object changeBaseLdUserRole(HttpSession session, Long baseLdUserId) {
 
         Map resutltMap = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
 
         try {
             baseLdUserService.changeBaseLdUserRole(baseLdUserId);
-            isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();
