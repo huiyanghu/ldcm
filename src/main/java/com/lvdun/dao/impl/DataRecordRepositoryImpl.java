@@ -36,11 +36,17 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
                 " where 1=1 " +
                 " and code_platform.id=" + platformId;
         String sqlCondition = "";
+        if (StringUtil.isNotEmpty(dataRecordQuery.getStartTime())) {
+            sqlCondition += " and data_record.create_date >" + dataRecordQuery.getStartTime();
+        }
+        if (StringUtil.isNotEmpty(dataRecordQuery.getEndTime())) {
+            sqlCondition += " and data_record.create_date <date_sub(str_to_date('"+dataRecordQuery.getEndTime()+"', '%Y-%m-%d %H'),interval -1 day)";
+        }
         if (StringUtil.isNotEmpty(dataRecordQuery.getDataType())) {
             sqlCondition += " and data_record.data_type =" + dataRecordQuery.getDataType();
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getAppName())) {
-            sqlCondition += " and code_app.app_name like '%" + dataRecordQuery.getAppName() + "%'";
+            sqlCondition += " and code_app.id =" + dataRecordQuery.getAppName();
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getStatus())) {
             sqlCondition += " and data_record.status =" + dataRecordQuery.getStatus();

@@ -101,7 +101,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
 
     @Override
     public List<Map> getDistinctApp(Long platformId) {
-        String sql = "select code_app.id,app_code,app_name " +
+        String sql = "select code_app.id,app_id,app_name " +
                 "from code_app " +
                 "left join code_platform on code_platform.id=code_app.platform_id " +
                 "where 1=1 and code_platform.id=" + platformId + ";";

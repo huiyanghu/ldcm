@@ -32,24 +32,30 @@ public class TestController {
         /**
          * 插入data_record
          */
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20000; i++) {
             DataRecord dataRecord = new DataRecord();
             dataRecord.setReasonCode(getRandom(9));
             dataRecord.setStatus(getRandom(2));//012
             dataRecord.setCodeAppId(Long.parseLong("" + getRandom(6)));
-            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-26 00:00:01", "2017-6-26 23:59:59"));
+            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-26 23:59:59"));
             dataRecord.setDataType(getRandom(1) + 1);
             dataRecord.setHasCount(0);
-            dataRecord.setPublishDate(DateUtil.randomDate("2017-6-1 00:10:01", "2017-6-26 23:59:59"));
+            dataRecord.setPublishDate(DateUtil.randomDate("2017-6-01 00:00:01", "2017-6-26 23:59:59"));
             dataRecord.setDigest(c+"测试data_record:"+i);
             dataRecord.setUserIp("用户ip:"+i);
+            if (getRandom(1)==0){
+                dataRecord.setOperatorId(1L);
+            }else{
+                dataRecord.setOperatorId(-1L);
+            }
+
             dataRecordRepository.save(dataRecord);
 
             DataResource dataResource=new DataResource();
             dataResource.setDataRecordId(dataRecord.getId());
             dataResource.setContent("测试data_resource "+i);
             dataReSourceRepository.save(dataResource);
-
+            System.out.println(i);
         }
         System.out.println("==========success===========");
 

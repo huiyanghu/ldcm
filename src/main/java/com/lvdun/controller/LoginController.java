@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -225,7 +226,7 @@ public class LoginController {
 
     @RequestMapping(path = "/updatePassword", method = RequestMethod.POST)
     @ResponseBody
-    public Object updatePassword(HttpSession session, String email, String newPassword) {
+    public Object updatePassword(HttpSession session, @RequestParam(name = "email",required = false) String email, String newPassword) {
         Map resutltMap = new HashMap();
         int isSuccess = 1;
         if (StringUtil.isEmpty(email)) {//修改自己的密码
@@ -243,13 +244,22 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/logout")
-    public String logout(HttpSession session) {
+    @ResponseBody
+    public Object logout(HttpSession session) {
+        Map resutltMap = new HashMap();
+        int isSuccess = 1;
         try {
-            session.removeAttribute("loginUser");
+            try {
+                session.removeAttribute("loginUser");
+            } catch (Exception e) {
+                isSuccess=0;
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/toLogin";
+        resutltMap.put("isSuccess", isSuccess);
+        return JSON.toJSON(resutltMap);
     }
 
     @RequestMapping("/sendMessage")

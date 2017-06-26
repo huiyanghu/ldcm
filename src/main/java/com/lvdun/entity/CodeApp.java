@@ -19,8 +19,8 @@ public class CodeApp {
     @Column(name = "platform_id")
     private Long platformId;
 
-    @Column(name = "app_code")
-    private String appCode;//app代码
+    @Column(name = "app_id")
+    private String appId;//app代码
 
     @Column(name = "app_name")
     private String appName;//App名称
@@ -51,7 +51,6 @@ public class CodeApp {
     @Column(name = "authenticated")
     private Integer authenticated;//是否需要鉴权：0-不需要，1-需要；默认为1
 
-
     public Long getId() {
         return id;
     }
@@ -68,12 +67,12 @@ public class CodeApp {
         this.platformId = platformId;
     }
 
-    public String getAppCode() {
-        return appCode;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setAppCode(String appCode) {
-        this.appCode = appCode;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getAppName() {
