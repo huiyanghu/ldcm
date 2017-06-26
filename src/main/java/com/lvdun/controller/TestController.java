@@ -24,19 +24,24 @@ public class TestController {
     DataReSourceRepository dataReSourceRepository;
 
 
-    @RequestMapping("/insertDataRecord")
+    @RequestMapping("/insertData")
     @ResponseBody
-    public Object insertDataRecord() {
-        for (int i = 0; i < 1000; i++) {
+    public Object insertData() {
+
+        String c="" + getRandom(6);
+        /**
+         * 插入data_record
+         */
+        for (int i = 0; i < 100; i++) {
             DataRecord dataRecord = new DataRecord();
             dataRecord.setReasonCode(getRandom(9));
             dataRecord.setStatus(getRandom(2));//012
             dataRecord.setCodeAppId(Long.parseLong("" + getRandom(6)));
-            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-1 00:10:01", "2017-6-26 23:59:59"));
+            dataRecord.setCreateDate(DateUtil.randomDate("2017-6-26 00:00:01", "2017-6-26 23:59:59"));
             dataRecord.setDataType(getRandom(1) + 1);
             dataRecord.setHasCount(0);
             dataRecord.setPublishDate(DateUtil.randomDate("2017-6-1 00:10:01", "2017-6-26 23:59:59"));
-            dataRecord.setDigest("测试data_record:"+i);
+            dataRecord.setDigest(c+"测试data_record:"+i);
             dataRecord.setUserIp("用户ip:"+i);
             dataRecordRepository.save(dataRecord);
 

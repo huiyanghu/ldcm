@@ -5,6 +5,7 @@ import com.lvdun.service.StatArriveDeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -31,7 +32,7 @@ public class StatArriveDeleteController {
      */
     @RequestMapping("/getChapterGeneral")
     @ResponseBody
-    public Object getChapterGeneral(Integer flag, HttpSession session) {
+    public Object getChapterGeneral(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
         Long platformId = 1L;
@@ -60,7 +61,7 @@ public class StatArriveDeleteController {
      */
     @RequestMapping("/getChapterByType")
     @ResponseBody
-    public String getChapterByType(Integer flag, HttpSession session) {
+    public String getChapterByType(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
         Long platformId = 1L;
@@ -98,7 +99,7 @@ public class StatArriveDeleteController {
      */
     @RequestMapping("/getChapterByApp")
     @ResponseBody
-    public Object getChapterByApp(Integer flag, HttpSession session) {
+    public Object getChapterByApp(@RequestParam(defaultValue = "0",required = false,name="flag") Integer flag, HttpSession session) {
         Map loginUser = (Map) session.getAttribute("loginUser");
         //Long platformId=Long.parseLong(""+loginUser.get("platformId"));
         Long platformId = 1L;
@@ -128,9 +129,5 @@ public class StatArriveDeleteController {
     }
 
 
-    @RequestMapping("/test")
-    public void test() {
-
-    }
 
 }
