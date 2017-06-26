@@ -54,4 +54,9 @@ public class DataRecordServiceImpl implements DataRecordService {
             }
         }
     }
+
+    @Override
+    public void save(DataRecord dataRecord) {
+        dataRecordDao.save(dataRecord);
+    }
 }

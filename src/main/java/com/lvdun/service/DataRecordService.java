@@ -1,5 +1,6 @@
 package com.lvdun.service;
 
+import com.lvdun.entity.DataRecord;
 import com.lvdun.queryModel.DataRecordQuery;
 
 import java.util.Map;
@@ -15,4 +16,6 @@ public interface DataRecordService {
     public void setReasonCode(Long id, Integer reasonCode);
 
     void setReasonCodeBatch(String reasonCodeJson);
+
+    void save(DataRecord dataRecord);
 }

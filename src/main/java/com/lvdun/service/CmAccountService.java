@@ -19,4 +19,6 @@ public interface CmAccountService {
     public CmAccount getByAccount(String email);
 
     void save(CmAccount account);
+
+    void updatePassword(String email, String newPassword);
 }

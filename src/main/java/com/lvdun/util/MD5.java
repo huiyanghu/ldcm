@@ -81,5 +81,9 @@ public class MD5 {
 			return null;
 	}
 
+	public static void main(String[] args) {
+
+	}
+
 
 }

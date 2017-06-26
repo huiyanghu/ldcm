@@ -34,5 +34,59 @@ public class DataResource {
     private String filterDesc;//敏感词
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getDataRecordId() {
+        return dataRecordId;
+    }
+
+    public void setDataRecordId(Long dataRecordId) {
+        this.dataRecordId = dataRecordId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public void setOrder(Integer order) {
+        this.order = order;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getFilterDesc() {
+        return filterDesc;
+    }
+
+    public void setFilterDesc(String filterDesc) {
+        this.filterDesc = filterDesc;
+    }
 }

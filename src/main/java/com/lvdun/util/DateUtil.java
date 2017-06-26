@@ -596,20 +596,20 @@ public class DateUtil {
      * @param interModel 区间的模式
      *                   <p>
      *                   <pre>
-     *                                                       取值：
-     *                                                       LEFT_OPEN_RIGHT_OPEN
-     *                                                       LEFT_CLOSE_RIGHT_OPEN
-     *                                                       LEFT_OPEN_RIGHT_CLOSE
-     *                                                       LEFT_CLOSE_RIGHT_CLOSE
-     *                                                       </pre>
+     *                                                                                                             取值：
+     *                                                                                                             LEFT_OPEN_RIGHT_OPEN
+     *                                                                                                             LEFT_CLOSE_RIGHT_OPEN
+     *                                                                                                             LEFT_OPEN_RIGHT_CLOSE
+     *                                                                                                             LEFT_CLOSE_RIGHT_CLOSE
+     *                                                                                                             </pre>
      * @param compModel  比较的模式
      *                   <p>
      *                   <pre>
-     *                                                       取值：
-     *                                                       COMP_MODEL_DATE 只比较日期，不比较时间
-     *                                                       COMP_MODEL_TIME 只比较时间，不比较日期
-     *                                                       COMP_MODEL_DATETIME 比较日期，也比较时间
-     *                                                       </pre>
+     *                                                                                                             取值：
+     *                                                                                                             COMP_MODEL_DATE 只比较日期，不比较时间
+     *                                                                                                             COMP_MODEL_TIME 只比较时间，不比较日期
+     *                                                                                                             COMP_MODEL_DATETIME 比较日期，也比较时间
+     *                                                                                                             </pre>
      * @return
      */
     public static boolean isBetween(Date date, Date start, Date end, int interModel, int compModel) {
@@ -1393,5 +1393,38 @@ public class DateUtil {
         return df.format(time);
     }
 
+
+    /**
+     * 生成随机时间
+     *
+     * @param beginDate
+     * @param endDate
+     * @return
+     */
+    public static Date randomDate(String beginDate, String endDate) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start = format.parse(beginDate);//构造开始日期
+            Date end = format.parse(endDate);//构造结束日期
+//getTime()表示返回自 1970 年 1 月 1 日 00:00:00 GMT 以来此 Date 对象表示的毫秒数。
+            if (start.getTime() >= end.getTime()) {
+                return null;
+            }
+            long date = random(start.getTime(), end.getTime());
+            return new Date(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static long random(long begin, long end) {
+        long rtn = begin + (long) (Math.random() * (end - begin));
+//如果返回的是开始时间和结束时间，则递归调用本函数查找随机值
+        if (rtn == begin || rtn == end) {
+            return random(begin, end);
+        }
+        return rtn;
+    }
 
 }

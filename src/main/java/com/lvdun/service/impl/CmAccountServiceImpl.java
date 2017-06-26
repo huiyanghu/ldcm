@@ -33,7 +33,6 @@ public class CmAccountServiceImpl implements CmAccountService {
     BaseLdUserRepository baseLdUserDao;
 
 
-
     @Override
     public Map login(String username, String password) {
 
@@ -97,7 +96,7 @@ public class CmAccountServiceImpl implements CmAccountService {
         account.setEmail(email);
         account.setRoleFlag(1);//管理员
         account.setMobile(mobile);
-        account.setPassword(MD5.MD5(password));
+        account.setPassword(MD5.MD5(password).toUpperCase());
         account.setStatus(0);//0新注册用户（未经过超级管理员审核）-1、体验用户2、正式收费用户3、正式免费用户4、停用
         account.setCustomerId(customer.getId());
         CmAccount cmAccount = accountDao.save(account);
@@ -116,8 +115,8 @@ public class CmAccountServiceImpl implements CmAccountService {
 
     @Override
     public CmAccount getByAccount(String email) {
-        List<CmAccount> accountList= accountDao.getByAccount(email);
-        if (accountList!=null&&!accountList.isEmpty()){
+        List<CmAccount> accountList = accountDao.getByAccount(email);
+        if (accountList != null && !accountList.isEmpty()) {
             return accountList.get(0);
         }
         return null;
@@ -127,6 +126,18 @@ public class CmAccountServiceImpl implements CmAccountService {
     @Transactional
     public void save(CmAccount account) {
         accountDao.save(account);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(String email, String newPassword) {
+        List<CmAccount> accountList = accountDao.getByAccount(email);
+        if (accountList != null && !accountList.isEmpty()) {
+            CmAccount account = accountList.get(0);
+            account.setPassword(MD5.MD5(newPassword).toUpperCase());
+            accountDao.save(account);
+        }
+
     }
 
 

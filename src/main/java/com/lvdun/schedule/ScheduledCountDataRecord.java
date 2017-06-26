@@ -5,7 +5,6 @@ import com.lvdun.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,7 +22,7 @@ public class ScheduledCountDataRecord {
     //@Scheduled(cron = "0 0 * * * ?")//整点执行
     //@Scheduled(cron="0 * * * * ?")//整分执行
     //@Scheduled(cron="0/5 * *  * * ? ")//每5秒执行一次
-    @Scheduled(cron="0 0/10 *  * * ? ")//每10分钟执行一次
+    //@Scheduled(cron="0 0/3 *  * * ? ")//每10分钟执行一次
     //@Scheduled(fixedRate=ONE_MINUTE)
     public void executeFileDownLoadTask() {
         statArriveService.executeProcedure();

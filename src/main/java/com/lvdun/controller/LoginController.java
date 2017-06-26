@@ -29,7 +29,6 @@ public class LoginController {
 
     @RequestMapping("/")
     public String toIndex() {
-        System.out.println("===want to index");
         return "index";
     }
 
@@ -150,7 +149,7 @@ public class LoginController {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
-        int isSuccess = 0;
+        int isSuccess = 1;
         int code = -1;////code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
 
         if (StringUtil.isEmpty(email)) {
@@ -196,28 +195,22 @@ public class LoginController {
         String verCode = "" + session.getAttribute("verCode");
         if (!verificationCode.equals(verCode)) {
             code = 2;
-            isSuccess = 1;
         } else {
             try {
                 if (accountService.checkMobileIsExists(mobile)) {
                     code = 9;//手机号已存在
-                    isSuccess = 1;
                 } else {
                     if (customerService.checkCustomerNameIsExists(companyName)) {
                         code = 8;
-                        isSuccess = 1;
                     } else {
                         if (accountService.checkAccountIsExists(email)) {
                             code = 7;
-                            isSuccess = 1;
                         } else {
                             accountService.register(email, companyName, name, mobile, password);
                             code = -1;
-                            isSuccess = 1;
                         }
                     }
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 isSuccess = 0;
@@ -228,6 +221,35 @@ public class LoginController {
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
         return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping(path = "/updatePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updatePassword(HttpSession session, String email, String newPassword) {
+        Map resutltMap = new HashMap();
+        int isSuccess = 1;
+        if (StringUtil.isEmpty(email)) {//修改自己的密码
+            Map loginUser = (Map) session.getAttribute("loginUser");
+            email = (String) loginUser.get("account");
+        }
+        try {
+            accountService.updatePassword(email, newPassword);
+        } catch (Exception e) {
+            e.printStackTrace();
+            isSuccess = 0;
+        }
+        resutltMap.put("isSuccess", isSuccess);
+        return JSON.toJSON(resutltMap);
+    }
+
+    @RequestMapping(path = "/logout")
+    public String logout(HttpSession session) {
+        try {
+            session.removeAttribute("loginUser");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/toLogin";
     }
 
     @RequestMapping("/sendMessage")
@@ -370,8 +392,8 @@ public class LoginController {
 
     @RequestMapping("/test")
     public void test() {
-        String email="915854720@qq.com";
-        String activityCode="986574";
+        String email = "915854720@qq.com";
+        String activityCode = "986574";
         StringBuffer emailContent = new StringBuffer();
         emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次!");
         emailContent.append("<a href=\"");
@@ -392,16 +414,14 @@ public class LoginController {
 
     }
 
-    public static void main(String[] args) {
-
-    }
 
     @RequestMapping("/auditStandard")
-    public String auditStandard(){
+    public String auditStandard() {
         return "help-documentation/audit-standard";
     }
+
     @RequestMapping("/developmentDocumen")
-    public String developmentDocumen(){
+    public String developmentDocumen() {
         return "help-documentation/development-documen";
     }
 

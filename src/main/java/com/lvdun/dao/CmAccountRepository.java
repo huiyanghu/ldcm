@@ -16,7 +16,7 @@ import java.util.List;
 public interface CmAccountRepository extends CrudRepository<CmAccount, Long> {
 
     @Query("select account from CmAccount account where account.account=:account")
-    public List<CmAccount> getByAccount(@Param("account") String username);
+    public List<CmAccount> getByAccount(@Param("account") String account);
 
     @Query("select account from CmAccount account where account.mobile=:mobile")
     public List<CmAccount> getByMobile(@Param("mobile") String mobile);

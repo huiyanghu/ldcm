@@ -40,7 +40,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
             sqlCondition += " and data_record.data_type =" + dataRecordQuery.getDataType();
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getAppName())) {
-            sqlCondition += " and code_app.app_name like %" + dataRecordQuery.getAppName() + "%";
+            sqlCondition += " and code_app.app_name like '%" + dataRecordQuery.getAppName() + "%'";
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getStatus())) {
             sqlCondition += " and data_record.status =" + dataRecordQuery.getStatus();
@@ -59,13 +59,13 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName())&&StringUtil.isNotEmpty(dataRecordQuery.getConditionValue())) {
             if ("data_content".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_resource.data_content  like %" + dataRecordQuery.getConditionValue() + "%";
+                sqlCondition += " and data_resource.data_content  like '%" + dataRecordQuery.getConditionValue() + "%'";
             } else if ("user_ip".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record.user_ip  like %" + dataRecordQuery.getConditionValue()+"%";
+                sqlCondition += " and data_record.user_ip  like '%" + dataRecordQuery.getConditionValue()+"%'";
             } else if ("device_id".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record.device_id like %" + dataRecordQuery.getConditionValue() + "%";
+                sqlCondition += " and data_record.device_id like '%" + dataRecordQuery.getConditionValue() + "%'";
             }else if ("user_id".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record.user_id like %" + dataRecordQuery.getConditionValue() + "%";
+                sqlCondition += " and data_record.user_id like '%" + dataRecordQuery.getConditionValue() + "%'";
             }
         }
 
@@ -107,4 +107,18 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
 
         return result;
     }
+
+
+/*
+    @Override
+    public void insertTest(String apiVersion,Integer codeAppId,String createDate,Integer dataType,String deviceId,String digest,Integer filtertypeId,Integer imageCount,Integer operatorId,String publishDate,Integer reasonCode,Integer status,Integer sysPolicy,Integer sysStatus,String updateDate,Integer userId,) {
+        String sql = " insert into data_record(api_version,code_app_id,create_date,data_type,device_id,digest,filter_type_id,image_count,operator_id,publish_date,reason_code,status,sys_policy,sys_status,update_date,user_id,user_ip,user_publish_data_id,word_count,has_count) " +
+                " values" +
+                " (0,0,now(),0,0,0,0,0,0,now(),0,0,0,0,now(),0,0,0,0,0); " ;
+
+
+        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Query query = session.createSQLQuery(sql);
+        query.executeUpdate();
+    }*/
 }

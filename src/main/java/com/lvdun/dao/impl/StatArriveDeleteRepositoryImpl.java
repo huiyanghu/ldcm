@@ -1,6 +1,6 @@
 package com.lvdun.dao.impl;
 
-import com.lvdun.dao.StatArriveDao;
+import com.lvdun.dao.StatArriveDeleteDao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/6/17.
  */
-public class StatArriveRepositoryImpl implements StatArriveDao {
+public class StatArriveDeleteRepositoryImpl implements StatArriveDeleteDao {
     @PersistenceContext
     EntityManager entityManager;
 
@@ -28,8 +28,8 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
                 "sum(count_pass) as count_pass, " +
                 "sum(count_delete) as count_delete, " +
                 "sum(count_review) as count_review " +
-                " from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id" +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id" +
                 " where 1=1 " +
                 " and code_app.platform_id=" + platformId + " ";
 
@@ -40,7 +40,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
             condition = " and date_sub(now(),interval " + flag + " day)<=time_stamp and now()>=time_stamp;";
         }
         sql += condition;
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
         return list.get(0);
@@ -49,21 +49,25 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
     @Override
     public List<Map> getChapterGeneral(Integer flag, Long platformId) {
         String sql_hours = "select " +
-                "sum(count_total) as count_total, " +
-                "sum(count_pass) as count_pass, " +
-                "DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') as time_stamp " +
-                "from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                " sum(count_sq) as count_sq, " +
+                " sum(count_zz) as count_zz, " +
+                " sum(count_wf) as count_wf, " +
+                " sum(count_wg) as count_wg, " +
+                " DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') as time_stamp " +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 " where 1=1 " +
                 " and code_app.platform_id=" + platformId + " " +
                 " and  to_days(time_stamp) -to_days(now())= " + flag + " " +
-                "group by DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') order by time_stamp;";
+                " group by DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') order by time_stamp;";
         String sql_days = "select " +
-                "sum(count_total) as count_total, " +
-                "sum(count_pass) count_pass, " +
+                "sum(count_sq) as count_sq, " +
+                "sum(count_zz) as count_zz, " +
+                "sum(count_wf) as count_wf, " +
+                "sum(count_wg) as count_wg, " +
                 "DATE_FORMAT(time_stamp,'%Y-%m-%d') as time_stamp " +
-                "from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                "from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 "where 1=1 " +
                 " and code_app.platform_id=" + platformId + " " +
                 " and date_sub(now(),interval " + flag + " day)<=time_stamp and now()>=time_stamp " +
@@ -75,7 +79,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
             sql = sql_days;
         }
         System.out.println(sql);
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
         return list;
@@ -102,11 +106,11 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
     @Override
     public List<Map> getDistinctApp(Long platformId) {
         String sql = "select code_app.id,app_code,app_name " +
-                "from code_app " +
-                "left join code_platform on code_platform.id=code_app.platform_id " +
-                "where 1=1 and code_platform.id=" + platformId + ";";
-        System.out.println(sql);
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
+                " from code_app " +
+                " left join code_platform on code_platform.id=code_app.platform_id " +
+                " where 1=1 and code_platform.id=" + platformId + ";";
+
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
         return list;
@@ -116,24 +120,28 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
     @Override
     public List<Map> getChapterByType(Integer flag, Long platformId, Integer type) {
         String sql_hours = "select " +
-                " sum(count_total) as count_total, " +
-                " sum(count_pass) as count_pass, " +
+                " sum(count_sq) as count_sq, " +
+                " sum(count_zz) as count_zz, " +
+                " sum(count_wf) as count_wf, " +
+                " sum(count_wg) as count_wg, " +
                 " DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') as time_stamp " +
-                " from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 " where 1=1 " +
-                " and stat_arrive.ugc_type=" + type +
+                " and stat_arrive_delete.ugc_type=" + type +
                 " and code_app.platform_id=" + platformId +
                 " and  to_days(time_stamp) -to_days(now())= " + flag +
                 " group by DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') order by time_stamp;";
         String sql_days = "select " +
-                "sum(count_total) as count_total, " +
-                "sum(count_pass) count_pass, " +
-                "DATE_FORMAT(time_stamp,'%Y-%m-%d') as time_stamp " +
-                "from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                " sum(count_sq) as count_sq, " +
+                " sum(count_zz) as count_zz, " +
+                " sum(count_wf) as count_wf, " +
+                " sum(count_wg) as count_wg, " +
+                " DATE_FORMAT(time_stamp,'%Y-%m-%d') as time_stamp " +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 " where 1=1 " +
-                " and stat_arrive.ugc_type=" + type +
+                " and stat_arrive_delete.ugc_type=" + type +
                 " and code_app.platform_id=" + platformId +
                 " and date_sub(now(),interval " + flag + " day)<=time_stamp and now()>=time_stamp " +
                 " group by DATE_FORMAT(time_stamp,'%Y-%m-%d')  order by time_stamp;";
@@ -144,7 +152,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
             sql = sql_days;
         }
         System.out.println(sql);
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
         return list;
@@ -153,24 +161,28 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
     @Override
     public List<Map> getChapterByApp(Integer flag, Long platformId, Long appId) {
         String sql_hours = "select " +
-                " sum(count_total) as count_total, " +
-                " sum(count_pass) as count_pass, " +
+                " sum(count_sq) as count_sq, " +
+                " sum(count_zz) as count_zz, " +
+                " sum(count_wf) as count_wf, " +
+                " sum(count_wg) as count_wg, " +
                 " DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') as time_stamp " +
-                " from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 " where 1=1 " +
-                " and stat_arrive.code_app_id=" + appId +
+                " and stat_arrive_delete.code_app_id=" + appId +
                 " and code_app.platform_id=" + platformId +
                 " and  to_days(time_stamp) -to_days(now())= " + flag +
                 " group by DATE_FORMAT(time_stamp,'%Y-%m-%d %H:00:00') order by time_stamp;";
         String sql_days = "select " +
-                "sum(count_total) as count_total, " +
-                "sum(count_pass) count_pass, " +
-                "DATE_FORMAT(time_stamp,'%Y-%m-%d') as time_stamp " +
-                "from stat_arrive " +
-                " left join code_app on stat_arrive.code_app_id=code_app.id " +
+                " sum(count_sq) as count_sq, " +
+                " sum(count_zz) as count_zz, " +
+                " sum(count_wf) as count_wf, " +
+                " sum(count_wg) as count_wg, " +
+                " DATE_FORMAT(time_stamp,'%Y-%m-%d') as time_stamp " +
+                " from stat_arrive_delete " +
+                " left join code_app on stat_arrive_delete.code_app_id=code_app.id " +
                 " where 1=1 " +
-                " and stat_arrive.code_app_id=" + appId +
+                " and stat_arrive_delete.code_app_id=" + appId +
                 " and code_app.platform_id=" + platformId +
                 " and date_sub(now(),interval " + flag + " day)<=time_stamp and now()>=time_stamp " +
                 " group by DATE_FORMAT(time_stamp,'%Y-%m-%d')  order by time_stamp;";
@@ -181,7 +193,7 @@ public class StatArriveRepositoryImpl implements StatArriveDao {
             sql = sql_days;
         }
         System.out.println(sql);
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map> list = query.list();
         return list;
