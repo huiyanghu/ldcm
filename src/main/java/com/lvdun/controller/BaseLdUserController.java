@@ -157,8 +157,8 @@ public class BaseLdUserController {
     public Object updateBaseLdUser(HttpSession session, Long accountId, String name, String mobile, Integer roleFlag, String verificationCode,String newPassword) {
 
         Map resutltMap = new HashMap();
-        int isSuccess = 1;
-        int code = -1;
+        int isSuccess =1;
+        int code = -1;////code:0//失败  1//成功  2//验证码
         Map result = new HashMap();
 
         if (StringUtil.isEmpty(accountId)){
@@ -222,7 +222,7 @@ public class BaseLdUserController {
         }
 
         resutltMap.put("isSuccess", isSuccess);
-        //System.out.println(JSON.toJSONString(resutltMap));
+        System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
