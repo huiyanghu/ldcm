@@ -17,4 +17,5 @@ public interface BaseLdUserService {
     public void changeBaseLdUserRole(Long baseLdUserId);
 
 
+    Map getUserDetail(Long accountId);
 }

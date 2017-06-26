@@ -2,8 +2,10 @@ package com.lvdun.service.impl;
 
 import com.lvdun.dao.BaseLdUserRepository;
 import com.lvdun.dao.CmAccountRepository;
+import com.lvdun.dao.CmCustomerRepository;
 import com.lvdun.entity.BaseLdUser;
 import com.lvdun.entity.CmAccount;
+import com.lvdun.entity.CmCustomer;
 import com.lvdun.service.BaseLdUserService;
 import com.lvdun.util.ConstantsUtil;
 import com.lvdun.util.MD5;
@@ -31,6 +33,8 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
     BaseLdUserRepository baseLdUserDao;
     @Autowired
     CmAccountRepository accountDao;
+    @Autowired
+    CmCustomerRepository customerDao;
 
     @Override
     public Map getBaseLdUserPage(Long customerId, Integer page, Integer pageSize) {
@@ -138,5 +142,17 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
             account.setRoleFlag(0);
         }
         accountDao.save(account);
+    }
+
+    @Override
+    public Map getUserDetail(Long accountId) {
+        Map map = new HashMap();
+        CmAccount account = accountDao.findOne(accountId);
+        map.put("account", account.getAccount());
+        map.put("name", account.getName());
+        map.put("mobile", account.getMobile());
+        CmCustomer customer = customerDao.getOne(account.getCustomerId());
+        map.put("companyName", customer.getCustomerName());
+        return map;
     }
 }

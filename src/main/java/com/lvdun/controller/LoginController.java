@@ -28,16 +28,24 @@ public class LoginController {
 
     @RequestMapping("/")
     public String toIndex(HttpSession session, Map map) {
-        Map loginUser = (Map) session.getAttribute("loginUser");
+        /*Map loginUser = (Map) session.getAttribute("loginUser");
         List<Map> urlList = new ArrayList();
         if (loginUser != null) {
             Integer roleFlag = Integer.parseInt("" + loginUser.get("roleFlag"));
-            if (roleFlag == 0) {
+            Map m=new HashMap();
+            if (roleFlag == 0) {//操作员
+                m.put("icon","");
+                m.put("name","");
+                m.put("url","");
+                m.put("child","");
+            }else if(roleFlag==1){//公司管理员
+
+            }else if(roleFlag==2){//绿盾管理员
 
             }
         }
 
-        map.put("urlList",urlList);
+        map.put("urlList",urlList);*/
         return "index";
     }
 

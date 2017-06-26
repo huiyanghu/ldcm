@@ -122,6 +122,33 @@ public class BaseLdUserController {
         return JSON.toJSON(resutltMap);
     }
 
+
+    @RequestMapping(path = "/getUserDetail", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getUserDetail(HttpSession session) {
+
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+
+        int isSuccess = 0;
+        Map loginUser = (Map) session.getAttribute("loginUser");
+        try {
+            Map userDetail = baseLdUserService.getUserDetail(Long.parseLong("" + loginUser.get("id")));
+            result.put("userDetail", userDetail);
+            isSuccess = 1;
+        } catch (Exception e) {
+            isSuccess = 0;
+            e.printStackTrace();
+        }
+
+
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        System.out.println(JSON.toJSONString(resutltMap));
+        return JSON.toJSON(resutltMap);
+    }
+
+
     @RequestMapping(path = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
     public Object updateBaseLdUser(HttpSession session, Long baseLdUserId, String name, String mobile, Integer roleFlag, String verificationCode) {
@@ -196,7 +223,7 @@ public class BaseLdUserController {
     }
 
     @RequestMapping("/userManagement")
-    public String userManagement(){
+    public String userManagement() {
         return "user-management/user-management";
     }
 
