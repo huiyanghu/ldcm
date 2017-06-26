@@ -21,9 +21,6 @@ $('#myCanvas').click(function(){
 $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });
-function codeIsWrong(){
-    $('#picCode').focus().siblings('.error-span').html(errorStr[6]);
-}
 function getUserInfo(){
     var userInfo = {
         "id":"zhaomosheng@sina.com",
@@ -92,7 +89,15 @@ $('#addEditBtn').click(function(){
         success: function (data){
             if(data.isSuccess == 1){
                 loadMask.loadEnd($('.register'));
-                noticeAlert(successMsg,'成功 ','','');
+                //isSuccess  # 0 失败 # 1 成功
+                //code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
+                if(data.result.code == 2){
+                    codeIsWrong();
+                }else if(data.result.code == 1){
+                    noticeAlert(successMsg,'成功 ','','');
+                }else{
+                    registerError(data.result.code);
+                }
             }else{
                 noticeAlert(msg,'失败',loadMaskAndPic,$('.register'));
             }

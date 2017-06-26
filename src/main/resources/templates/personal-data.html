@@ -56,7 +56,7 @@
 							<div class="page-header">
 								<div class="breadcrumb">
 									<li>
-										<a href="business-overview/trend-analysis.html" onclick="homePage()">首页</a>
+										<a href="../statArrive/trendAnalysis" onclick="homePage()">首页</a>
 									</li>
 									<li>
 										<a href="javascript:void(0);" class="current-str">个人资料</a>
@@ -67,7 +67,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<div class="box border">
+							<div class="box border register">
 								<div class="box-body">
 									<form class="form-horizontal fill-user-info">
 										<div class="form-group">
@@ -119,7 +119,7 @@
 												<span class="error-span" id="pic-code-error"></span>
 											</div>
 											<div class="col-md-2 no-padding pic-code">
-												<canvas class="J_codeimg pic-code" id="myCanvas" onclick="createCode()">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+												<img src="../getAuthImage?date=12345" id="myCanvas" alt="" class="pic-code" />
 											</div>
 										</div>
 										<div class="form-actions clearfix">
@@ -152,35 +152,9 @@
 		<script type="text/javascript" src="/js/tablecloth/js/jquery.tablesorter.min.js"></script>
 		<script type="text/javascript" src="/js/bootbox/bootbox.min.js"></script>
 		<script type="text/javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
-		<script type="text/javascript" src="/js/a-script/pagination.js"></script>
-		<script type="text/javascript" src="/js/a-script/ui-select.js"></script>
-		<script type="text/javascript" src="/js/a-script/Particleground.js"></script>
-		<script type="text/javascript" src="/js/a-script/verificationNumbers.js"></script>
-		<script type="text/javascript" src="/js/a-script/common.js"></script>
-		<script type="text/javascript">
-			$('.ui-select').ui_select();
-		    checkFormat($('#name'),noNumber,'请输入真实的姓名，不能包含数字');
-		    checkFormat($('#phone'),phoneNumber,'请输入正确的手机号码');
-		    checkFormat($('#password'),passwordCheck,'如不想修改密码，留空即可','请输入6-16位的数字和字母组合');
-		    psdConfirm($('#password'),$('#password2'));
-		    createCode();
-		    function getUserInfo(){
-		    	var userInfo = {
-		    		"id":"zhaomosheng@sina.com",
-		    		"name":"赵默笙",
-		    		"phone":"13688886666",
-		    		"userType":2,
-		    		"company":"绿盾公司"
-		    	}
-		    	$('#email').val(userInfo.id).attr('disabled','disabled');
-		    	$('#company').val(userInfo.company).attr('disabled','disabled');
-		    	$('#name').val(userInfo.name);
-		    	$('#phone').val(userInfo.phone);
-		    }
-		    getUserInfo();
-		    $('.btn-primary').click(function(){
-		    	bootbox.alert('修改成功。');
-		    });
-		</script>	
+		<script type="text/javascript" src="/js/a-common/pagination.js"></script>
+		<script type="text/javascript" src="/js/a-common/ui-select.js"></script>
+		<script type="text/javascript" src="/js/a-common/common.js"></script>
+		<script type="text/javascript" src="/js/a-service/personal-data.js"></script>
 	</body>
 </html>

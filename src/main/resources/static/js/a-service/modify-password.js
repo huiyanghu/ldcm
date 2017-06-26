@@ -19,7 +19,7 @@ $('#psdBtn').click(function(){
             //code # 5 密码不为空  # 6 两次密码不一致
             if(data.isSuccess == 1){
                 if(data.result.code == -1){
-                    noticeAlert('修改成功。','成功','','');
+                    noticeAlert('修改成功。','成功',returnLogin,'');
                 }else{
                     noticeAlert('修改失败，'+codeStr[num]+'。','失败','','');
                 }

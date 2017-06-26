@@ -65,6 +65,26 @@ function isEmpty(num){
 function ajaxError(){
 	console.log(status);
 }
+function codeIsWrong(){
+	$('#picCode').focus().siblings('.error-span').html(errorStr[6]);
+}
+//code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
+function registerError(num){
+	if(num == 1 || num == 7){
+		objArr[0].focus().siblings('.error-span').html(codeStr[num]);
+	}else if(num == 2 || num == 8){
+		objArr[1].focus().siblings('.error-span').html(codeStr[num]);
+	}else if(num == 0){
+		objArr[6].focus().siblings('.error-span').html(codeStr[num]);
+	}else{
+		objArr[num-1].focus().siblings('.error-span').html(codeStr[num]);
+	}
+	picCode();
+}
+function loadMaskAndPic(data){
+	loadMask.loadEnd(data);
+	picCode();
+}
 //ajax从后台获取图片验证码
 function picCode(){
 	$('#myCanvas').attr('src','../getAuthImage?date=' + new Date());
