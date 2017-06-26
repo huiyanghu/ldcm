@@ -96,6 +96,7 @@ public class CustomerServiceImpl implements CustomerService {
             Map map = new HashMap();
             //List<CmAccount> accountList=accountDao.getPrimeCmAccount(customer.getId());
             List<BaseLdUser> baseLdUserList = baseLdUserDao.getPrimeBaseLdUser(customer.getId());
+            map.put("customerId", customer.getId());
             map.put("customerName", customer.getCustomerName());
             map.put("aprovalTime", DateUtil.formatDate(customer.getApprovalTime()));
             map.put("status", customer.getStatus());
@@ -117,10 +118,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void reviewCustomer(Long customerId) {
+    public void reviewCustomer(Long customerId,Integer status) {
         CmCustomer customer = customerDao.getOne(customerId);
         customer.setApprovalTime(new Date());
-        customer.setStatus(1);
+        customer.setStatus(status);
         customerDao.save(customer);
     }
 }

@@ -76,5 +76,10 @@ public class TestController {
         return result;
     }
 
+    @RequestMapping("/test500")
+    public String test500(){
+        System.out.println(1/0);
+        return "";
+    }
 
 }

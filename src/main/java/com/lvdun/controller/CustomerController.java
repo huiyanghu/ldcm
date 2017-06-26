@@ -50,15 +50,11 @@ public class CustomerController {
 
     @RequestMapping(path = "/reviewCustomer", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Object reviewCustomer(HttpSession session, Long customerId) {
+    public Object reviewCustomer(HttpSession session, Long customerId,Integer status) {
 
-        Map loginUser = (Map) session.getAttribute("loginUser");
-        //Long customerId = Long.parseLong("" + loginUser.get("customerId"));
-
-        int isSuccess = 0;
+        int isSuccess = 1;
         try {
-            customerService.reviewCustomer(customerId);
-            isSuccess = 1;
+            customerService.reviewCustomer(customerId,status);
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();

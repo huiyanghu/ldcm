@@ -14,5 +14,5 @@ public interface CustomerService {
 
     public Map getCustomerPage(Integer page, Integer pageSize);
 
-    public void reviewCustomer(Long customerId);
+    public void reviewCustomer(Long customerId,Integer status);
 }
