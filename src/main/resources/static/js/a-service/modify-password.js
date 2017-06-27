@@ -1,3 +1,6 @@
+var Request=new UrlSearch();
+var email = Request.email;
+var activityCode = Request.activityCode;
 checkFormat(4);
 psdConfirm($('#password'),$('#password2'));
 $('#psdBtn').click(function(){
@@ -8,11 +11,13 @@ $('#psdBtn').click(function(){
     var verificationCode = isEmpty(6);
     if(!verificationCode){ return false; }
     $.ajax({
-        url: "../updatePassword",
+        url: "../updatePasswordForget",
         type: "post",
         dataType:"json",
         data:{
+            "email":email,
             "newPassword":newPassword,
+            "activityCode":activityCode,
             "veriCode":verificationCode
         },
         success: function (data) {

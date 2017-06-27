@@ -53,16 +53,16 @@ function getCustomerInfo(){
                     $('#datatHead').html(tHeadHtml);
                     $('#datatBody').html('');
                     $.each(appList,function(i,item){
-                        var id = item.id;
-                        var appName = item.appName;
+                        var id = item.id || '';
+                        var appName = item.appName || '';
                         var type = item.type;
                         if(type == 1){
                             var typeStr = '文字';
                         }else if(type == 2){
                             var typeStr = '图片';
                         }
-                        var feedbackUrl = item.feedbackUrl;
-                        var description = item.description;
+                        var feedbackUrl = item.feedbackUrl || '';
+                        var description = item.description || '';
                         var tBodyHtml = '<tr>'
                                             +'<td>'+(i+1)+'</td>'
                                             +'<td>'+id+'</td>'

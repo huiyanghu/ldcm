@@ -1,5 +1,10 @@
 //颜色值
 var colorArr = ['#45c8dc','#988fd8','#24c5a4','#ffc941','#988fd8','#717af6','#ff9242','#84d9e7'];
+// Highcharts.setOptions({
+//     lang: {
+//         noData: '暂无数据'
+//     }
+// });
 //曲线图&柱状图
 function chart(obj,dataJson){
     obj.highcharts('StockChart', {
@@ -15,6 +20,9 @@ function chart(obj,dataJson){
         },
         navigator :{
             enabled: false
+        },
+        scrollbar:{
+            liveRedraw:false
         },
         yAxis: {
             opposite: false

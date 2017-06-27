@@ -38,21 +38,21 @@ function getDataList(page){
                     $('#datatHead').html(tHeadHtml);
                     $('#datatBody').html('');
                     $.each(dataList,function(i,item){
-                        var customerId = item.customerId;
-                        var customerName = item.customerName;
-                        var email = item.email;
-                        var name = item.name;
-                        var mobile = item.mobile;
+                        var customerId = item.customerId || '';
+                        var customerName = item.customerName || '';
+                        var email = item.email || '';
+                        var name = item.name || '';
+                        var mobile = item.mobile || '';
                         var status = item.status;
                         if(status == 0){
                             var statusStr = '未审核';
-                            var classStr = 'fa fa-lock';
+                            var classStr = '开通';
                         }else if(status == 3){
                             var statusStr = '关闭';
-                            var classStr = 'fa fa-lock';
+                            var classStr = '启用';
                         }else{
                             var statusStr = '开通';
-                            var classStr = 'fa fa-unlock';
+                            var classStr = '禁用';
                         }
                         var userStr = item.statusStr;
                         var tBodyHtml = '<tr>'
@@ -64,7 +64,7 @@ function getDataList(page){
                                             +'<td class="statusStr">'+statusStr+'</td>'
                                             +'<td>'
                                                 +'<a href="javascript:void(0);" class="color-9 review-user" status="'+status+'" id="'+customerId+'">'
-                                                    +'<i title="审核" class="'+classStr+'"></i>'
+                                                    +classStr
                                                 +'</a>'
                                             +'</td>'
                                         +'</tr>';
@@ -72,10 +72,12 @@ function getDataList(page){
                     });
                     $('.review-user').click(function(){
                         var status = Number($(this).attr('status'));
-                        if(status == 0 || status == 3){
+                        if(status == 0){
                             var msg = '确定开通此用户吗?';
-                        }else{
-                            var msg = '确定关闭此用户吗?';
+                        }else if(status == -1){
+                            var msg = '确定禁用此用户吗?';
+                        }else if(status == 3){
+                            var msg = '确定启用此用户吗?';
                         }
                         var title = '审核';
                         var data ={
@@ -121,20 +123,17 @@ function reviewUser(data){
             if(data.isSuccess == 1){
                 loadMask.loadEnd($('#dataTable'));
                 if(status == 0){
-                    $('#'+id).attr('status',-1);
-                    $('#'+id).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
+                    $('#'+id).attr('status',-1).html('禁用');
                     $('#'+id).parent().siblings('.statusStr').html('开通');
                     $('#'+id).parent().siblings('.userStr').html('体验客户');
                 }else if(status == 3){
-                    $('#'+id).attr('status',-1);
-                    $('#'+id).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
-                    $('#'+id).parent().siblings('.userStr').html('体验客户');
+                    $('#'+id).attr('status',-1).html('禁用');
                     $('#'+id).parent().siblings('.statusStr').html('开通');
+                    $('#'+id).parent().siblings('.userStr').html('体验客户');
                 }else{
-                    $('#'+id).attr('status',3);
-                    $('#'+id).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
-                    $('#'+id).parent().siblings('.userStr').html('暂停客户');
+                    $('#'+id).attr('status',3).html('启用');;
                     $('#'+id).parent().siblings('.statusStr').html('关闭');
+                    $('#'+id).parent().siblings('.userStr').html('暂停客户');
                 }
                 noticeAlert('修改用户状态成功。','成功','','');
             }else{

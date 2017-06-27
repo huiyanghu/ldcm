@@ -9222,6 +9222,9 @@ ul.stats li small {
 	color: #e7523a;
 	text-decoration: none;
 }
+.review-user.color-9{
+  font-size: 14px;
+}
 
 .fill-user-info .form-group{
 	margin-bottom: 20px;

@@ -4,7 +4,7 @@ ul,ol,li{list-style: none; margin: 0; padding: 0;}
 .pagination .borderBox{ border: 1px solid #e7523a; line-height: 26px; vertical-align: middle;}
 .pagination .borderBox.gray{ border-color: #e9ecf2;}
 .pagination .paddingBox{ padding: 0 10px; cursor: pointer;}
-.paging .borderBox{ width: 26px; text-align: center; cursor: pointer;}
+.paging .borderBox{ padding: 0 10px; text-align: center; cursor: pointer;}
 .paging .borderBox.active,.pagination a{ background: #e7523a; border: 1px solid #e7523a; color: #fff;}
 .paging .borderBox:hover{ background: #e7523a; border: 1px solid #e7523a; color: #fff;}
 .pagination .page,.pagination .pageJump{ margin-right: 20px;}

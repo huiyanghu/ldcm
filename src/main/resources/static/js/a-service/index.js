@@ -93,7 +93,7 @@ $(function(){
 function toHomePage(){
 	$('.homePage').addClass('active').siblings().removeClass('active').children('.sub').hide().find('li').removeClass('active');
 	$('.homePage').addClass('active').siblings().find('.arrow').removeClass('open');
-	$('.homePage').children('.sub').show().children('li').eq(0).addClass('active');
+	$('.homePage').children('.sub').show().children('li').eq(0).addClass('active').siblings().removeClass('active');
 }
 //常用信息
 function getCustomerInfo(){
