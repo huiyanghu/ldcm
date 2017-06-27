@@ -118,9 +118,9 @@ public class BaseLdUserController {
     }
 
 
-    @RequestMapping(path = "/getUserDetail", method = RequestMethod.GET)
+    @RequestMapping(path = "/getUserDetail", method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
-    public Object getUserDetail(HttpSession session,Long accountId) {
+    public Object getUserDetail(HttpSession session,@RequestParam(name = "accountId",required = false) Long accountId) {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
