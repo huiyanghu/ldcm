@@ -22,18 +22,34 @@ $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });
 function getUserInfo(){
-    var userInfo = {
-        "id":"zhaomosheng@sina.com",
-        "name":"赵默笙",
-        "phone":"13688886666",
-        "userType":2,
-        "company":"绿盾公司"
-    }
-    $('#email').val(userInfo.id).attr('disabled','disabled');
-    $('#company').val(userInfo.company).attr('disabled','disabled');
-    $('#name').val(userInfo.name);
-    $('#phone').val(userInfo.phone);
-    $('#userType').ui_select().val(userInfo.userType);
+    $.ajax({
+        url: "../baseLdUser/getUserDetail",
+        type: "get",
+        dataType:"json",
+        data:{
+            "accountId":baseLdUserId
+        },
+        success: function (data) {
+            console.log(data)
+            if (data.isSuccess == 1) {
+                var name = data.result.userDetail.name;
+                var mobile = data.result.userDetail.mobile;
+                var account = data.result.userDetail.account;
+                var companyName = data.result.userDetail.companyName;
+                var userType = data.result.userDetail.roleFlag;
+                $('#email').val(account).attr('disabled','disabled');
+                $('#company').val(companyName).attr('disabled','disabled');
+                $('#name').val(name);
+                $('#phone').val(mobile);
+                $('#userType').ui_select().val(userType);
+            } else {
+                noticeAlert('信息获取失败，请重新进入。','失败','','');
+            }
+        },
+        error: function (error) {
+            noticeAlert('网络出错，请重新连接网络。', '错误！', '', '');
+        }
+    });
 }
 $('#addEditBtn').click(function(){
     var email = isEmpty(0);
@@ -44,15 +60,15 @@ $('#addEditBtn').click(function(){
     if(!name){ return false; }
     var mobile = isEmpty(3);
     if(!mobile){ return false; }
-    var password = isEmpty(4);
-    if(!password){ return false; }
-    var confirmPassword = isEmpty(5);
-    if(!confirmPassword){ return false; }
-    var verificationCode = isEmpty(6);
     if(!verificationCode){ return false; }
     var roleFlag = $('#userType').val();
     if(roleFlag == ''){ return false; }
     if(flag == 'add'){
+        var password = isEmpty(4);
+        if(!password){ return false; }
+        var confirmPassword = isEmpty(5);
+        if(!confirmPassword){ return false; }
+        var verificationCode = isEmpty(6);
         var url = '../baseLdUser/addUser';
         var dataJson = {
             "email":email,

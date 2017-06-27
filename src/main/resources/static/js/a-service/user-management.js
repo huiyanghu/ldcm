@@ -1,6 +1,6 @@
-getDataList(1);
 var currentPaging=1;
 var currentPageSize=10;
+getDataList(1);
 function getDataList(page){
     loadMask.loadStart($('#dataTable'));
     $.ajax({

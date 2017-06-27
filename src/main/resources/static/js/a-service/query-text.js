@@ -22,12 +22,12 @@ function getAppList(){
     });
 }
 getAppList();
+var currentPaging=1;
+var currentPageSize=10;
 $('#dataBtn').click(function(){
     getDataList(1);
 });
 getDataList(1);
-var currentPaging=1;
-var currentPageSize=10;
 function getDataList(page){
     var appName = $('#appName').val();
     var status = $('#status').val();
@@ -161,6 +161,7 @@ function setReasonCodeBatch(){
         item.reason = $('#select'+id).val();
     });
     loadMask.loadStart($('#dataTable'));
+    reasonCodeJson = JSON.stringify(reasonCodeJson);
     $.ajax({
         url: "../dataRecord/setReasonCodeBatch",
         type: "post",
@@ -179,7 +180,7 @@ function setReasonCodeBatch(){
         error: function (error) {
             noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#dataTable'));
         }
-    })
+    });
 }
 $('#submitAudit').click(function(){
     setReasonCodeBatch();

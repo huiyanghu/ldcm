@@ -29,12 +29,13 @@ function getAppList(){
     });
 }
 getAppList();
+var currentPaging=1;
+var currentPageSize=12;
 $('#dataBtn').click(function(){
     getDataList(1);
 });
 getDataList(1);
-var currentPaging=1;
-var currentPageSize=10;
+
 function getDataList(page){
     var appName = $('#appName').val();
     var status = $('#status').val();
@@ -72,7 +73,7 @@ function getDataList(page){
                     pageCount: dataRecordPage.pageCount,
                     total: dataRecordPage.total
                 };
-                creat_pagination(paginationJson);
+                creat_pagination(paginationJson,'pic');
                 var dataList = dataRecordPage.content;
                 if(dataList.length == 0){
                     $('.noData').show().siblings('.pic-list').hide();
@@ -178,6 +179,7 @@ function setReasonCodeBatch(){
         item.reason = $('#select'+id).val();
     });
     loadMask.loadStart($('#dataTable'));
+    reasonCodeJson = JSON.stringify(reasonCodeJson);
     $.ajax({
         url: "../dataRecord/setReasonCodeBatch",
         type: "post",
@@ -188,9 +190,9 @@ function setReasonCodeBatch(){
         success: function (data){
             if(data.isSuccess == 1){
                 loadMask.loadEnd($('#dataTable'));
-                var c
+                noticeAlert('修改成功。','成功',loadMaskHide,$('#dataTable'));
             }else{
-                noticeAlert('数据获取失败，请重新搜索。','失败',loadMaskHide,$('#dataTable'));
+                noticeAlert('修改失败，请重新修改。','失败',loadMaskHide,$('#dataTable'));
             }
         },
         error: function (error) {

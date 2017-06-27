@@ -1,8 +1,13 @@
-var pageCount = '';
-var currentPaging = 1;
-var currentPageSize = 10;
-var total = 0;
-function creat_pagination(paginationJson){
+var pageCount;
+var currentPaging;
+var currentPageSize;
+var total;
+function creat_pagination(paginationJson,pic){
+    if(pic == 'pic'){
+        var pageSizeHtml = '<li class="active">12</li><li>24</li><li>36</li><li>48</li><li>60</li>';
+    }else{
+        var pageSizeHtml = '<li class="active">10</li><li>20</li><li>30</li><li>50</li><li>100</li>';
+    }
     pageCount = paginationJson.pageCount;
     currentPaging = paginationJson.currentPage;
     currentPageSize = paginationJson.pageSize;
@@ -24,7 +29,7 @@ function creat_pagination(paginationJson){
                             +'<span class="pageSizeBtn"></span>'
                             +'<div class="selectCon borderBox">'
                                 +'<ul>'
-                                    +'<li class="active">10</li><li>20</li><li>30</li><li>50</li><li>100</li>'
+                                    +pageSizeHtml
                                 +'</ul>'
                             +'</div>'
                         +'</div>'
@@ -46,7 +51,7 @@ function creat_pagination(paginationJson){
             $('.selectCon').hide();
         }
     });
-    /* 单击某页 */
+    /* pageSize */
     $('.pagination .selectCon li').click(function(){
         var pageTotal = pageCount*currentPageSize;
         $(this).addClass('active').siblings().removeClass('active');
