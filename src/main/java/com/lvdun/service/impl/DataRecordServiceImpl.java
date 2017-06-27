@@ -43,6 +43,7 @@ public class DataRecordServiceImpl implements DataRecordService {
     }
 
     @Override
+    @Transactional
     public void setReasonCodeBatch(String reasonCodeJson) {
         if (StringUtil.isNotEmpty(reasonCodeJson)) {
             List<Map> list = (List<Map>) JSON.parse(reasonCodeJson);
