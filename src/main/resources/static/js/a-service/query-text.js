@@ -84,7 +84,7 @@ function getDataList(page){
                         var id = item.id || '';
                         var content = item.data_content || '';
                         var pubDate = item.publish_date || '';
-                        var status = item.status || 1;
+                        var status = item.status;
                         if(status == 1){
                             var reviewHtml = '<i value="1" title="通过" class="fa fa-check-circle active"></i>'
                                 +'<i value="0" title="不通过" class="fa fa-times-circle"></i>'
@@ -98,7 +98,7 @@ function getDataList(page){
                                 +'<i value="0" title="不通过" class="fa fa-times-circle"></i>'
                                 +'<i value="2"title="不确定" class="fa fa-question-circle active"></i>';
                         }
-                        var reason = item.reason_code || 0;
+                        var reason = item.reason_code;
                         var userIp = item.user_ip || '';
                         var tBodyHtml = '<tr>'
                                             +'<td class="review-td" id="td'+id+'">'
