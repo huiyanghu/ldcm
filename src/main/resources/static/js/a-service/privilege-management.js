@@ -79,7 +79,7 @@ function getDataList(page){
                         }
                         var title = '审核';
                         var data ={
-                            "obj":$(this).attr('id'),
+                            "id":$(this).attr('id'),
                             "status":status
                         }
                         var dataStr = JSON.stringify(data);
@@ -97,22 +97,52 @@ function getDataList(page){
 }
 
 function reviewUser(data){
+    loadMask.loadStart($('#dataTable'));
     var data = JSON.parse(data);
-    var obj = data.obj;
+    var id = data.id;
     var status = data.status;
-    //0，	新注册用户（未经过超级管理员审核）-1、体验客户 1、正式收费  2、正式免费  3、暂停客户4
     if(status == 0){
-        $('#'+obj).attr('status',-1);
-        $('#'+obj).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
-        $('#'+obj).parent().siblings('.statusStr').html('开通');
-        $('#'+obj).parent().siblings('.userStr').html('体验客户');
+        var newStatus = -1;
     }else if(status == 3){
-        $('#'+obj).attr('status',-1);
-        $('#'+obj).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
-        $('#'+obj).parent().siblings('.statusStr').html('开通');
+        var newStatus = -1;
     }else{
-        $('#'+obj).attr('status',3);
-        $('#'+obj).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
-        $('#'+obj).parent().siblings('.statusStr').html('关闭');
+        var newStatus = 3;
     }
+    //0，	新注册用户（未经过超级管理员审核）-1、体验客户 1、正式收费  2、正式免费  3、暂停客户4
+    $.ajax({
+        url: "../customer/reviewCustomer",
+        type: "get",
+        dataType:"json",
+        data:{
+            "customerId":id,
+            "status":newStatus
+        },
+        success: function (data){
+            if(data.isSuccess == 1){
+                loadMask.loadEnd($('#dataTable'));
+                if(status == 0){
+                    $('#'+id).attr('status',-1);
+                    $('#'+id).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
+                    $('#'+id).parent().siblings('.statusStr').html('开通');
+                    $('#'+id).parent().siblings('.userStr').html('体验客户');
+                }else if(status == 3){
+                    $('#'+id).attr('status',-1);
+                    $('#'+id).find('.fa').removeClass('fa-lock').addClass('fa-unlock');
+                    $('#'+id).parent().siblings('.userStr').html('体验客户');
+                    $('#'+id).parent().siblings('.statusStr').html('开通');
+                }else{
+                    $('#'+id).attr('status',3);
+                    $('#'+id).find('.fa').removeClass('fa-unlock').addClass('fa-lock');
+                    $('#'+id).parent().siblings('.userStr').html('暂停客户');
+                    $('#'+id).parent().siblings('.statusStr').html('关闭');
+                }
+                noticeAlert('修改用户状态成功。','成功','','');
+            }else{
+                noticeAlert('修改用户状态失败，请重新修改。','失败',loadMaskHide,$('#dataTable'));
+            }
+        },
+        error: function (error) {
+            noticeAlert('网络出错，请重新连接网络。','错误！',loadMaskHide,$('#dataTable'));
+        }
+    });
 }

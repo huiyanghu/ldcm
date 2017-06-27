@@ -38,7 +38,7 @@ $('.btn-primary').click(function(){
     if(!name){ return false; }
     var mobile = isEmpty(3);
     if(!mobile){ return false; }
-    var newPassword = isEmpty(4);
+    var newPassword = $('#password').val();
     var verificationCode = isEmpty(6);
     if(!verificationCode){ return false; }
     $.ajax({
@@ -60,7 +60,7 @@ $('.btn-primary').click(function(){
                 //code # 0 验证码错误 # 1 账号不为空 # 2 公司名称不为空 # 3 姓名不为空  # 4 手机不为空  # 5 密码不为空  # 6 两次密码不一致  # 7 账号已存在  # 8 公司已存在
                 if(data.result.code == 2){
                     codeIsWrong();
-                }else if(data.result.code == 1){
+                }else if(data.result.code == -1){
                     noticeAlert('修改成功。','成功 ','','');
                 }else{
                     registerError(data.result.code);
