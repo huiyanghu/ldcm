@@ -158,6 +158,7 @@ public class BaseLdUserServiceImpl implements BaseLdUserService {
         CmAccount account = accountDao.findOne(accountId);
         map.put("account", account.getAccount());
         map.put("name", account.getName());
+        map.put("roleFlag", account.getRoleFlag());
         map.put("mobile", account.getMobile());
         CmCustomer customer = customerDao.getOne(account.getCustomerId());
         map.put("companyName", customer.getCustomerName());
