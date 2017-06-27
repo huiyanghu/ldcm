@@ -133,6 +133,7 @@ public class CmAccountServiceImpl implements CmAccountService {
     public void updatePassword(Long id, String newPassword) {
         CmAccount account = accountDao.findOne(id);
         account.setPassword(MD5.MD5(newPassword).toUpperCase());
+        String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
         accountDao.save(account);
     }
 

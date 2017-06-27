@@ -291,10 +291,10 @@ public class LoginController {
         } else {
             try {
                 CmAccount account = accountService.getByAccount(email);
-                if (account!=null&&activityCode.equals(account.getActivityCode())){
-                    accountService.updatePassword(account.getId(),newPassword);
-                }else{
-                    code=2;
+                if (account != null && activityCode.equals(account.getActivityCode())) {
+                    accountService.updatePassword(account.getId(), newPassword);
+                } else {
+                    code = 2;
                     throw new MyException("用户操作非法");
                 }
             } catch (Exception e) {
@@ -412,14 +412,13 @@ public class LoginController {
     @RequestMapping("/checkEmail")
     public String checkEmail(HttpSession session, String email, String activityCode, RedirectAttributes attributes) {
         CmAccount account = accountService.getByAccount(email);
-        account.getSendEmailDate();
-        DateUtil.addHour(new Date(), 1);
         if (DateUtil.addHour(new Date(), 1).before(account.getSendEmailDate())) {
-            return "";
+            attributes.addFlashAttribute("msg","邮件超时,请点击重新发送");
+            return "redirect:/forgotPassword";
         } else if (!account.getActivityCode().equals(activityCode)) {
-            return "";
+            attributes.addFlashAttribute("msg","非法操作");
+            return "redirect:/forgotPassword";
         } else {
-
             String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
             account.setActivityCode(activityCodeNew);
             accountService.save(account);
@@ -471,7 +470,7 @@ public class LoginController {
         return JSON.toJSON(resutltMap);
     }
 
-
+/*
     @RequestMapping("/test")
     public void test() {
         String email = "915854720@qq.com";
@@ -494,7 +493,7 @@ public class LoginController {
 
         SendEmailUtil.send(email, emailContent.toString());
 
-    }
+    }*/
 
     @RequestMapping("/forgotPassword")
     public String forgotPassword() {
