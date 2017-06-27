@@ -118,3 +118,16 @@ function updateBasicInfo(){
 $('#editBtn').click(function(){
     updateBasicInfo();
 });
+AreaSelector().init();
+function getValue(id) {
+    var sel = document.getElementById(id);
+    if	(sel && sel.options){
+        alert(sel.options[sel.selectedIndex].value);
+    }
+}
+function getText(id) {
+    var sel = document.getElementById(id);
+    if	(sel && sel.options) {
+        alert(sel.options[sel.selectedIndex].text);
+    }
+}
