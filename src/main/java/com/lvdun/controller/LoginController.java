@@ -2,6 +2,7 @@ package com.lvdun.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lvdun.entity.CmAccount;
+import com.lvdun.exception.MyException;
 import com.lvdun.service.CmAccountService;
 import com.lvdun.service.CustomerService;
 import com.lvdun.util.*;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/6/14.
@@ -271,6 +274,41 @@ public class LoginController {
         return JSON.toJSON(resutltMap);
     }
 
+
+    @RequestMapping(path = "/updatePasswordForget", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updatePasswordForget(HttpSession session, String email, String newPassword, String activityCode, String veriCode) {
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 1;
+        int code = -1;
+
+
+        veriCode = veriCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!veriCode.equals(verCode)) {
+            code = 1;//验证码不正确
+        } else {
+            try {
+                CmAccount account = accountService.getByAccount(email);
+                if (account!=null&&activityCode.equals(account.getActivityCode())){
+                    accountService.updatePassword(account.getId(),newPassword);
+                }else{
+                    code=2;
+                    throw new MyException("用户操作非法");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
+
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
+    }
+
     @RequestMapping(path = "/logout")
     @ResponseBody
     public Object logout(HttpSession session) {
@@ -328,32 +366,37 @@ public class LoginController {
         } else {
             try {
                 CmAccount account = accountService.getByAccount(email);
-                String activityCode = account.getActivityCode();
-                if (StringUtil.isNotEmpty(activityCode)) {
-                    activityCode = "" + (int) ((Math.random() * 9 + 1) * 100000);
-                    account.setActivityCode(activityCode);
+                if (account != null) {
+                    String activityCode = account.getActivityCode();
+                    if (StringUtil.isEmpty(activityCode)) {
+                        activityCode = "" + (int) ((Math.random() * 9 + 1) * 100000);
+                        account.setActivityCode(activityCode);
+                    }
+
+                    StringBuffer emailContent = new StringBuffer();
+                    emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次！/n");
+                    emailContent.append("<a href=\"");
+                    emailContent.append("http://");
+                    emailContent.append(ConstantsUtil.SERVER_IP);
+                    emailContent.append(":");
+                    emailContent.append(ConstantsUtil.SERVER_PORT);
+                    emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+                    emailContent.append("\">");
+                    emailContent.append("http://");
+                    emailContent.append(ConstantsUtil.SERVER_IP);
+                    emailContent.append(":");
+                    emailContent.append(ConstantsUtil.SERVER_PORT);
+                    emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
+                    emailContent.append("</a>");
+
+                    SendEmailUtil.send(email, emailContent.toString());
+
+                    account.setSendEmailDate(new Date());
+                    accountService.save(account);
+                } else {
+                    code = 2;//无此用户
                 }
 
-                StringBuffer emailContent = new StringBuffer();
-                emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次！/n");
-                emailContent.append("<a href=\"");
-                emailContent.append("http://");
-                emailContent.append(ConstantsUtil.SERVER_IP);
-                emailContent.append(":");
-                emailContent.append(ConstantsUtil.SERVER_PORT);
-                emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
-                emailContent.append("\">");
-                emailContent.append("http://");
-                emailContent.append(ConstantsUtil.SERVER_IP);
-                emailContent.append(":");
-                emailContent.append(ConstantsUtil.SERVER_PORT);
-                emailContent.append("/checkEmail?email=" + email + "&activityCode=" + activityCode);
-                emailContent.append("</a>");
-
-                SendEmailUtil.send(email, emailContent.toString());
-
-                account.setSendEmailDate(new Date());
-                accountService.save(account);
             } catch (Exception e) {
                 isSuccess = 0;
                 e.printStackTrace();
@@ -367,7 +410,7 @@ public class LoginController {
     }
 
     @RequestMapping("/checkEmail")
-    public String checkEmail(HttpSession session, String email, String activityCode, Map map) {
+    public String checkEmail(HttpSession session, String email, String activityCode, RedirectAttributes attributes) {
         CmAccount account = accountService.getByAccount(email);
         account.getSendEmailDate();
         DateUtil.addHour(new Date(), 1);
@@ -376,11 +419,14 @@ public class LoginController {
         } else if (!account.getActivityCode().equals(activityCode)) {
             return "";
         } else {
-            map.put("email", email);
+
             String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
             account.setActivityCode(activityCodeNew);
             accountService.save(account);
-            return "redirect:/toChangePassword";
+
+            attributes.addAttribute("email", email);
+            attributes.addAttribute("activityCode", activityCodeNew);
+            return "redirect:/toModifyPassword";
         }
     }
 
@@ -460,6 +506,14 @@ public class LoginController {
         map.put("userId", userId);
         return "modify-password";
     }
+
+    @RequestMapping("/toModifyPassword")
+    public String toModifyPassword(Map map, String email, String activityCode) {
+        map.put("email", email);
+        map.put("activityCode", activityCode);
+        return "modify-password";
+    }
+
 
     @RequestMapping("/personalData")
     public String personalData() {
