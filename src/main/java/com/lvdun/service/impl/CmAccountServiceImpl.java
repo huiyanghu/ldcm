@@ -44,7 +44,7 @@ public class CmAccountServiceImpl implements CmAccountService {
                 map.put("id", account.getId());
                 map.put("name", account.getName());
                 map.put("account", account.getAccount());
-                map.put("customId", account.getCustomerId());
+                map.put("customerId", account.getCustomerId());
                 CmCustomer customer = customerDao.findOne(account.getCustomerId());
                 map.put("platformId", customer.getPlatformId());
                 map.put("roleFlag", account.getRoleFlag());
@@ -85,6 +85,7 @@ public class CmAccountServiceImpl implements CmAccountService {
         CmCustomer customer = new CmCustomer();
         customer.setCustomerName(companyName);
         customer.setContactsMobile(mobile);
+        customer.setContactsName(name);
         customer.setStatus(0);
         customer.setPlatformId(platform.getId());
         customerDao.save(customer);
@@ -134,6 +135,7 @@ public class CmAccountServiceImpl implements CmAccountService {
         CmAccount account = accountDao.findOne(id);
         account.setPassword(MD5.MD5(newPassword).toUpperCase());
         String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
+        account.setActivityCode(activityCodeNew);
         accountDao.save(account);
     }
 
