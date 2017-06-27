@@ -118,6 +118,7 @@ function updateBasicInfo(){
 $('#editBtn').click(function(){
     updateBasicInfo();
 });
+//地区插件
 AreaSelector().init();
 function getValue(id) {
     var sel = document.getElementById(id);
