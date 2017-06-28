@@ -118,16 +118,16 @@ public class BaseLdUserController {
     }
 
 
-    @RequestMapping(path = "/getUserDetail", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(path = "/getUserDetail", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Object getUserDetail(HttpSession session,@RequestParam(name = "accountId",required = false) Long accountId) {
+    public Object getUserDetail(HttpSession session, @RequestParam(name = "accountId", required = false) Long accountId) {
 
         Map resutltMap = new HashMap();
         Map result = new HashMap();
         int isSuccess = 1;
-        if (StringUtil.isEmpty(accountId)){
+        if (StringUtil.isEmpty(accountId)) {
             Map loginUser = (Map) session.getAttribute("loginUser");
-            accountId=Long.parseLong("" + loginUser.get("id"));
+            accountId = Long.parseLong("" + loginUser.get("id"));
         }
 
         try {
@@ -148,16 +148,16 @@ public class BaseLdUserController {
 
     @RequestMapping(path = "/updateUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object updateBaseLdUser(HttpSession session, Long accountId, String name, String mobile, Integer roleFlag, String verificationCode,String newPassword) {
+    public Object updateBaseLdUser(HttpSession session, @RequestParam(required = false, name = "accountId") Long accountId, String name, String mobile, Integer roleFlag, String verificationCode, @RequestParam(required = false, name = "newPassword") String newPassword) {
 
         Map resutltMap = new HashMap();
-        int isSuccess =1;
+        int isSuccess = 1;
         int code = -1;////code:0//失败  1//成功  2//验证码
         Map result = new HashMap();
 
-        if (StringUtil.isEmpty(accountId)){
+        if (StringUtil.isEmpty(accountId)) {
             Map loginUser = (Map) session.getAttribute("loginUser");
-            accountId=Long.parseLong("" + loginUser.get("id"));
+            accountId = Long.parseLong("" + loginUser.get("id"));
         }
 
         verificationCode = verificationCode.toLowerCase();
@@ -166,7 +166,7 @@ public class BaseLdUserController {
             code = 2;
         } else {
             try {
-                baseLdUserService.updateUser(accountId, name, mobile, roleFlag,newPassword);
+                baseLdUserService.updateUser(accountId, name, mobile, roleFlag, newPassword);
             } catch (Exception e) {
                 isSuccess = 0;
                 e.printStackTrace();
