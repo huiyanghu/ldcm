@@ -64,7 +64,7 @@ public class DataRecordController {
 
         resutltMap.put("isSuccess", isSuccess);
         resutltMap.put("result", result);
-        //System.out.println(JSON.toJSONString(resutltMap));
+        System.out.println(JSON.toJSONString(resutltMap));
         return JSON.toJSON(resutltMap);
     }
 
