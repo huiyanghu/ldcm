@@ -53,7 +53,7 @@ $('#emailBtn').click(function(){
         success: function (data){
             if(data.isSuccess == 1){
                 loadMask.loadEnd($('.forget-page'));
-                noticeAlert('邮件已发送，请注意查收邮件','成功','','');
+                noticeAlert('邮件已发送，请注意查收邮件','成功',returnLogin,'');
             }else{
                 noticeAlert('邮件发送失败，请重新发送邮件。','失败',loadMaskAndPic,$('.forget-page'));
             }

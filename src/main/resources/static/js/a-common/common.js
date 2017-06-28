@@ -129,7 +129,7 @@ function phoneNumber(str){
 }
 //密码强度验证 
 function passwordCheck(str){
-	var reg = /^(?![^a-zA-Z]+$)(?!\D+$).{6,16}$/;
+	var reg =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
 	return reg.test(str);
 }
 //密码确认

@@ -443,10 +443,10 @@ border-bottom: 1px solid #e9ecf2;
 .sidebar-menu > ul > li.active > a,.sidebar-menu > ul > li:hover > a{
   background: #fff !important;
   border-top-color: transparent !important;
-  color: #1a522e;
+  color: #e7523a;
 }
 .sidebar-menu > ul > li.active > a .fa,.sidebar-menu > ul > li:hover > a .fa{
-	color: #1a522e;
+	color: #e7523a;
 }
 .sidebar-menu > ul > li > a.open {
   background: #313131;
@@ -468,11 +468,11 @@ border-bottom: 1px solid #e9ecf2;
 .sidebar-menu > ul > li > ul.sub > li.active > a,
 .sidebar-menu > ul > li > ul.sub > li.current {
   background: #fff !important;
-  color: #1a522e;
+  color: #e7523a;
 }
 .sidebar-menu > ul > li > ul.sub > li > a:hover {
   background: #fff !important;
-  color: #1a522e;
+  color: #e7523a;
 }
 /* Search */
 .sidebar-menu #search-bar {
