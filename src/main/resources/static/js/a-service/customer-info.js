@@ -22,9 +22,9 @@ function getCustomerInfo(){
                 $('#contactsName').val(basicInfo.contactsName);
                 $('#contactsMobile').val(basicInfo.contactsMobile);
                 $('#approvalTime').val(basicInfo.approvalTime);
-                $('#province').ui_select().val(basicInfo.province);
-                $('#city').ui_select().val(basicInfo.city);
-                $('#region').ui_select().val(basicInfo.region);
+                $('#province').val(basicInfo.province);
+                $('#city').val(basicInfo.city);
+                $('#region').val(basicInfo.region);
                 //运营信息
                 var operateInfo = data.result.operateInfo;
                 $('#operatePic').attr('src',operateInfo.icon);

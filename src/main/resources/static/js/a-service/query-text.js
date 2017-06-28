@@ -70,6 +70,7 @@ function getDataList(page){
                 if(dataList.length == 0){
                     $('.noData').show().siblings('table').hide();
                 }else{
+                    $('.noData').hide().siblings('table').show();
                     var tHeadHtml = '<tr>'
                         +'<th>审核结果</th>'
                         +'<th>原因分析</th>'
@@ -138,7 +139,7 @@ function getDataList(page){
                             saveChange(id,value);
                         });
                         $('#select'+id).change(function(){
-                            var value = '';
+                            var value = ''
                             $.each($('#td'+id+' .fa'),function(index){
                                 if($(this).hasClass('active')){
                                     value = $(this).attr('value');

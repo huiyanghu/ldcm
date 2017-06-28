@@ -78,6 +78,7 @@ function getDataList(page){
                 if(dataList.length == 0){
                     $('.noData').show().siblings('.pic-list').hide();
                 }else{
+                    $('.noData').hide().siblings('table').show();
                     $('.pic-list').html('');
                     $.each(dataList,function(i,item){
                         var id = item.id || '';

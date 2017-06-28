@@ -164,7 +164,7 @@ function deleteUser(data){
         },
         success: function (data) {
             if(data.isSuccess == 1){
-                noticeAlert('删除成功。','成功','','');
+                noticeAlert('删除成功。','成功',getDataList,1);
             }else{
                 noticeAlert('修改失败，请重新设置对方密码。','失败','','');
             }

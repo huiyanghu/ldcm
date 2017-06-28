@@ -60,6 +60,7 @@ $('#addEditBtn').click(function(){
     if(!name){ return false; }
     var mobile = isEmpty(3);
     if(!mobile){ return false; }
+    var verificationCode = isEmpty(6);
     if(!verificationCode){ return false; }
     var roleFlag = $('#userType').val();
     if(roleFlag == ''){ return false; }
@@ -68,7 +69,6 @@ $('#addEditBtn').click(function(){
         if(!password){ return false; }
         var confirmPassword = isEmpty(5);
         if(!confirmPassword){ return false; }
-        var verificationCode = isEmpty(6);
         var url = '../baseLdUser/addUser';
         var dataJson = {
             "email":email,
@@ -87,7 +87,7 @@ $('#addEditBtn').click(function(){
         $('.psd-form-group').hide();
         var url = '../baseLdUser/updateUser';
         var dataJson = {
-            "baseLdUserId":baseLdUserId,
+            "accountId":baseLdUserId,
             "name":name,
             "mobile":mobile,
             "roleFlag":roleFlag,
@@ -110,7 +110,7 @@ $('#addEditBtn').click(function(){
                 if(data.result.code == 2){
                     codeIsWrong();
                 }else if(data.result.code == -1){
-                    noticeAlert(successMsg,'成功 ','','');
+                    noticeAlert(successMsg,'成功 ',returnUserManagement,'');
                 }else{
                     registerError(data.result.code);
                 }
@@ -123,3 +123,6 @@ $('#addEditBtn').click(function(){
         }
     });
 });
+function returnUserManagement(){
+    window.location.href = '../baseLdUser/userManagement';
+}

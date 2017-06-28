@@ -48,9 +48,9 @@ $('.psd-relevant .left').click(function(){
 });
 function loginError(num){
     if(num == 1 || num == 9){
-        objArr[0].focus().attr('placeholder',codeStr[num]);
+        objArr[0].focus().val('').attr('placeholder',codeStr[num]);
     }else if(num == 5 || num == 10){
-        objArr[4].focus().attr('placeholder',codeStr[num]);
+        objArr[4].focus().val('').attr('placeholder',codeStr[num]);
     }else if(num == 0){
         objArr[6].focus().val('').attr('placeholder',codeStr[num]);
     }
