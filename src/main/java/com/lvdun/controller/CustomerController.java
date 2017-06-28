@@ -50,11 +50,11 @@ public class CustomerController {
 
     @RequestMapping(path = "/reviewCustomer", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Object reviewCustomer(HttpSession session, Long customerId,Integer status) {
+    public Object reviewCustomer(HttpSession session, Long customerId, Integer status) {
 
         int isSuccess = 1;
         try {
-            customerService.reviewCustomer(customerId,status);
+            customerService.reviewCustomer(customerId, status);
         } catch (Exception e) {
             isSuccess = 0;
             e.printStackTrace();
@@ -97,14 +97,14 @@ public class CustomerController {
 
     @RequestMapping(path = "/updateBasicInfo", method = RequestMethod.POST)
     @ResponseBody
-    public Object updateBasicInfo(HttpSession session, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
+    public Object updateBasicInfo(HttpSession session,   String contactsName, String contactsMobile,  String province, String city, String region) {
 
         Map loginUser = (Map) session.getAttribute("loginUser");
         Long customerId = Long.parseLong("" + loginUser.get("customerId"));
         //Long customerId = 1L;
         int isSuccess = 0;
         try {
-            customerService.updateCustomerBasicInfo(customerId, customerName, contactsName, contactsMobile, approvalTime, province, city, region);
+            customerService.updateCustomerBasicInfo(customerId, contactsName, contactsMobile, province, city, region);
             isSuccess = 1;
         } catch (Exception e) {
             isSuccess = 0;
@@ -118,12 +118,12 @@ public class CustomerController {
     }
 
     @RequestMapping("/customerInfo")
-    public String customerInfo(){
+    public String customerInfo() {
         return "customer-info/customer-info";
     }
 
     @RequestMapping("/privilegeManagement")
-    public String privilegeManagement(){
+    public String privilegeManagement() {
         return "privilege-management/privilege-management";
     }
 

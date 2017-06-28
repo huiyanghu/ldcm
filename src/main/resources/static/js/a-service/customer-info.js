@@ -93,7 +93,7 @@ function updateBasicInfo(){
     loadMask.loadStart($('#companyInfo'));
     $.ajax({
         url: "../customer/updateBasicInfo",
-        type: "get",
+        type: "post",
         dataType:"json",
         data:{
             "contactsName":contactsName,

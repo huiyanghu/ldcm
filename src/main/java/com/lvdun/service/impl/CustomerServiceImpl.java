@@ -8,7 +8,6 @@ import com.lvdun.entity.CodePlatform;
 import com.lvdun.service.CustomerService;
 import com.lvdun.util.ConstantsUtil;
 import com.lvdun.util.DateUtil;
-import com.lvdun.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,6 +60,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         Map map = new HashMap();
         map.put("basicInfo", customer);
+        map.put("aprovalTimeStr", DateUtil.formatDate(customer.getApprovalTime()));
         map.put("commonInfo", platform);
         map.put("operateInfo", baseLdUser);
         map.put("appList", appList);
@@ -69,12 +69,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public void updateCustomerBasicInfo(Long customerId, String customerName, String contactsName, String contactsMobile, String approvalTime, String province, String city, String region) {
+    public void updateCustomerBasicInfo(Long customerId, String contactsName, String contactsMobile, String province, String city, String region) {
         CmCustomer customer = customerDao.findOne(customerId);
-        customer.setCustomerName(customerName);
+        //customer.setCustomerName(customerName);
         customer.setContactsName(contactsName);
         customer.setContactsMobile(contactsMobile);
-        customer.setApprovalTime(StringUtil.isEmpty(approvalTime) ? null : DateUtil.getDateByStr(approvalTime));
+        //customer.setApprovalTime(StringUtil.isEmpty(approvalTime) ? null : DateUtil.getDateByStr(approvalTime));
         customer.setProvince(province);
         customer.setCity(city);
         customer.setRegion(region);
@@ -118,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void reviewCustomer(Long customerId,Integer status) {
+    public void reviewCustomer(Long customerId, Integer status) {
         CmCustomer customer = customerDao.getOne(customerId);
         customer.setApprovalTime(new Date());
         customer.setStatus(status);
