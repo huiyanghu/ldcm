@@ -19,6 +19,7 @@
 		<![endif]-->
 	</head>
 	<body>
+	<input type="hidden" name="" id="roleFlag" th:value="${session.loginUser.get('roleFlag')}"/>
 		<header class="navbar clearfix" id="header">
 			<div class="container">
 				<div class="navbar-brand">
@@ -160,13 +161,13 @@
 								<span class="menu-text">客户信息</span>
 							</a>
 						</li>
-						<li class="has-sub">
+						<li th:if="${session.loginUser.get('roleFlag')}!=0" class="has-sub">
 							<a href="javascript:void(0);" class="" flag="user-1" url="../baseLdUser/userManagement">
 								<i class="fa fa-users fa-fw"></i>
 								<span class="menu-text">用户管理</span>
 							</a>
 						</li>
-						<li class="has-sub">
+						<li th:if="${session.loginUser.get('roleFlag')}!=0" class="has-sub">
 							<a href="javascript:void(0);" class="">
 								<i class="fa fa-bookmark-o fa-fw"></i>
 								<span class="menu-text">帮助文档</span>
@@ -185,7 +186,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="has-sub">
+						<li th:if="${session.loginUser.get('roleFlag')}==2" class="has-sub">
 							<a href="javascript:void(0);" class="" flag="privilege-1" url="../customer/privilegeManagement">
 								<i class="fa fa-cog fa-fw"></i>
 								<span class="menu-text">权限管理</span>

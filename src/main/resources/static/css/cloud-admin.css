@@ -4592,7 +4592,7 @@ a.thumbnail.active {
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #ffffff;
-  border: 1px solid #dddddd;
+  border: 0px solid #dddddd;
 }
 .list-group-item:first-child {
   border-top-right-radius: 4px;
@@ -9017,8 +9017,8 @@ ul.stats li small {
 .tips .ui-select{ width: 100% !important;}
 .tips .ui-select .ui-select-wrap{ width: 100% !important;}
 
-.customer-avatars{ width: 120px; height: 120px; position: relative; text-align: center; vertical-align: middle; border-radius: 50% !important; overflow: hidden;}
-.customer-avatars img{ width: 100%;}
+.customer-avatars{ width: 120px; height: 120px; line-height: 120px; position: relative; text-align: center; vertical-align: middle; border-radius: 50% !important; overflow: hidden;}
+.customer-avatars img{ width: 100%;display: inline-block;}
 
 #attribution div{ padding: 0;}
 #attribution label{ padding-left: 0;}

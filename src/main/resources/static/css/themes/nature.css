@@ -723,6 +723,7 @@ border-bottom: 1px solid #e9ecf2;
 .team-status .team-list li .image {
   height: 120px;
   width: 120px;
+  line-height: 120px;
   border-radius: 50%;
   overflow: hidden;
   margin-right: 5px;
