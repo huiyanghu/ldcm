@@ -70,8 +70,8 @@ public class StatArriveDeleteController {
         try {
             List sqList = statArriveDeleteService.getChapterByType(flag, platformId, "count_sq");
             List zzList = statArriveDeleteService.getChapterByType(flag, platformId, "count_zz");
-            List wfList = statArriveDeleteService.getChapterByType(flag, platformId, "count_zz");
-            List wgList = statArriveDeleteService.getChapterByType(flag, platformId, "count_zz");
+            List wfList = statArriveDeleteService.getChapterByType(flag, platformId, "count_wf");
+            List wgList = statArriveDeleteService.getChapterByType(flag, platformId, "count_wg");
             List<String> typeList = statArriveDeleteService.getDistinctType(platformId);
             map.put("sq", sqList);
             map.put("zz", zzList);
