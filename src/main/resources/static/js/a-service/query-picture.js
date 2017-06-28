@@ -154,6 +154,15 @@ function getDataList(page){
                             }
                             saveChange(id,value);
                         });
+                        $('#select'+id).change(function(){
+                            var value = '';
+                            $.each($('#td'+id+' .fa'),function(index){
+                                if($(this).hasClass('active')){
+                                    value = $(this).attr('value');
+                                }
+                            });
+                            saveChange(id,value);
+                        });
                     });
                     setLiToph();
                 }
