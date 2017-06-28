@@ -22,12 +22,17 @@ function getCustomerInfo(){
                 $('#contactsName').val(basicInfo.contactsName);
                 $('#contactsMobile').val(basicInfo.contactsMobile);
                 $('#approvalTime').val(basicInfo.approvalTime);
-                $('#province').val(basicInfo.province);
-                $('#city').val(basicInfo.city);
-                $('#region').val(basicInfo.region);
+                getProvinceData(basicInfo.province);
+                getCityData(basicInfo.province,basicInfo.city);
+                getRegionData(basicInfo.province, basicInfo.city,basicInfo.region);
                 //运营信息
                 var operateInfo = data.result.operateInfo;
-                $('#operatePic').attr('src',operateInfo.icon);
+                if(operateInfo.icon == ''||operateInfo.icon == null || operateInfo.icon == undefined){
+                    var src = '/img/operation.jpg'
+                }else{
+                    var src = operateInfo.icon;
+                }
+                $('#operatePic').attr('src',src);
                 $('#operateName').html(operateInfo.name);
                 $('#operatePhone').html(operateInfo.mobile);
                 $('#operateWeChat').html(operateInfo.weixin);
@@ -118,17 +123,55 @@ function updateBasicInfo(){
 $('#editBtn').click(function(){
     updateBasicInfo();
 });
-//地区插件
-AreaSelector().init();
-function getValue(id) {
-    var sel = document.getElementById(id);
-    if	(sel && sel.options){
-        alert(sel.options[sel.selectedIndex].value);
-    }
+//地区
+var area_json;
+function getProvinceData(provinceName) {
+    $.getJSON("/js/area.json", function (data) {
+        area_json = data;
+        var html_str = '<option value="">请选择省</option>';
+        $.each(data, function (i, item) {
+            html_str += '<option value="' + item.name + '">' + item.name + '</option>';
+        });
+        $('#province').html(html_str);
+        $('#province').select2().select2('val',provinceName);
+    });
 }
-function getText(id) {
-    var sel = document.getElementById(id);
-    if	(sel && sel.options) {
-        alert(sel.options[sel.selectedIndex].text);
-    }
+function getCityData(provinceName,cityName) {
+    $.getJSON("/js/area.json", function (data) {
+        $.each(data, function (i, item) {
+            if (item.name == provinceName) {
+                var html_str = '<option value="">请选择市</option>';
+                $.each(item.cityList, function (j, itemj) {
+                    html_str += '<option value="' + itemj.name + '">' + itemj.name + '</option>';
+                });
+                $('#city').html(html_str);
+            }
+        });
+        $('#city').select2().select2('val',cityName);
+    });
 }
+function getRegionData(provinceName,cityName,regionName) {
+    $.getJSON("/js/area.json", function (data) {
+        $.each(data, function (i, item) {
+            if (item.name == provinceName) {
+                $.each(item.cityList, function (j, itemj) {
+                    if (itemj.name == cityName) {
+                        var html_str = '<option value="">请选择区（县）</option>';
+                        $.each(itemj.areaList, function (k, itemk) {
+                            html_str += '<option value="' + itemk.name + '">' + itemk.name + '</option>';
+                        });
+                        $('#region').html(html_str);
+                    }
+                });
+            }
+        });
+        $('#region').select2().select2('val',regionName);
+    });
+}
+$('#province').change(function () {
+    getCityData($(this).val());
+    $('#region').html('<option value="">请选择区（县）</option>');
+});
+$('#city').change(function () {
+    getRegionData($('#province').val(), $(this).val());
+});

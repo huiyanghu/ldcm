@@ -104,7 +104,12 @@ function getCustomerInfo(){
 			if(data.isSuccess == 1){
 				//运营信息
 				var operateInfo = data.result.operateInfo;
-				$('#operatePic').attr('src',operateInfo.icon);
+				if(operateInfo.icon == ''||operateInfo.icon == null || operateInfo.icon == undefined){
+					var src = '/img/operation.jpg'
+				}else{
+					var src = operateInfo.icon;
+				}
+				$('#operatePic').attr('src',src);
 				$('#operateName').html(operateInfo.name);
 				$('#operatePhone').html(operateInfo.mobile);
 				$('#operateWeChat').html(operateInfo.weixin);
