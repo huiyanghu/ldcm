@@ -11,10 +11,10 @@ import java.util.Date;
 public class DataRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "data_id")
     private Long id;
 
-    @Column(name = "user_publish_data_id")
+    @Column(name = "id")
     private String userPublishDataId;//用户发布数据Id，客户传入唯一标记
 
     //@ManyToOne(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY)
@@ -22,7 +22,7 @@ public class DataRecord {
     @Column(name = "user_id")
     private String userId;//用户发布UserId
 
-    @Column(name = "user_ip")
+    @Column(name = "ip")
     private String userIp;//用户发布IP
 
     @Column(name = "device_id")
@@ -38,7 +38,7 @@ public class DataRecord {
     @Column(name = "digest")
     private String digest;//内容摘要
 
-    @Column(name = "update_date")
+    @Column(name = "updated")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;//状态更新时间
 

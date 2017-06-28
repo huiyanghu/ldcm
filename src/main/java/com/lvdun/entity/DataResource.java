@@ -10,12 +10,10 @@ import java.util.Date;
 @Table(name = "data_resource")
 public class DataResource {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "data_id")
     private Long id;
 
-    @Column(name = "data_record_id")
-    private Long dataRecordId;//数据Id
 
     @Column(name = "data_type")
     private Integer type;//类型[1-text;2-image;3-video]
@@ -26,13 +24,12 @@ public class DataResource {
     @Column(name = "data_content")
     private String content;//内容，包含文本和图片的url
 
-    @Column(name = "create_date")
+    @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;//入库时间
 
     @Column(name = "filter_desc")
     private String filterDesc;//敏感词
-
 
     public Long getId() {
         return id;
@@ -40,14 +37,6 @@ public class DataResource {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getDataRecordId() {
-        return dataRecordId;
-    }
-
-    public void setDataRecordId(Long dataRecordId) {
-        this.dataRecordId = dataRecordId;
     }
 
     public Integer getType() {

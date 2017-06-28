@@ -23,14 +23,14 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
     @Override
     public Map getDataRecordPage(Integer page, Integer pageSize, Long platformId, DataRecordQuery dataRecordQuery) {
         String sql = "select " +
-                " data_record.id, " +
-                " data_record.user_ip, " +
-                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I') as publish_date,"+
+                " data_record.data_id, " +
+                " data_record.ip, " +
+                " date_format(data_record.publish_date, '%Y-%m-%d %H:%I') as publish_date," +
                 " data_resource.data_content, " +
                 " data_record.reason_code, " +
                 " data_record.status " +
                 " from data_record " +
-                " inner join data_resource on data_record.id=data_resource.data_record_id " +
+                " inner join data_resource on data_record.data_id=data_resource.data_id " +
                 " left join code_app on data_record.code_app_id=code_app.id " +
                 " left join code_platform on code_platform.id=code_app.platform_id " +
                 " where 1=1 " +
@@ -40,7 +40,7 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
             sqlCondition += " and data_record.create_date >" + dataRecordQuery.getStartTime();
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getEndTime())) {
-            sqlCondition += " and data_record.create_date <date_sub(str_to_date('"+dataRecordQuery.getEndTime()+"', '%Y-%m-%d %H'),interval -1 day)";
+            sqlCondition += " and data_record.create_date <date_sub(str_to_date('" + dataRecordQuery.getEndTime() + "', '%Y-%m-%d %H'),interval -1 day)";
         }
         if (StringUtil.isNotEmpty(dataRecordQuery.getDataType())) {
             sqlCondition += " and data_record.data_type =" + dataRecordQuery.getDataType();
@@ -63,14 +63,14 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
 
             }
         }
-        if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName())&&StringUtil.isNotEmpty(dataRecordQuery.getConditionValue())) {
+        if (StringUtil.isNotEmpty(dataRecordQuery.getConditionName()) && StringUtil.isNotEmpty(dataRecordQuery.getConditionValue())) {
             if ("data_content".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_resource.data_content  like '%" + dataRecordQuery.getConditionValue() + "%'";
             } else if ("user_ip".equals(dataRecordQuery.getConditionName())) {
-                sqlCondition += " and data_record.user_ip  like '%" + dataRecordQuery.getConditionValue()+"%'";
+                sqlCondition += " and data_record.ip  like '%" + dataRecordQuery.getConditionValue() + "%'";
             } else if ("device_id".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_record.device_id like '%" + dataRecordQuery.getConditionValue() + "%'";
-            }else if ("user_id".equals(dataRecordQuery.getConditionName())) {
+            } else if ("user_id".equals(dataRecordQuery.getConditionName())) {
                 sqlCondition += " and data_record.user_id like '%" + dataRecordQuery.getConditionValue() + "%'";
             }
         }
@@ -84,9 +84,9 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
         List<Map> list = query.list();
 
 
-        String sqlCount = "select count(data_record.id) as count " +
+        String sqlCount = "select count(data_record.data_id) as count " +
                 " from data_record " +
-                " INNER join data_resource on data_record.id=data_resource.data_record_id " +
+                " INNER join data_resource on data_record.data_id=data_resource.data_id " +
                 " left join code_app on data_record.code_app_id=code_app.id " +
                 " left join code_platform on code_platform.id=code_app.platform_id " +
                 " where 1=1 " +
@@ -104,6 +104,13 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
 
 
         Map result = new HashMap();
+
+        for (Map map : list) {
+            map.put("id", map.get("data_id"));
+            map.remove("data_id");
+            map.put("user_ip", map.get("ip"));
+            map.remove("ip");
+        }
         result.put("content", list);
         result.put("total", count);
         result.put("pageCount", count == 0 ? 1 : size);
@@ -115,16 +122,4 @@ public class DataRecordRepositoryImpl implements DataRecordDao {
     }
 
 
-/*
-    @Override
-    public void insertTest(String apiVersion,Integer codeAppId,String createDate,Integer dataType,String deviceId,String digest,Integer filtertypeId,Integer imageCount,Integer operatorId,String publishDate,Integer reasonCode,Integer status,Integer sysPolicy,Integer sysStatus,String updateDate,Integer userId,) {
-        String sql = " insert into data_record(api_version,code_app_id,create_date,data_type,device_id,digest,filter_type_id,image_count,operator_id,publish_date,reason_code,status,sys_policy,sys_status,update_date,user_id,user_ip,user_publish_data_id,word_count,has_count) " +
-                " values" +
-                " (0,0,now(),0,0,0,0,0,0,now(),0,0,0,0,now(),0,0,0,0,0); " ;
-
-
-        Session session = entityManager.unwrap(org.hibernate.Session.class);
-        Query query = session.createSQLQuery(sql);
-        query.executeUpdate();
-    }*/
 }

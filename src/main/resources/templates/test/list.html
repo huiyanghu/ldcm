@@ -3,37 +3,82 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
-    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-2.0.3.min.js"></script>
+    <!--<script type="text/javascript" src="/js/area.json"></script>-->
     <script>
-        function getData() {
-            console.warn("-----getData-----")
-            $.ajax({
-                url: "../user/getList",
-                type: "get",
-                dataType: "json",
-                success: function (data) {
-                    console.warn(data.data);
-                }
+        var area_json;
+        $(function () {
+            console.warn("ready...")
+            getProvinceData("河南");
+            getCityData("河南", "驻马店");
+            getRegionData("河南", "驻马店", "平舆县");
+            $('#province_sel').change(function () {
+                getCityData($(this).val(), "");
+                $('#region_sel').html('<option value="">--请选择--</option>')
             })
+            $('#city_sel').change(function () {
+                getRegionData($('#province_sel').val(), $(this).val(), "");
+            })
+        })
+        function getProvinceData(provinceName) {
+            $.getJSON("/js/area.json", function (data) {
+                area_json = data;
+                var html_str = '<option value="">--请选择--</option>';
+                $.each(data, function (i, item) {
+                    console.warn(i);
+                    console.warn(item);
+                    html_str += '<option value="' + item.name + '">' + item.name + '</option>';
+                })
+                $('#province_sel').html(html_str).val(provinceName);
+            })
+        }
+
+        function getCityData(provinceName, cityName) {
+            $.getJSON("/js/area.json", function (data) {
+                $.each(data, function (i, item) {
+                    if (item.name == provinceName) {
+                        var html_str = '<option value="">--请选择--</option>';
+                        $.each(item.cityList, function (j, itemj) {
+                            html_str += '<option value="' + itemj.name + '">' + itemj.name + '</option>';
+                        })
+                        $('#city_sel').html(html_str).val(cityName);
+                    }
+                })
+            })
+
+        }
+        function getRegionData(provinceName, cityName, regionName) {
+            $.getJSON("/js/area.json", function (data) {
+                $.each(data, function (i, item) {
+                    if (item.name == provinceName) {
+                        $.each(item.cityList, function (j, itemj) {
+                            if (itemj.name == cityName) {
+                                var html_str = '<option value="">--请选择--</option>';
+                                $.each(itemj.areaList, function (k, itemk) {
+                                    html_str += '<option value="' + itemk.name + '">' + itemk.name + '</option>';
+                                })
+                                $('#region_sel').html(html_str).val(regionName);
+                            }
+                        })
+                    }
+                })
+            })
+
         }
     </script>
 </head>
 <body>
+<img src="/img/avatars/avatar1.jpg"/>
 -------------WELCOME!--------------
-<input type="button" onclick="getData()" value="测试获取数据"/>
-<img src="img/img1.jpg"/>
-
-<form method="post" action="../customer/updateBasicInfo">
-    customerName:<input name="customerName"/>
-    contactsName:<input name="contactsName"/>
-    contactsMobile:<input name="contactsMobile"/>
-    approvalTime:<input name="approvalTime"/>
-    province:<input name="province"/>
-    city:<input name="city"/>
-    region:<input name="region"/>
-
-    <br/>
-    <input type="submit"  value="测试保存数据"/>
-</form>
+<br/><br/><br/><br/><br/><br/>
+<select id="province_sel">
+    <option value="">--请选择--</option>
+</select>
+<select id="city_sel">
+    <option value="">--请选择</option>
+</select>
+<select id="region_sel">
+    <option value="">--请选择</option>
+</select>
 </body>
 </html>
