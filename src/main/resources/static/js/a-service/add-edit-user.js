@@ -15,9 +15,6 @@ checkFormat(1);
 checkFormat(2);
 checkFormat(3);
 checkFormat(4);
-$('#myCanvas').click(function(){
-    picCode();
-});
 $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });

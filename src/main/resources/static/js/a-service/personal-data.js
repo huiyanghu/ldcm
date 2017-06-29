@@ -1,7 +1,4 @@
 $('.ui-select').ui_select();
-$('#myCanvas').click(function(){
-    picCode();
-});
 $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });

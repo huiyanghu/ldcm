@@ -2,9 +2,6 @@ checkFormat(0);
 checkFormat(3);
 checkFormat(4);
 psdConfirm($('#password'),$('#password2'));
-$('#myCanvas').click(function(){
-    picCode();
-});
 $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });

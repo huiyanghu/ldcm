@@ -6,9 +6,6 @@ $(document).ready(function() {
     });
 });
 //picCode();
-$('#myCanvas').click(function(){
-    picCode();
-});
 $('#J_codetext').blur(function(){
     checkPicCodeEmpty();
 });
