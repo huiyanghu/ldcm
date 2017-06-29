@@ -503,14 +503,14 @@ public class LoginController {
         veriCode = veriCode.toLowerCase();
         String verCode = "" + session.getAttribute("verCode");
         if (!veriCode.equals(verCode)) {
-            code = 1;//验证码不正确
+            code = 0;//验证码不正确
         } else {
             try {
                 CmAccount account = accountService.getByAccount(email);
                 if (account != null && activityCode.equals(account.getActivityCode())) {
                     accountService.updatePassword(account.getId(), newPassword);
                 } else {
-                    code = 2;//非法操作
+                    code = 11;//非法操作
                 }
             } catch (Exception e) {
                 e.printStackTrace();
