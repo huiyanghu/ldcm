@@ -1,6 +1,12 @@
 var Request=new UrlSearch();
 var email = Request.email;
 var activityCode = Request.activityCode;
+$('#myCanvas').click(function(){
+    picCode();
+});
+$('#picCode').blur(function(){
+    checkPicCodeEmpty2();
+});
 checkFormat(4);
 psdConfirm($('#password'),$('#password2'));
 $('#psdBtn').click(function(){
@@ -26,7 +32,7 @@ $('#psdBtn').click(function(){
                 if(data.result.code == -1){
                     noticeAlert('修改成功。','成功',returnLogin,'');
                 }else{
-                    noticeAlert('修改失败，'+codeStr[num]+'。','失败','','');
+                    noticeAlert('修改失败，'+codeStr[data.result.code]+'。','失败','','');
                 }
             }else{
                 noticeAlert('修改失败，请重新设置对方密码。','失败','','');
