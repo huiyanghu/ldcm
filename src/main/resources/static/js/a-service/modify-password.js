@@ -1,9 +1,6 @@
 var Request=new UrlSearch();
 var email = Request.email;
 var activityCode = Request.activityCode;
-$('#myCanvas').click(function(){
-    picCode();
-});
 $('#picCode').blur(function(){
     checkPicCodeEmpty2();
 });

@@ -90,6 +90,9 @@ function loadMaskAndPic(data){
 function picCode(){
 	$('#myCanvas').attr('src','../getAuthImage?date=' + new Date());
 }
+$('#myCanvas').click(function(){
+	picCode();
+});
 //图片验证码是否为空
 function checkPicCodeEmpty () {
 	var inputCode = document.getElementById("picCode").value.toUpperCase();
