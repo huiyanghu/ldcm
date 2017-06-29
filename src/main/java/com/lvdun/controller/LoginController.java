@@ -478,6 +478,7 @@ public class LoginController {
         if (StringUtil.isNotEmpty(email) && StringUtil.isNotEmpty(activityCode)) {
             email = URLEncoder.encode(email, "utf-8");
 
+
             map.put("email", email);
             map.put("activityCode", activityCode);
             return "modify-password";
