@@ -2,7 +2,6 @@ package com.lvdun.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lvdun.entity.CmAccount;
-import com.lvdun.exception.MyException;
 import com.lvdun.service.CmAccountService;
 import com.lvdun.service.CustomerService;
 import com.lvdun.util.*;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -275,40 +276,6 @@ public class LoginController {
     }
 
 
-    @RequestMapping(path = "/updatePasswordForget", method = RequestMethod.POST)
-    @ResponseBody
-    public Object updatePasswordForget(HttpSession session, String email, String newPassword, String activityCode, String veriCode) {
-        Map resutltMap = new HashMap();
-        Map result = new HashMap();
-        int isSuccess = 1;
-        int code = -1;
-
-
-        veriCode = veriCode.toLowerCase();
-        String verCode = "" + session.getAttribute("verCode");
-        if (!veriCode.equals(verCode)) {
-            code = 1;//验证码不正确
-        } else {
-            try {
-                CmAccount account = accountService.getByAccount(email);
-                if (account != null && activityCode.equals(account.getActivityCode())) {
-                    accountService.updatePassword(account.getId(), newPassword);
-                } else {
-                    code = 2;
-                    throw new MyException("用户操作非法");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                isSuccess = 0;
-            }
-        }
-
-        result.put("code", code);
-        resutltMap.put("isSuccess", isSuccess);
-        resutltMap.put("result", result);
-        return JSON.toJSON(resutltMap);
-    }
-
     @RequestMapping(path = "/logout")
     @ResponseBody
     public Object logout(HttpSession session) {
@@ -374,7 +341,7 @@ public class LoginController {
                     }
 
                     StringBuffer emailContent = new StringBuffer();
-                    emailContent.append("点击下面链接修改账号，1小时有效，链接只能使用一次！/n");
+                    emailContent.append("点击下面链接修改密码，链接1小时内有效，只能使用一次！");
                     emailContent.append("<a href=\"");
                     emailContent.append("http://");
                     emailContent.append(ConstantsUtil.SERVER_IP);
@@ -413,10 +380,10 @@ public class LoginController {
     public String checkEmail(HttpSession session, String email, String activityCode, RedirectAttributes attributes) {
         CmAccount account = accountService.getByAccount(email);
         if (DateUtil.addHour(new Date(), 1).before(account.getSendEmailDate())) {
-            attributes.addFlashAttribute("msg","邮件超时,请点击重新发送");
+            attributes.addFlashAttribute("msg", "邮件超时,请点击重新发送");
             return "redirect:/forgotPassword";
         } else if (!account.getActivityCode().equals(activityCode)) {
-            attributes.addFlashAttribute("msg","非法操作");
+            attributes.addFlashAttribute("msg", "非法操作");
             return "redirect:/forgotPassword";
         } else {
             String activityCodeNew = "" + (int) ((Math.random() * 9 + 1) * 100000);
@@ -507,10 +474,53 @@ public class LoginController {
     }
 
     @RequestMapping("/toModifyPassword")
-    public String toModifyPassword(Map map, String email, String activityCode) {
-        map.put("email", email);
-        map.put("activityCode", activityCode);
-        return "modify-password";
+    public String toModifyPassword(Map map, String email, String activityCode, RedirectAttributes attributes) throws Exception {
+        if (StringUtil.isNotEmpty(email) && StringUtil.isNotEmpty(activityCode)) {
+            email = URLEncoder.encode(email, "utf-8");
+
+            map.put("email", email);
+            map.put("activityCode", activityCode);
+            return "modify-password";
+        } else {
+            attributes.addFlashAttribute("msg", "非法操作");
+            return "redirect:/forgotPassword";
+        }
+
+    }
+
+
+    @RequestMapping(path = "/updatePasswordForget", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updatePasswordForget(HttpSession session, String email, String newPassword, String activityCode, String veriCode) throws Exception {
+        Map resutltMap = new HashMap();
+        Map result = new HashMap();
+        int isSuccess = 1;
+        int code = -1;
+
+        email= URLDecoder.decode(email, "UTF-8");
+
+        veriCode = veriCode.toLowerCase();
+        String verCode = "" + session.getAttribute("verCode");
+        if (!veriCode.equals(verCode)) {
+            code = 1;//验证码不正确
+        } else {
+            try {
+                CmAccount account = accountService.getByAccount(email);
+                if (account != null && activityCode.equals(account.getActivityCode())) {
+                    accountService.updatePassword(account.getId(), newPassword);
+                } else {
+                    code = 2;//非法操作
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                isSuccess = 0;
+            }
+        }
+
+        result.put("code", code);
+        resutltMap.put("isSuccess", isSuccess);
+        resutltMap.put("result", result);
+        return JSON.toJSON(resutltMap);
     }
 
 
@@ -529,5 +539,21 @@ public class LoginController {
         return "help-documentation/development-documen";
     }
 
+/*
+    public static void main(String[] args) throws Exception {
+        try {
+            //将application/x-www-form-urlencoded字符串
+            //转换成普通字符串
+            //其中的字符串直接从上图所示窗口复制过来
+            String keyWord = URLDecoder.decode("915854720%40qq.com", "UTF-8");
+            System.out.println(keyWord);
+            //将普通字符串转换成
+            //application/x-www-form-urlencoded字符串
+            String urlStr = URLEncoder.encode("915854720@qq.com", "UTF-8");
+            System.out.println(urlStr);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
+    }*/
 }
